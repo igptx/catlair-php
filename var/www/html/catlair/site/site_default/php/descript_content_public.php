@@ -18,7 +18,7 @@ function DescriptContentReadPublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // Получение параметров
-    $Lang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $Lang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $Site = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $ID = clGetIncome('ID', $AParams, 0);
     // Создание дескрипта
@@ -46,8 +46,9 @@ function DescriptContentWritePublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // Получение параметров
-    $Lang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $Lang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $Site = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
+
     $ID = clGetIncome('ID', $AParams, 0);
     $Caption=clGetIncome('Caption', $AParams, '');
     $Content=clGetIncome('Content', $AParams, '');

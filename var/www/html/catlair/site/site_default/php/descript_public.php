@@ -20,14 +20,14 @@
 
 
 /**
- * 
+ *
  */
 function DescriptCaptionByIDPublic($AParams, $AResult)
 {
     clBeg('');
     global $clSession;
     $ID = clGetIncome('ID', $AParams, null);
-    $Lang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $Lang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $Site = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $AResult->Set('ID', $ID);
 
@@ -59,9 +59,7 @@ function DescriptCaptionByIDPublic($AParams, $AResult)
 
 function DescriptChildListPublic($AXML, $AContent)
 {
- global $clSession;
- $IDLanguage = $clSession->GetLanguage();
-
+ $IDLanguage = clGetLang(null);
  $IDBind=clGetIncome('IDBind', $AXML, null);
  $IDSite=clGetIncome('IDSite', $AXML, null);
  $ID=clGetIncome('ID', $AXML, null);
@@ -108,9 +106,7 @@ function DescriptBindListPublic($AXML, $AContent)
 {
  clLog('Descript binds begin', ltBeg);
 
- global $clSession;
- $IDLanguage = $clSession->GetLanguage();
-
+ $IDLanguage = clGetLang(null);
  $ID=clGetIncome('ID', $AXML, null);
  if ($ID!=null)
  {
@@ -142,8 +138,8 @@ function DescriptBindParentListPublic($AXML, $AContent)
 {
  clLog('Descript binds begin', ltBeg);
 
- global $clSession;
- $IDLanguage = $clSession->GetLanguage();
+ $IDLanguage = clGetLang(null);
+
  $ID=clGetIncome('ID', $AXML, null);
  $IDParent=clGetIncome('IDParent', $AXML, null);
 
@@ -379,7 +375,7 @@ function DescriptIndexPublic($AXML, $AContent)
 
  // Чтение данных из сессии
  global $clSession;
- $Lang = $clSession->GetLanguage();
+ $Lang = clGetLang(null);
  $Site = $clSession->GetSite();
 
  // Запись в лог условий индексации

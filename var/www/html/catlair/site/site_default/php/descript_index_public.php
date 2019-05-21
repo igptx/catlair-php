@@ -20,7 +20,7 @@ function DescriptIndexPublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // получение параметров
-    $Lang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $Lang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $Site = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $ID=clGetIncome('ID', $AParams, null);
 

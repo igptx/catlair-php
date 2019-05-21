@@ -16,7 +16,7 @@ function DescriptCreatePublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // Получение параметров
-    $IDLang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $IDLang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $Site = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $IDParent = clGetIncome('IDParent', $AParams, '');
     $IDBind = clGetIncome('IDBind', $AParams, BIND_DEFAULT);

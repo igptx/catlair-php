@@ -250,7 +250,7 @@ function ContentExec(&$Bf, $Command, $AValue, $Params, $Source)
                 // Добыча сессионных параметров
                 global $clSession;
                 $IDSite = $clSession->GetSite();
-                $IDLang = $clSession->GetLanguage();
+                $IDLang = clGetLang(null);
                 // добыча контента
                 $Bf['Content'] .= clDescriptContentByID($ID, $IDSite, $IDLang);
             }
@@ -265,7 +265,7 @@ function ContentExec(&$Bf, $Command, $AValue, $Params, $Source)
             // Добыча сессионных параметров
             global $clSession;
             $IDSite = $clSession->GetSite();
-            $IDLang = $clSession->GetLanguage();
+            $IDLang = clGetLang(null);
 
             $Link = new TDescript();
             $Result = $Link -> Read($IDTemplate, $IDSite);
@@ -607,7 +607,7 @@ function ContentBuild()
     }
     else
     {
-        $IDLang = $clSession->GetLanguage();
+        $IDLang = clGetLang(null);
         if ($IDLang == LANG_UNKNOWN) $IDLang = $Domain->GetArrayValue('Post', 'IDLangDefault', LANG_DEFAULT);
     }
 

@@ -19,7 +19,7 @@ function DescriptLoadPublic($AParams, $AResult)
     global $clSession;
 
     /*List of conditions*/
-    $IDLang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $IDLang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $IDSite = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $ID = clGetIncome('ID', $AParams, null);
     $IDType = clGetIncome('IDType', $AParams, null);

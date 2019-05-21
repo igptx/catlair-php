@@ -16,7 +16,7 @@ function SiteCreatePublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     /* Получение параметров */
-    $IDLang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $IDLang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $ID = clGetIncome('ID', $AParams, '');
     $Caption = clGetIncome('Caption', $AParams, $ID);
     $DomainName = $ID.'.domain';

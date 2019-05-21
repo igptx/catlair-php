@@ -73,7 +73,7 @@ function SessionInfoPublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // Определенеие переменных
-    $IDLang = $clSession->GetLanguage();
+    $IDLang = clGetLang(null);
     $IDSite = $clSession->GetSite();
     $Login = $clSession->GetLogin();
     $CaptionLanguage = clDescriptCaptionByID($IDLang, $IDSite, $IDLang);
@@ -121,7 +121,7 @@ function clSessionCurrentLogin()
 function DescriptRoleListPublic($AXML, $AContent)
 {
  global $clSession;
- $IDLanguage = $clSession->GetLanguage();
+ $IDLanguage = clGetLang(null);
  $l=new TDescripts;
  $l->LoadFromArray($clSession->Role, 'ID');
  $l->Caption($IDLanguage, 'ID', 'Caption');

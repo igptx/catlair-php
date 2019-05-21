@@ -183,7 +183,7 @@ class TResult
         else
         {
             if (clDescriptExistsAny($clSession->GetSite(), $this->Code)==false) $Message = $this->Code;
-            else $Message = clDescriptContentByID($this->Code, $clSession->GetSite(), $clSession->GetLanguage());
+            else $Message = clDescriptContentByID($this->Code, $clSession->GetSite(), clGetLang(null));
         }
 
         /**/

@@ -16,7 +16,7 @@ function FileUploadPublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // Получение параметров
-    $Lang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $Lang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $Site = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $IDParent = clGetIncome('IDParent', $AParams, null);
     $ID = clGetIncome('ID', $AParams, null);

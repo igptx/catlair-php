@@ -19,7 +19,7 @@ function DescriptUnbindPublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // получение параметров
-    $IDLang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $IDLang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $IDSite = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     $ID=clGetIncome('ID', $AParams, null);
     $IDFrom=clGetIncome('IDFrom', $AParams, null);

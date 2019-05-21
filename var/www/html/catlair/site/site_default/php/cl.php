@@ -26,6 +26,8 @@ include "result.php";
 include "descript.php";
 include "descripts.php";
 include "search.php";
+include "language.php";
+
 /*Библиотеки объектов*/
 include "session.php";
 include "domain.php";

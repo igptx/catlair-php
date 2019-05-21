@@ -1,4 +1,3 @@
-
 #**************************************************************************************
 # Catlair PHP Copyright (C) 2019 a@itserv.ru
 #
@@ -29,5 +28,5 @@ chown -R www-data:www-data /var/www/html/*
 chmod -R 660 /var/www/html/*
 find /var/www/html/* -type d -exec chmod 770 {} \;
 
+# Change right for bash.
 chmod +x /var/www/html/catlair/bash/*
-

@@ -99,7 +99,7 @@ class TFile extends TDescript
     public function &Send()
     {
         global $clSession;
-        $IDLang = $clSession->GetLanguage();
+        $IDLang = clGetLang(null);
         $File = $this->BinaryFileAny($IDLang);
         if ($File) clSendFile($this->ID, $File);
         return $this;
@@ -151,7 +151,7 @@ class TFile extends TDescript
     {
         clBeg('');
         global $clSession;
-        $IDLang = $clSession->GetLanguage();
+        $IDLang = clGetLang(null);
         $IDSite = $clSession->GetSite();
         /* если количество параметров 1 то просто отдаем файл */
         if (count($_GET)==1) $this->Send();

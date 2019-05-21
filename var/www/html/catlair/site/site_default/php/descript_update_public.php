@@ -16,7 +16,7 @@ function DescriptUpdatePublic($AParams, $AResult)
     clBeg('');
     global $clSession;
     // Получение параметров
-    $IDLang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $IDLang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $IDSite = clGetIncome('IDSite', $AParams,  $clSession->GetSite());
     // Получение обязательных параметров
     $ID=clGetIncome('ID', $AParams, '');

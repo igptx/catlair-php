@@ -17,7 +17,7 @@ function FileClearCachePublic($AParams, $AResult)
     global $clSession;
 
     /* Получение параметров */
-    $IDLang = clGetIncome('IDLang', $AParams, $clSession->GetLanguage());
+    $IDLang = clGetLang(clGetIncome('IDLang', $AParams, null));
     $IDSite = clGetIncome('IDSite', $AParams, $clSession->GetSite());
     $ID = clGetIncome('ID', $AParams, null);
 
