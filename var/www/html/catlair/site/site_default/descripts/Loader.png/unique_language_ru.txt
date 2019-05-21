@@ -1,0 +1,6 @@
+#loaderpng_id
+#file_type
+loader
+png
+file
+файл

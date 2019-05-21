@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="fa13f2ff-8254-1ddd-91c4-de66f0635373" IDBind="bind_default"/>
+  <bind IDParent="fa13f2ff-8254-1ddd-91c4-de66f0635373" IDBind="bind_right"/>
+</binds>

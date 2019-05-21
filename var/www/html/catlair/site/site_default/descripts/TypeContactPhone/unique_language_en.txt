@@ -1,0 +1,9 @@
+#typecontactphone_id
+#typecontact_type
+#array_id_typecontactphone
+#array_idtype_typecontact
+#array_idimage_phone.png
+#array_idtypedefault_0
+typecontactphone
+
+typecontact

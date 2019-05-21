@@ -1,0 +1,37 @@
+<h1>
+    Изменение идентификатора дескрипта
+</h1>
+
+<div class="Warning">
+    Изменение идентификатора изменяет ссылки на потомков и родителей. Все иные ссылки изменены не будут. Действие может привести нарушению связей данных, так как объекты ссылающиеся на изменяемый дескрипт затронуты не будут.
+</div>
+
+<form id="Form">
+    <div class="Group">
+        <div class="Line">
+            <div class="Caption">
+                Текущий ID
+            </div>
+            <div class="Data">
+                <input name="ID" id="ID" placeholder="обязательное поле">
+            </div>
+        </div>
+        <div class="Line">
+            <div class="Caption">
+                Новый ID
+            </div>
+            <div class="Data">
+                <input name="IDNew" id="IDNew" placeholder="обязательное поле">
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="Toolbar">
+   <button class="ImageOk Unselected" id="BtnOk" type="button">
+       Ok
+   </button>
+   <button class="ImageCancel Unselected" id="BtnCancel" type="button">
+       Cancel
+   </button>
+</div>

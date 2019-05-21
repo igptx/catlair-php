@@ -1,0 +1,7 @@
+#descriptmenu_id
+#content_type
+descriptmenu
+меню
+дескрипта
+content
+контент

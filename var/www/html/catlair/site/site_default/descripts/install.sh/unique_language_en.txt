@@ -1,0 +1,6 @@
+#installsh_id
+#file_type
+install
+sh
+
+file

@@ -1,0 +1,61 @@
+
+/******************************************************************************
+ * Мышь
+ *
+ * Могучий мышиный модуль содержащий работу с оной
+ * Глобальные переменные позволяющие получить координаты мыши в любой момент.
+ * Прописываются они в обработчике onmousedown.
+ *
+ * still@itserv.ru
+ */
+
+var clMouseLeft=false;
+var clMouseRight=false;
+var clMouseMiddle=false;
+
+/*Позиция мышкура на текущий фрэм*/
+var posX=0;
+var posY=0;
+
+/*Вектр перемещения мышкура на текущий фрэйм*/
+var DeltaPosX=0;
+var DeltaPosY=0;
+
+
+/*Собственно сам обработчик. Надеюсь кросбраузерный.*/
+document.onmousemove = function clCoord(AEvent)
+{
+    AEvent = AEvent || window.event;
+    if (AEvent.clientX || AEvent.clientY)
+    {
+        posX = AEvent.clientX;
+        posY = AEvent.clientY;
+    }
+    else
+    {
+        posX = 0;
+        posY = 0;
+    }
+    // Сохранение дельты мышиной
+    DeltaPosX = AEvent.movmentX;
+    DeltaPosY = AEvent.movmentY;
+}
+
+
+
+document.onmouseup = function clMouseUp(AEvent)
+{
+    clMouseLeft=!(AEvent.which==1);
+    clMouseMiddle=!(AEvent.which==2);
+    clMouseRight=!(AEvent.which==3);
+}
+
+
+
+document.onmousedown = function clMouseDown(AEvent)
+{
+     clMouseLeft=AEvent.which==1;
+     clMouseMiddle=AEvent.which==2;
+     clMouseRight=AEvent.which==3;
+}
+

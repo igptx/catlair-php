@@ -1,0 +1,6 @@
+#adminuser_id
+#agent_type
+adminuser
+администратор
+agent
+агент

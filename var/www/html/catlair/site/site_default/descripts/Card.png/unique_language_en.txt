@@ -1,0 +1,6 @@
+#cardpng_id
+#file_type
+card
+png
+
+file

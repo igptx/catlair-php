@@ -1,0 +1,19 @@
+<div class="CaptionGroup">
+ <div class="CaptionLine">
+  <label>
+   Связь проводник
+  </label>
+  <div class="CaptionCell">
+   <cl content="DescriptSelect.html" exec="DescriptCaptionByID" ID="%IDBindConductor%" Name="IDBindConductor" Placeholder="не выбрано" Type="Bind" Disabled="" Before="" After=""/>
+  </div>
+ </div>
+
+ <div class="CaptionLine">
+  <label>
+   Цвет связи RGBA
+  </label>
+  <div  class="CaptionCell">
+   <input name="ColorR" value="%ColorR%" placeholder="крассный" style="width:3em;"> <input name="ColorG" value="%ColorG%" placeholder="зеленый" style="width:3em;"> <input name="ColorB" value="%ColorB%" placeholder="синий" style="width:3em;"> <input name="ColorA" value="%ColorA%" placeholder="альфа" style="width:3em;">
+  </div>
+ </div>
+</div>

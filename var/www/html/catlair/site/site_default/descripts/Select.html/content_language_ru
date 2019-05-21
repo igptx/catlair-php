@@ -1,0 +1,14 @@
+<div class="CustomInput" style="%style%">
+    <input class="SelectValue" id="%clID%" name="%clName%" value="%clValue%" type="hidden" cltype="%clType%" clbefore="%clBefore%" clafter="%clAfter%"/>
+    <input class="SelectCaption" id="Caption%clID%" name="Caption%clName%" style="width:100%; height:100%;" placeholder="%clPlaceholder%" %clDisabled% autocomplete="off"/>
+     <div style="display:none; position:absolute; top:0; bottom:0; right:0; width:2em;">
+        <button type="button" class="Unselected ImageZoom" style="width:100%; height:100%; background-repeat:no-repeat; background-size:1em 1em; background-position:center; border:none; outline:none;">
+        </button>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+#clfilejs_id
+#content_type
+clfile
+js
+
+content

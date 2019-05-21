@@ -1,0 +1,9 @@
+#inn_id
+#typecontact_type
+#array_id_inn
+#array_idtype_typecontact
+#array_idimage_paragraphpng.png
+#array_idtypedefault_0
+inn
+
+typecontact

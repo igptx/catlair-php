@@ -1,0 +1,6 @@
+#emptypng_id
+#file_type
+empty
+png
+
+file

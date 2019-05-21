@@ -1,0 +1,6 @@
+#zoompng_id
+#file_type
+zoom
+png
+
+file

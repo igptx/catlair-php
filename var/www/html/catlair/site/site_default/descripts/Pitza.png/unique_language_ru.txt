@@ -1,0 +1,6 @@
+#pitzapng_id
+#file_type
+pitza
+png
+file
+файл

@@ -1,0 +1,6 @@
+#corelpng_id
+#file_type
+corel
+png
+
+file

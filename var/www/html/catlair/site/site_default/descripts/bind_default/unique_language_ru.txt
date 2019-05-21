@@ -1,0 +1,6 @@
+#bind_default_id
+#bind_type
+bind_default
+иерархия
+bind
+связь

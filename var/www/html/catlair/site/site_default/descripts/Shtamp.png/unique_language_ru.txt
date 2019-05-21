@@ -1,0 +1,6 @@
+#shtamppng_id
+#file_type
+shtamp
+png
+file
+файл

@@ -1,0 +1,10 @@
+#site_default_id
+#site_type
+#array_id_site_default
+#array_idtype_site
+#array_idimage_cathand.png
+#array_idtypedefault_
+site_default
+умолчальный
+сайт
+site

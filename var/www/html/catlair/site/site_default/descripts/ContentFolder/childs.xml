@@ -1,0 +1,3 @@
+<?xml version="1.0"?>
+<binds>
+<bind IDChild="Auth" IDBind="bind_default"/><bind IDChild="Common" IDBind="bind_default"/><bind IDChild="JS" IDBind="bind_default"/><bind IDChild="CSS" IDBind="bind_default"/><bind IDChild="Descripts" IDBind="bind_default"/><bind IDChild="Auth" IDBind="bind_right"/><bind IDChild="Common" IDBind="bind_right"/><bind IDChild="JS" IDBind="bind_right"/><bind IDChild="CSS" IDBind="bind_right"/><bind IDChild="Decor" IDBind="bind_right"/><bind IDChild="Descripts" IDBind="bind_right"/><bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="404.html" IDBind="bind_right"/></binds>

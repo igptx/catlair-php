@@ -1,0 +1,6 @@
+#linkpng_id
+#file_type
+link
+png
+
+file

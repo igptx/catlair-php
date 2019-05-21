@@ -1,0 +1,257 @@
+====================================================================================
+Задача
+====================================================================================
+1. Создание VPN сервера
+2. Выход через него в Инет.
+
+Статьи: 
+   https://habrahabr.ru/post/233971/
+
+
+====================================================================================
+Центр сертификации
+====================================================================================
+1. Выбираем машину для центра сертификации.
+2. Качаем и ставим управление сертификатами:
+   >cd home
+   >wget https://github.com/OpenVPN/easy-rsa/archive/master.zip
+   >unzip master.zip
+   >cd /home/[user]/easy-rsa-master/easyrsa3
+
+3. Инициализируем центр сертификации.
+   >./easyrsa init-pki
+
+4. Создаем корневой сертификат
+   >./easyrsa build-ca
+   В результате получаем файлы:
+      ./pki/ca.crt #необходимо разместить на VPN сервере.
+      ./pki/private/ca.key #секретный ключ остающийся на центре сертификации
+
+5. Создаем перечень отозванных сертификатов
+   >./easyrsa gen-crl
+
+6. Создаем файл препятствующий расшифровке трафика после перехвата.
+   ./easyrsa gen-dh
+
+6. Создаем исполняемый файл для создания клинетскийх сертификатов ClientCreate.sh.
+7. Создаем исполняемый файл для отзыва клинетских сертификатов ClientRevoke.sh
+
+
+===============================================================================================
+OpenVPN
+===============================================================================================
+1. Ставим OpenVPN.
+   >apt install openvpn.
+
+2. Ставим управление сертификатами на сервер.
+
+3. Создаем запрос к серверу сертификации на выдачу сертификата сервера VPN.
+
+4. Подписываем запрос.
+
+5. Создаем конфиг /etc/openvpn/openssl.cnf 
+
+6. Создаем конфиг /etc/openvpn/server.conf 
+
+7. Создаем конфиг действий для клиента по имени сертификата /etc/openvpn/cdd/[имя сертификата]
+
+8. Создаем файл ta.key
+   openvpn --genkey --secret ta.key
+
+9. Проверяем перечень файлов в /etc/openvpn
+   ca.crt       #Сертификат удостоверяющего центра CA. Переписывается с центра сертификации.
+   dh.pem       #Файл Диффи-Хелмана для защиты трафика от расшифровки. Создается на сервере сертификации.
+   server.key   #Приватный ключ сервера OpenVPN, секретный. Создается на центре сертификации по запросу.
+   server.crt   #Сертификат сервера OpenVPN. Заверяется на центре сертификации.
+   crl.pem      #Список отзыва сертификатов CRL. Генерится на центре сертификации.
+   ta.key       #Ключ HMAC для дополнительной защиты от DoS-атак и флуда. Генерится на сервере openvpn.
+   server.conf  #конфиг openvpn.
+   openssl.cnf  #конфиг openssl.
+
+10.Запускаем OpenVPN
+   service openvpn restart
+
+11.Ставим openvpn в автостарт при перезапуске системы
+   update-rc.d openvpn enable
+
+
+===============================================================================================
+Маршрутизация
+===============================================================================================
+1. Разрешение проброса между интерфейсами:
+   >nano /etc/sysctl.conf
+   Добавляем (раскоментируем) параметр
+   net.ipv4.ip_forward=1
+
+2. Настройка таблицы маршрутизации
+   iptables -A POSTROUTING -o eth0 -s 10.253.0.0/16 -j MASQUERADE -t nat
+
+Файлы:
+   Настройки таблиц маршрутизации
+      /etc/iptables/rules.v4 
+   Показать таблицу маршрутизации
+      iptables -L -n -t nat -v
+   Какая то приблуда
+      service iptables-persistent restart
+      Постановка приблуды в автостарт:
+      update-rc.d iptables-persistent enable
+
+
+
+
+
+
+
+
+Приложения:
+
+---------------------------------------------------------------------------------------------
+ClientCreate.sh Исполняемый файл для создания клиентских сертификатов
+---------------------------------------------------------------------------------------------
+
+#!/bin/bash
+if [ -z $1 ]; then
+ echo "Name request not found in first param";
+else
+ cd /home/still/easy-rsa-master/easyrsa3
+
+ rm ./pki/reqs/$1.req
+ rm ./pki/issued/$1.crt
+
+ # формирование запроса на сертификат
+ ./easyrsa gen-req $1 nopass
+
+ # импорт запроса на сертификат (похоже можно было копировать его просто)
+ # ./easyrsa import-req ./pki/reqs/request-$1.req $1
+
+ # запрос на получение сертификата
+ ./easyrsa sign-req client $1
+
+ rm -rv /home/still/Secure/Azuab/Client/$1
+ mkdir /home/still/Secure/Azuab/Client/$1
+
+ cp ./pki/ca.crt /home/still/Secure/Azuab/Client/$1
+ cp ./pki/crl.pem /home/still/Secure/Azuab/Client/$1
+ cp ./pki/issued/$1.crt /home/still/Secure/Azuab/Client/$1
+ cp ./pki/private/$1.key /home/still/Secure/Azuab/Client/$1
+ cp /home/still/Secure/Azuab/Server/ta.key /home/still/Secure/Azuab/Client/$1
+
+
+
+
+---------------------------------------------------------------------------------------------
+ClientRevoke.sh #Исполняемый файл для отзыва клиентских сертификатов
+---------------------------------------------------------------------------------------------
+#!/bin/bash
+
+if [ -z $1 ]; then
+ echo "Name request not found in first param";
+else
+ cd /home/still/easy-rsa-master/easyrsa3/
+
+ ./easyrsa gen-crl
+ ./easyrsa revoke $1
+ ./easyrsa gen-crl
+
+ cp ./pki/crl.pem /home/still/Secure/Azuab/Server/
+
+
+
+-------------------------------------------------------------------------------------
+/etc/openvpn/openssl.cnf #конфиг SSL
+-------------------------------------------------------------------------------------
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir = /etc/openvpn
+crl_dir = $dir
+database = $dir/index.txt
+new_certs_dir = $dir
+certificate = $dir/ca.crt
+serial = $dir
+crl = $dir/crl.pem
+private_key = $dir/server.key
+RANDFILE = $dir/.rand
+default_days = 3650
+default_crl_days = 365
+default_md = md5
+unique_subject = yes
+policy = policy_any
+x509_extensions = user_extensions
+
+[ policy_any ]
+organizationName = match
+organizationalUnitName = optional
+commonName = supplied
+
+[ req ]
+default_bits = 2048
+default_keyfile = privkey.pem
+distinguished_name = req_distinguished_name
+x509_extensions = CA_extensions
+
+[ req_distinguished_name ]
+organizationName = azuab
+organizationName_default = azuab
+organizationalUnitName = zero
+commonName = test
+commonName_max = 64
+
+[ user_extensions ]
+basicConstraints = CA:FALSE
+
+[ CA_extensions ]
+basicConstraints = CA:TRUE
+default_days = 3650
+
+[ server ]
+basicConstraints = CA:FALSE
+-------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------
+/etc/openvpn/server.conf #конфиг openvpn
+-------------------------------------------------------------------------------------
+port 1194
+proto udp
+dev tun
+user openvpn
+group openvpn
+cd /etc/openvpn
+persist-key
+persist-tun
+tls-server
+tls-timeout 120
+dh /etc/openvpn/dh.pem
+ca /etc/openvpn/ca.crt
+cert /etc/openvpn/server.crt
+key /etc/openvpn/server.key
+crl-verify /etc/openvpn/crl.pem
+tls-auth /etc/openvpn/ta.key 0
+server 10.253.0.0 255.255.255.0
+client-config-dir /etc/openvpn/ccd
+client-to-client
+topology subnet
+max-clients 5
+push "dhcp-option DNS 10.253.0.1"
+route 10.253.0.0 255.255.255.0
+comp-lzo
+keepalive 10 120
+status /var/log/openvpn/openvpn-status.log 1
+status-version 3
+log-append /var/log/openvpn/openvpn-server.log
+verb 3
+mute 20
+mode server
+-------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------
+/etc/openvpn/cdd/[имя сертификата]
+-----------------------------------------------------------------------------------------------
+push "redirect-gateway def1"
+push "dhcp-option DNS 8.8.8.8"
+push "dhcp-option DNS 8.8.8.8"
+-----------------------------------------------------------------------------------------------

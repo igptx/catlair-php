@@ -1,0 +1,6 @@
+<select id="%Name%" name="%Name%" onclick="%OnClick%">
+ <option value="default" %default%>lang</option>
+ <option value="en" %en%>English</option>
+ <option value="ru" %ru%>Russian</option>
+ <option value="fr" %fr%>France</option>
+</select>

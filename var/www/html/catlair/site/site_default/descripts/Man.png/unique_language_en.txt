@@ -1,0 +1,6 @@
+#manpng_id
+#file_type
+man
+png
+
+file

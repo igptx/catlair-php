@@ -1,0 +1,6 @@
+#mirror_advertpng_id
+#file_type
+mirror_advert
+png
+
+file

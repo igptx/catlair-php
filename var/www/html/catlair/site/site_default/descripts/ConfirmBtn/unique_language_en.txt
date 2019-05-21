@@ -1,0 +1,5 @@
+#confirmbtn_id
+#content_type
+confirmbtn
+
+content

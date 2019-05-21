@@ -1,0 +1,2 @@
+<h1><cl set="Связи «%Caption%»" exec="DescriptCaptionByID"/></h1>
+<cl content="DescriptBindRecord" exec="DescriptBindList"/>

@@ -1,0 +1,10 @@
+#unitcontentfolder_id
+#folder_type
+#array_id_unitcontentfolder
+#array_idtype_folder
+#array_idimage_image
+#array_idtypedefault_content
+unitcontentfolder
+контент
+folder
+папка

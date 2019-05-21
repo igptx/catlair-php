@@ -1,0 +1,5 @@
+#adobepng_id
+#file_type
+adobe
+png
+file

@@ -1,0 +1,6 @@
+#identitycardpng_id
+#file_type
+identitycard
+png
+file
+файл

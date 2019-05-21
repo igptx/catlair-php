@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDParent="DataModelManual.html" IDBind="bind_right" Inherited=""/><bind IDParent="ThreeLayer.html" IDBind="bind_default" Inherited=""/></binds>

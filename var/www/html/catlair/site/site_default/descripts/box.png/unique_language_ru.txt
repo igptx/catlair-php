@@ -1,0 +1,6 @@
+#boxpng_id
+#file_type
+box
+png
+file
+файл

@@ -1,0 +1,6 @@
+#locationpng_id
+#file_type
+location
+png
+file
+файл

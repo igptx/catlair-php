@@ -1,0 +1,383 @@
+/******************************************************************************
+ * Catlair  JS
+ *
+ * Зачатки оконного интерфейса
+ *
+ * still@itserv.ru
+ */
+
+
+var wsMinimize = 1;
+var wsMaximize = 1;
+var WindowFrameClassName='WindowFrame';
+
+
+
+/*Получение умолчального контроллера окон*/
+function clWinControlDefault()
+{
+ if (!window.WinList) window.WinList = new clWinControl();
+ return window.WinList;
+}
+
+
+/******************************************************************************
+ *  Объект контроллер для интерфейса win
+ */
+
+function clWinControl(AElement)
+{
+ if (!AElement)
+ {
+  AElement=document.createElement('div');
+  document.body.appendChild(AElement);
+  AElement.className='WinControl MenuPopup';
+ }
+
+ this.Control=AElement;
+ AElement.Object=this;
+ return this;
+}
+
+
+
+clWinControl.prototype.Minimize = function()
+{
+ var l=this.Control.childNodes.length;
+ for (var i=0; i<l; i++)
+ {
+  var iWindow=this.Control.childNodes[i].Icon.Window;
+  iWindow.Minimize();
+ }
+};
+
+
+
+clWinControl.prototype.WindowByID = function(AID)
+{
+ var Result=null;
+ var i=0;
+ var l=this.Control.childNodes.length;
+ for (var i=0; i<l; i++)
+ {
+  var iWindow = this.Control.childNodes[i].Icon.Window;
+  if (iWindow.ID==AID)
+  {
+   Result=iWindow;
+   iWindow.Maximize();
+  }
+ }
+ return Result;
+};
+
+
+clWinControl.prototype.WindowCreate = function(AID)
+{
+ var Result = this.WindowByID(AID);
+ if (!Result) Result = new clWin(this, AID);
+ return Result;
+};
+
+
+
+/*
+---------------------------------------------------------------
+Объект WinIcon
+---------------------------------------------------------------
+*/
+
+function clWinIcon(AWinList, AWindow)
+{
+ var e=document.createElement('div');
+
+ this.Control = e;
+ this.Window=AWindow;
+
+ e.Icon=this;
+ e.className='WinIcon Unselected';
+ e.style.display='inline-block';
+ e.onclick=function()
+ {
+  if (AWindow.Maximized()) AWindow.Minimize();
+  else
+  {
+   AWindow.Maximize();
+   AWindow.Active()
+  }
+ };
+
+ e.oncontextmenu=function()
+ {
+  clConfirm(function(){AWindow.Close()}, '8814CF6D-DD32-4B1F-93FF-CC3277C962C1', 'Закрыть');
+  return false;
+ };
+
+ e.title=AWindow.Caption;
+
+ AWinList.Control.appendChild(e);
+
+ return this;
+}
+
+
+/**
+ * Установка параметров для иконки
+ */
+
+clWinIcon.prototype.SetParams = function(AParam)
+{
+ var c=decodeURIComponent('<cl content="Icon.html" optimize="true" pars="true" convert="URI" cache="lang;"/>');
+ c=clContentFromObject(AParam, c);
+ this.Control.innerHTML = c;
+};
+
+
+
+/*
+-----------------------------------------------------------------------------------------------------
+Объект Win
+-----------------------------------------------------------------------------------------------------
+*/
+
+function clWin(AWinList, AID)
+{
+ if (!AWinList) AWinList=clWinControlDefault();
+
+ this.Icon=new clWinIcon(AWinList, this);
+ this.WinList = AWinList;
+
+ var WinGUID=clGUID();
+
+ var c=decodeURIComponent('<cl content="Window.html" optimize="true" pars="true" convert="URI" cache="Lang;"/>');
+ c=c.replace(/%WinGUID%/g, WinGUID);
+
+ if (AID) {this.ID=AID} else {this.ID='Window-'+WinGUID};
+
+ var e=document.createElement('div');
+ this.Control=e;
+ this.Control.Object=this;
+ this.Control.style.display=='none';
+ this.Control.className=WindowFrameClassName;
+ this.Control.innerHTML=c;
+
+ document.body.appendChild(this.Control);
+
+ this.Maximize();
+
+ return this;
+}
+
+
+
+clWin.prototype.SetID = function(AID)
+{
+     this.ID=AID;
+}
+
+
+
+clWin.prototype.GetID = function()
+{
+    return this.ID;
+}
+
+
+clWin.prototype.SetContent = function(AContent)
+{
+ var obj = this.Control.ChildByID('WindowContent');
+ if (obj) obj.innerHTML=AContent;
+};
+
+
+
+clWin.prototype.SetToolbar = function(AContent)
+{
+ var obj = this.Control.ChildByID('WindowToolbarClient');
+ if (obj) obj.innerHTML=AContent;
+};
+
+
+
+clWin.prototype.SetCaption = function(ACaption)
+{
+ /*Прописываем в объект*/
+ this.Caption=ACaption;
+ /*Прописываем в визуалку*/
+ var obj = this.Control.ChildByID('WindowCaption');
+ if (obj) obj.innerHTML=ACaption;
+ /*Прописываем в иконку*/
+ this.Icon.SetParams({Caption:ACaption, Group:'', GUIDImage:'CA375E6B-F6C6-40FD-9492-EBDFE2A526E0'});
+};
+
+
+
+clWin.prototype.Close = function()
+{
+ this.Icon.Control.parentNode.removeChild(this.Icon.Control);
+ this.Control.style.display='none';
+ this.Control.parentNode.removeChild(this.Control);
+
+ if (this.OnAfterClose) this.OnAfterClose(this);
+
+ delete this;
+};
+
+
+
+clWin.prototype.Maximized = function()
+{
+ return this.Control.style.display!='none';
+};
+
+
+
+clWin.prototype.Minimize = function()
+{
+ if (this.Maximized())
+ {
+  this.Control.style.display='none';
+  if (this.OnAfterMinimize) this.OnAfterMinimize(this);
+ }
+};
+
+
+
+clWin.prototype.Maximize = function()
+{
+ if (!this.Maximized())
+ {
+  this.Control.style.display='block';
+  this.Control.style.position='absolute';
+  this.Control.style.width=null;
+  this.Control.style.height=null;
+  this.Control.style.top='0';
+  this.Control.style.bottom='0em';
+  this.Control.style.left='0em';
+  this.Control.style.right='0em';
+  if (this.OnAfterMaximize) this.OnAfterMaximize(this);
+ }
+};
+
+
+
+clWin.prototype.Active = function()
+{
+ document.title=this.Caption;
+ var l=this.WinList.Control.childNodes.length;
+ for (var i=0; i<l; i++)
+ {
+  var iWindow=this.WinList.Control.childNodes[i].Icon.Window;
+  if (iWindow!=this) iWindow.Minimize();
+ }
+};
+
+
+
+clWin.prototype.ClientHide = function()
+{
+ var objContent=clGetChildByClass(this.Control, 'WindowContent');
+ if (objContent) objContent.style.display='none';
+ var objContent=clGetChildByClass(this.Control, 'WindowToolbarClient');
+ if (objContent) objContent.style.display='none';
+};
+
+
+
+clWin.prototype.ClientShow = function()
+{
+ var objContent=clGetChildByClass(this.Control, 'WindowContent');
+ if (objContent) objContent.style.display='block';
+ var objContent=clGetChildByClass(this.Control, 'WindowToolbarClient');
+ if (objContent) objContent.style.display='inline-block';
+
+ var that = this;
+/*
+ this.OldOnPopState=window.onpopstate;
+ window.onpopstate = function(AEvent)
+ {
+  that.Close();
+ };
+ window.history.pushState('forward', null, '#'+clGUID());
+*/
+};
+
+
+
+clWin.prototype.ChildByTag = function(ATag)
+{
+ return this.Control.ChildByTag(ATag);
+};
+
+
+
+clWin.prototype.ChildByClass = function(AClass)
+{
+ return this.Control.ChildByClass(AClass);
+};
+
+
+
+clWin.prototype.ChildByID = function(AID)
+{
+ return this.Control.ChildByID(AID);
+};
+
+
+
+/*Возвращает объект Window по объекту DOM находящемуся в родительском окне*/
+function clWinByObject(AObject)
+{
+ var objFrame=clGetParentByClass(AObject, WindowFrameClassName);
+ if (objFrame) {return objFrame.Object} else {return null};
+}
+
+
+
+/*Алиас для clWinByObject*/
+function clWBO(AObject)
+{
+ return clWinByObject(AObject);
+}
+
+
+
+function clWinBtnClose(ABtn)
+{
+ var objWin=clWinByObject(ABtn);
+ if (objWin) objWin.Close();
+}
+
+
+
+function clWinBtnMinimize(ABtn)
+{
+ var objWin=clWinByObject(ABtn);
+ if (objWin) objWin.Minimize();
+}
+
+
+
+function clWinBtnMaximize(ABtn)
+{
+ var objWin=clWinByObject(ABtn);
+ if (objWin)
+ {
+  objWin.Maximize();
+  objWin.Active();
+ }
+}
+
+
+
+/**
+ * Extention for DOM.Element
+ * Return Widow object for any child elemet.
+ */
+
+Element.prototype.Window = function()
+{
+ return this.ParentByClass('WindowFrame').Object;
+};
+
+
+

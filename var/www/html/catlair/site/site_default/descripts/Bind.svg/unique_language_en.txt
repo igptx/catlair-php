@@ -1,0 +1,6 @@
+#bindsvg_id
+#file_type
+bind
+svg
+
+file

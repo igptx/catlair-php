@@ -1,0 +1,6 @@
+#bind_equal_id
+#bind_type
+bind_equal
+эквивалент
+bind
+связь

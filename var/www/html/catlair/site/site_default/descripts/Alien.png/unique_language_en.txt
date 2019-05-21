@@ -1,0 +1,6 @@
+#alienpng_id
+#file_type
+alien
+png
+
+file

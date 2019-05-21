@@ -1,0 +1,104 @@
+/******************************************************************************
+ * Загрузка файлов
+ * Catlair JS
+ * clUniversalUploadFile - непосредственно загрузка перечня файлов вызывается из clUniversalUpload
+ */
+
+/*
+ * clUniversalUpload - интерфейсная процедура для запуска загрузки подготавливает визуальную форму и прочее
+ */
+
+/*
+ *
+ */
+
+TFile = function ()
+{
+    /* установка базовых параметров */
+    var that = this;
+    this.List = [];
+    this.Uploading = null;
+    /* таймер отправщик файлов */
+    this.Timer = setInterval
+    (
+        function()
+        {
+        console.log(that);
+            if (that.Uploading == null && that.Params && that.Params.Files.files.length>0)
+            {
+                var NewFile = that.GetNextFile(that.Params.Files);
+                if (NewFile != null) that.Upload(NewFile);
+                else
+                {
+                    that.Params.Files.value=null;
+                    cl.Log.Deb('EndUpload');
+                }
+            }
+        }, 1000
+    )
+    return this;
+}
+
+
+
+
+TFile.prototype.GetNextFile = function(AFiles)
+{
+    var Result=null;
+    var c=AFiles.files.length;
+    var i=0;
+    while (i<c && Result==null)
+    {
+        var iFile = AFiles.files[i];
+        if (!iFile.Status) Result = iFile;
+        i++;
+    }
+    return Result;
+}
+
+
+
+/*
+ * Заливка переденнагого AFile
+ */
+TFile.prototype.Upload = function(AFile)
+{
+    var that=this;
+    /*Прописываем что файл стал на загрузку*/
+    AFile.Status = 'Processing';
+    this.Uploading = AFile;
+    /*Создание новой формы*/
+    var Fm = new FormData();
+
+    /*Заполненеи параметров*/
+    Fm.append('File', AFile);
+    if (this.Params.ID && this.Params.ID != null) Fm.append('ID', this.Params.ID);
+    if (this.Params.IDParent && this.Params.IDParent != null) Fm.append('IDParent', this.Params.IDParent);
+    /*Подготовка параметров*/
+    cl.Post
+    ({
+        File:AFile,
+        FormData:Fm,
+        TypeContent:tcXML,
+        Pars:true,
+        Library:'file_upload',
+        ProcName:'FileUpload',
+        /*Отработка после загрузки*/
+        OnAfterLoad:function(p)
+        {
+            if (cl.PostResult(p))
+            {
+                p.File.Status = 'Uploaded';
+                cl.Log.Inf('Upload file '+p.File.name, true);
+            }
+            else p.File.Status = 'Error';
+            that.Uploading = null;
+        },
+        /*Отработка ошибкиo*/
+        OnError:function(p)
+        {
+            p.File.Status = 'Error';
+            that.Uploading = null;
+        }
+    });
+}

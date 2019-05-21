@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDParent="Auth" IDBind="bind_default"/><bind IDParent="Auth" IDBind="bind_right"/></binds>

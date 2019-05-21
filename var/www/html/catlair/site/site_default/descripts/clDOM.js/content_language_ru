@@ -1,0 +1,623 @@
+/*
+ * Набор функций обеспечивающих работу с DOM различных браузеров.
+ * Все что зависит от браузера желательно выносить сюда.
+ *
+ * Catlair JS
+ * still@itserv.ru
+ */
+
+/*
+ * Расиширение функционала Element
+ * ChildByTag
+ * ParentByTag
+ * ChildByID
+ * ParentByID
+ * ChildByClass
+ * ParentByClass
+ */
+
+
+/*
+ * Рекурсивный поиск первого ребенка по имени тэга
+ */
+Element.prototype.ChildByTag = function(ATagName)
+{
+    var Result = null;
+    if (this.tagName != ATagName)
+    {
+        for (var i=0; i < this.childNodes.length && Result == null; i++)
+        {
+            var iNode=this.childNodes[i];
+            if (iNode.nodeType == 1) Result = iNode.ChildByTag(ATagName);
+        }
+    }
+    else Result = this;
+    return Result;
+};
+
+
+/*
+ * Циклический поиск родителя по имени тэга
+ */
+Element.prototype.ParentByTag = function(ATagName)
+{
+ Result = this;
+ while (Result && Result.tagName != ATagName) Result = Result.parentNode;
+ return Result;
+};
+
+
+/*
+ * Рекурсивный поиск ребенка по ID
+ */
+Element.prototype.ChildByID = function(AID)
+{
+    return clGetChildByID(this, AID);
+};
+
+
+/*
+ * Циклический поиск родителя по идентификатору
+ */
+Element.prototype.ParentByID = function(AID)
+{
+    return clGetParentByID(this, AID);
+};
+
+
+
+/*
+ * Рекурсивный поиск ребенка по Class
+ */
+Element.prototype.ParentByClass = function(AClass)
+{
+    return clGetParentByClass(this, AClass);
+};
+
+
+
+/*
+ * Рекурсивный поиск ребенка по Class
+ */
+Element.prototype.ChildByClass = function(AClass)
+{
+    var Result = null;
+    if (this.className != AClass)
+    {
+        for (var i=0; i < this.childNodes.length && Result == null; i++)
+        {
+            var iNode=this.childNodes[i];
+            if (iNode.nodeType == 1) Result = iNode.ChildByClass(AClass);
+        }
+    }
+    else Result = this;
+    return Result;
+};
+
+
+
+Element.prototype.ChildsByClass = function(AClass)
+{
+    function Recurs(AParent)
+    {
+        if (AParent.className==AClass) r.push(AParent);
+        for (var i=0; i<AParent.childNodes.length; i++)
+        {
+            iElement=AParent.childNodes[i];
+            Recurs(iElement);
+        }
+    }
+    var r=[];
+    Recurs(this);
+    return r;
+};
+
+
+
+
+
+/**
+ * Скрыть объект
+ */
+Element.prototype.Hide = function()
+{
+    this.style.display='none';
+}
+
+
+
+/**
+ * Показать объект
+ */
+Element.prototype.Show = function()
+{
+    this.style.display=null;
+}
+
+
+
+/**
+ * 
+ */
+function clValuesFromObject(AObject, AConteiner)
+{
+    for (var Key in AObject)
+    {
+        var Element = AConteiner.ChildByID(Key);
+        if (Element!=null)
+        {
+            if (Element.tagName=='INPUT')
+            {
+                if (Element.type=='checkbox') Element.checked = AObject[Key] == 'on';
+                if (Element.type=='text') Element.value = decodeURIComponent(AObject[Key]);
+                if (Element.type=='hidden') Element.value = decodeURIComponent(AObject[Key]);
+            }
+            else
+            {
+                Element.innerHTML = AObject[Key];
+            }
+        }
+    }
+}
+
+
+
+
+/*Валидация телефона*/
+function PhoneValidate(AEvent)
+{
+    var St = AEvent.target.value.replace(/\D/g, '');
+    St = St.replace
+    (
+        /^(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})\d*?$/,
+        function(match,p1,p2,p3,p4,p5)
+        {
+            var r="";
+            if (p1.length>0) r=r+""+p1;
+            if (p2.length!=0) r=r+"-"+p2;
+            if (p3.length!=0) r=r+"-"+p3;
+            if (p4.length!=0) r=r+"-"+p4;
+            if (p5.length!=0) r=r+"-"+p5;
+            return r;
+        }
+    );
+    AEvent.target.value = St;
+}
+
+
+
+/**
+ * Вспомогательный фукнционал
+ */
+
+
+/*
+ * Елемент по ID
+ * просто укороченная запись
+ */
+function EBI(AID)
+{
+    return document.getElementById(AID);
+}
+
+
+
+/**
+ * Инвертировать видемость объекта по идентифиатору
+ */
+function clShowHideByID(AIDObject)
+{
+ var obj=document.getElementById(AIDObject);
+ if (obj)
+ {
+  if (obj.style.display=='none')
+  {
+   obj.style.display = 'inline';
+  }
+  else
+  {
+   obj.style.display = 'none';
+  }
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Ниже ад и ужас
+ */
+
+
+
+/*
+ * Возвращает размер документа
+ */
+
+function clGetSizeDocument()
+{
+    var r= new clVector();
+    if (document.documentElement && document.documentElement.clientWidth && document.documentElement.clientHeight)
+    {
+        r.Set(document.documentElement.clientWidth, document.documentElement.clientHeight);
+    }
+    else
+    {
+        if (document.body) r.Set(document.body.clientWidth, document.body.clientHeight);
+    }
+    return r;
+}
+
+
+
+/*
+ * Возвращает абсолютную позицию переданного объекта на экране с учетом скролеров
+ */
+function clGetObjectPos(AObject)
+{
+    var l = AObject.offsetLeft;
+    var t = AObject.offsetTop;
+    var p = AObject.offsetParent;
+
+    while(p && p.tagName != "BODY")
+    {
+        l=l+p.offsetLeft - p.scrollLeft;
+        t=t+p.offsetTop - p.scrollTop;
+        p=p.offsetParent;
+    }
+
+    return new clVector().Set(l,t);
+}
+
+
+
+function clSetObjectPos(AObject, APos)
+{
+    AObject.style.left=APos.x+'px';
+    AObject.style.top=APos.y+'px';
+}
+
+
+
+function clSetObjectTop(AObject, AValue)
+{
+    AObject.style.top=AValue+'px';
+}
+
+
+
+function clGetObjectTop(AObject)
+{
+    return parseInt(AObject.style.top);
+}
+
+
+
+function clGetObjectBottom(AObject)
+{
+ return parseInt(AObject.style.bottom);
+}
+
+function clSetObjectBottom(AObject, AValue)
+{
+ AObject.style.bottom=AValue+'px';
+}
+
+
+
+function clSetObjectWidth(AObject, AValue)
+{
+ AObject.style.width=AValue+'px';
+}
+
+
+
+function clGetObjectWidth(AObject)
+{
+ return AObject.offsetWidth;
+}
+
+
+
+function clGetObjectHeight(AObject)
+{
+ return AObject.offsetHeight;
+}
+
+
+
+function clGetObjectSize(AObject)
+{
+ return new clVector().Set(clGetObjectWidth(AObject), clGetObjectHeight(AObject));
+}
+
+
+
+function clSetObjectHeight(AObject, AValue)
+{
+ AObject.style.height=AValue+'px';
+}
+
+
+
+function clGetObjectLeftBottom(AObject)
+{
+ var p=clGetObjectPos(AObject);
+ var h=clGetObjectHeight(AObject);
+ return {"x":p.x, "y":p.y+h};
+}
+
+
+
+function clGetObjectRightTop(AObject)
+{
+ var p=clGetObjectPos(AObject);
+ var l=clGetObjectWidth(AObject);
+ return {"x":p.x+l, "y":p.y};
+}
+
+
+
+
+
+
+function clSetContentByID(AIDObject, AContent)
+{
+ var obj=document.getElementById(AIDObject);
+ if (obj) obj.innerHTML = AContent;
+}
+
+
+function clSetValueByID(AIDObject, AContent)
+{
+ var obj=EBI(AIDObject);
+ if (obj) obj.value = AContent;
+}
+
+
+
+
+function clScrollDown(AObj)
+{
+ if (AObj) AObj.scrollTop = AObj.scrollTop + AObj.clientHeight*0.7;
+}
+
+
+
+function clScrollUp(AObj)
+{
+ if (AObj) AObj.scrollTop = AObj.scrollTop - AObj.clientHeight*0.7;
+}
+
+
+
+function clScrollTop(AObj)
+{
+ if (AObj) AObj.scrollTop=0;
+}
+
+
+
+function clScrollBottom(AObj)
+{
+ if (AObj) AObj.scrollTop=AObj.scrollHeight;
+}
+
+
+
+/*Принимает элемент AChild и возвращает элемент сосед ANeighborClass, находящийсы с ним в AParentClass.*/
+/*Не используется*/
+function clGetNeighborByClass(AChild, AParentClass, ANeighborClass)
+{ 
+ var Parent=clGetParentByClass(AChild, AParentClass);
+ if (Parent) var Result = clGetChildByClass(Parent, ANeighborClass);
+ else var Result = null;
+ return Result;
+}
+
+
+
+
+
+
+function clCSSRuleByName(ASheet, AName, AResult)
+{
+ var i=0;
+ var iRule;
+ try
+ {
+        /*Это в FF вызывает исключение Unsecure потому пришлось завернуть в try*/
+        var cl=ASheet.cssRules;
+ } catch (e) {};
+ if (cl)
+ {
+  var l=cl.length;
+  while (i<l)
+  {
+   iRule=cl[i];
+   if (iRule.selectorText==AName) AResult.push(iRule);
+   i=i+1;
+  }
+ }
+
+}
+
+
+
+function clStyleByName(AName)
+{
+ var Sheets=document.styleSheets;
+ var i=0;
+ var iSheet;
+ var r=new Array();
+ while (i<Sheets.length)
+ {
+  iSheet=Sheets[i];
+  clCSSRuleByName(iSheet, AName, r);
+  i=i+1;
+ }
+ return r;
+}
+
+
+
+/*Проверяет нажате кнопки и возвращает true если кнопка нажата*/
+function KeyControl(AEvent, AKeyCode)
+{
+ var KeyCode;
+ if (AEvent.which) {KeyCode=AEvent.which} else {KeyCode=AEvent.keyCode};
+ if (KeyCode==AKeyCode) AEvent.preventDefault();
+ return (KeyCode==AKeyCode);
+}
+
+
+
+/*Получение значения радиокнопки по имени*/
+function clGetRadioValueByName(AName)
+{
+ var r=null;
+ var objList=document.getElementsByName(AName);
+ for(var i = 0; i<objList.length; i++)
+ {
+  if(objList[i].checked) r=objList[i].value;
+ }
+ return r;
+}
+
+
+/*
+ * Получение значения радиокнопки по имени
+ */
+function clSetRadioValueByName(AName, AValue)
+{
+ var r=null;
+ var objList=document.getElementsByName(AName);
+ for(var i = 0; i<objList.length; i++)
+ {
+  iRadio = objList[i];
+  if (iRadio.id==AValue) iRadio.checked = true;
+ }
+ return r;
+}
+
+
+
+
+
+
+function clGetChildValues(AParent)
+{
+
+ function Recurs(RParent)
+ {
+  for (var i=0; i<RParent.childNodes.length; i++)
+  {
+   var iChild = RParent.childNodes[i];
+   if (typeof iChild.value != "undefined") Result=Result+iChild.value+';';
+   else Recurs(iChild);
+  }
+ }
+
+ var Result = '';
+ Recurs(AParent);
+ return Result;
+}
+
+
+
+
+
+
+
+
+
+function clGetChildByID(AParent, AID)
+{
+ var r=null;
+ if (AParent.id!=AID)
+ {
+  for (var i=0; i<AParent.childNodes.length && r==null; i++)
+  {
+   r=clGetChildByID(AParent.childNodes[i], AID);
+  }
+ }
+ else r=AParent;
+ return r;
+}
+
+
+/*
+ */
+
+function clGetChildByClass(AParent, AClassName)
+{
+ var r=null;
+ if (AParent.className!=AClassName)
+ {
+  for (var i=0; i<AParent.childNodes.length && r==null; i++)
+  {
+   r=clGetChildByClass(AParent.childNodes[i], AClassName);
+  }
+ }
+ else r=AParent;
+ return r;
+}
+
+
+
+function clGetChildByParent(AParent, ATagName)
+{
+ var r=null;
+ if (AParent && AParent.tagName!=ATagName)
+ {
+  for (var i=0; i<AParent.childNodes.length && r==null; i++) r=clGetChildByParent(AParent.childNodes[i], ATagName);
+ }
+ else r=AParent;
+ return r;
+}
+
+
+
+/*Принимает любой элемент AChild и возвращает элемент ATagName в которой он находится.*/
+function clGetParentByChild(AChild, ATagName)
+{
+ while (AChild && AChild.tagName!=ATagName) AChild=AChild.parentNode;
+ return AChild;
+}
+
+
+/*Принимает элемент AChild и возвращает элемент c классом AClassName в которой он находится.*/
+function clGetParentByClass(AChild, AClassName)
+{
+ while (AChild && AChild.className!=AClassName) AChild=AChild.parentNode;
+ return AChild;
+}
+
+
+/*
+ * Принимает элемент AChild и возвращает элемент c классом AClassName в которой он находится.
+ */
+function clGetParentByID(AChild, AID)
+{
+    while (AChild && AChild.id!=AID) AChild=AChild.parentNode;
+    return AChild;
+}
+
+
+
+
+
+
+

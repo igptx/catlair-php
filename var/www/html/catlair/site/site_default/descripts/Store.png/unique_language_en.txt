@@ -1,0 +1,6 @@
+#storepng_id
+#file_type
+store
+png
+
+file

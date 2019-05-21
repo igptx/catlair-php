@@ -1,0 +1,5 @@
+#corepng_id
+#file_type
+core
+png
+file

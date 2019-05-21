@@ -1,0 +1,10 @@
+#root_id
+#folder_type
+#array_id_root
+#array_idtype_folder
+#array_idimage_earth.png
+#array_idtypedefault_folder
+root
+корень
+folder
+папка

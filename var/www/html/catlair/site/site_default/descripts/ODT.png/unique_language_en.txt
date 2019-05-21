@@ -1,0 +1,6 @@
+#odtpng_id
+#file_type
+odt
+png
+
+file

@@ -1,0 +1,5 @@
+#blackboxpng_id
+#file_type
+blackbox
+png
+file

@@ -1,0 +1,49 @@
+<div class="Group">
+    <div class="Caption">
+        Search
+    </div>
+    <div class="Contein1">
+        <cl content="Select.html" clValue="language_en" clID="IDLang" clName="IDLang" clType="Language" clPlaceholder="language" clDisabled="" clBefore="" clAfter=""/>
+        <div class="CustomInput">
+            <input name="Search" id="Search" placeholder="search"/>
+        </div>
+        <button type="button" class="ImageLoad Unselected" id="BtnFind">
+            Search
+        </button>
+    </div>
+</div>
+
+
+<div class="Group">
+    <div class="Caption">
+        Descript
+    </div>
+    <div class="Contein1">
+        <button type="button" class="ImagePlus Unselected" id="BtnAdd">
+            Add
+        </button>
+        <label for="File" class="Unselected Button ImageCD" id="BtnUpload">
+            <input type="file" id="File" style="display:none; position:absolute; top:0; left:0; width:0; height:0; opacity:1; cursor:pointer;" multiple="multiple"/>
+            Upload
+        </label>
+    </div>
+</div>
+
+
+
+<div class="Group">
+    <div class="Caption">
+        Session
+    </div>
+    <div class="Contein1">
+        <button type="button" class="ImageMan Unselected" onclick="cl.UserPopup();">
+            User
+        </button>
+        <button type="button" class="ImageLink Unselected" onclick="cl.SessionPopup();">
+            Session
+        </button>
+    </div>
+</div>
+
+
+

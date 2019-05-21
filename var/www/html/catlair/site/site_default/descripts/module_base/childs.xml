@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<binds>
+<bind IDChild="f2a53f89-9f2b-39b4-f1de-36a0f3d39c23" IDBind="default"/>
+<bind IDChild="Account" IDBind="default"/>
+<bind IDChild="Account" IDBind="bind_default"/>
+<bind IDChild="Languages" IDBind="bind_right"/>
+<bind IDChild="Account" IDBind="bind_right"/>
+<bind IDChild="Agents" IDBind="bind_right"/>
+<bind IDChild="administrator" IDBind="right_delete"/>
+<bind IDChild="administrator" IDBind="right_select"/>
+<bind IDChild="administrator" IDBind="right_update"/>
+<bind IDChild="administrator" IDBind="right_insert"/>
+<bind IDChild="FileFolder" IDBind="bind_right"/>
+<bind IDChild="Country" IDBind="bind_default"/>
+<bind IDChild="Country" IDBind="bind_right"/>
+<bind IDChild="Agent" IDBind="bind_default"/>
+<bind IDChild="Object" IDBind="bind_default"/>
+<bind IDChild="Folder" IDBind="bind_default"/>
+<bind IDChild="Bind" IDBind="bind_default"/>
+<bind IDChild="Language" IDBind="bind_default"/>
+<bind IDChild="File" IDBind="bind_default"/>
+<bind IDChild="TypeContact" IDBind="bind_default"/>
+<bind IDChild="TypeContact" IDBind="bind_right"/>
+<bind IDChild="Contact" IDBind="bind_default"/>
+<bind IDChild="Contact" IDBind="bind_right"/>
+<bind IDChild="Server" IDBind="bind_default"/><bind IDChild="Server" IDBind="bind_right"/></binds>

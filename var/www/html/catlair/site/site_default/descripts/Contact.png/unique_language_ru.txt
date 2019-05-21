@@ -1,0 +1,6 @@
+#contactpng_id
+#file_type
+contact
+png
+file
+файл

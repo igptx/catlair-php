@@ -1,0 +1,12 @@
+#intromanualhtml_id
+#folder_type
+#array_id_intromanual.html
+#array_idtype_folder
+#array_idimage_question.png
+#array_idtypedefault_content
+intromanual
+html
+текст
+мануала
+folder
+папка

@@ -1,0 +1,9 @@
+#descriptbindparentformhtml_id
+#content_type
+descriptbindparentform
+html
+форма
+настройки
+связей
+content
+контент

@@ -1,0 +1,6 @@
+#warningpng_id
+#file_type
+warning
+png
+file
+файл

@@ -1,0 +1,6 @@
+#stickpng_id
+#file_type
+stick
+png
+
+file

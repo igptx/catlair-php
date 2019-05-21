@@ -1,0 +1,6 @@
+#right_insert_id
+#bind_type
+right_insert
+создание
+bind
+связь

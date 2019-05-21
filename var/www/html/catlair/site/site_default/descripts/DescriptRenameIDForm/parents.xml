@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDParent="Descripts" IDBind="bind_default" Inherited=""/><bind IDParent="Descripts" IDBind="bind_right" Inherited=""/></binds>

@@ -1,0 +1,6 @@
+#rublightpng_id
+#file_type
+rublight
+png
+file
+файл

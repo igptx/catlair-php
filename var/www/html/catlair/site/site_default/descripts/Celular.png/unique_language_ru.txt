@@ -1,0 +1,5 @@
+#celularpng_id
+#file_type
+celular
+png
+file

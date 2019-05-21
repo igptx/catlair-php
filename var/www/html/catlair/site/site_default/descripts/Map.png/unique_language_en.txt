@@ -1,0 +1,6 @@
+#mappng_id
+#file_type
+map
+png
+
+file

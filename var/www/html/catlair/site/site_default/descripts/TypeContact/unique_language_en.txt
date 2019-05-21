@@ -1,0 +1,9 @@
+#typecontact_id
+#object_type
+#array_id_typecontact
+#array_idtype_object
+#array_idimage_stick.png
+#array_idtypedefault_0
+typecontact
+
+object

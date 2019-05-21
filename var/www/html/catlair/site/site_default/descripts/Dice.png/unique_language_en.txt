@@ -1,0 +1,6 @@
+#dicepng_id
+#file_type
+dice
+png
+
+file

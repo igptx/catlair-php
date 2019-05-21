@@ -1,0 +1,6 @@
+#errorpng_id
+#file_type
+error
+png
+
+file

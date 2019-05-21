@@ -1,0 +1,6 @@
+#right_select_id
+#bind_type
+right_select
+просмотр
+bind
+связь

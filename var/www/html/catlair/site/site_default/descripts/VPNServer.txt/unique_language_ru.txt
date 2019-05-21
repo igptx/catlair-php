@@ -1,0 +1,8 @@
+#vpnservertxt_id
+#content_type
+vpnserver
+txt
+vpn
+сервер
+content
+контент

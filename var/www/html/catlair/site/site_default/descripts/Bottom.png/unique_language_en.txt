@@ -1,0 +1,6 @@
+#bottompng_id
+#file_type
+bottom
+png
+
+file

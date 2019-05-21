@@ -1,0 +1,6 @@
+#countpng_id
+#file_type
+count
+png
+
+file

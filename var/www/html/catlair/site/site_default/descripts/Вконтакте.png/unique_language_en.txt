@@ -1,0 +1,6 @@
+#вконтактеpng_id
+#file_type
+вконтакте
+png
+
+file

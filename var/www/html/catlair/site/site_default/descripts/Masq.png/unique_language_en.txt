@@ -1,0 +1,6 @@
+#masqpng_id
+#file_type
+masq
+png
+
+file

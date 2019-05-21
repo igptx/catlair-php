@@ -1,0 +1,14 @@
+<h2>
+    %code%
+</h2>
+
+<div>
+    <cl file="Manual/%code%"/>
+</div>
+
+<h2>
+     Код
+</h2>
+
+<div style="white-space:pre-wrap; font-family:monospace;"><cl file="%code%" convert="html"/></div>
+

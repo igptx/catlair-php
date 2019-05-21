@@ -1,0 +1,5 @@
+#decor_id
+#folder_type
+decor
+оформление
+folder

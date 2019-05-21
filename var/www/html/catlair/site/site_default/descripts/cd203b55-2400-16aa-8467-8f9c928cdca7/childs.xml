@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="kg" IDBind="bind_default"/><bind IDChild="kg" IDBind="bind_right"/><bind IDChild="gramm" IDBind="bind_default"/><bind IDChild="gramm" IDBind="bind_right"/></binds>

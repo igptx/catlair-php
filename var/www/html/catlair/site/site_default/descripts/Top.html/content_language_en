@@ -1,0 +1,13 @@
+<a href="?&body=Body.html&page=Page.html">Catlair</a>
+<a href="?&body=Body.html&page=Download.html">Download</a>
+<a href="?&body=Body.html&page=Install.html">Setup</a>
+<a href="javascript:" onclick="cl.ScriptLoad({ID:'SiteCreate.js', OnAfterLoad:function(){SiteCreatePopup()}});">New site</a>
+<a href="?&body=Body.html&page=Manual.html">Manual</a>
+<div class="Space">
+</div>
+<a href="javascript:" onclick="cl.Lang({IDLang:'language_ru'});" title="Русский язык">RU</a>
+<a href="javascript:" onclick="cl.Lang({IDLang:'language_en'});" title="English language">EN</a>
+<a href="javascript:" onclick="cl.Console({Authorize:true});">Console</a>
+
+
+

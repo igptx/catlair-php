@@ -1,0 +1,6 @@
+#telegramcolorpng_id
+#file_type
+telegramcolor
+png
+
+file

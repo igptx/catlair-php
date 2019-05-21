@@ -1,0 +1,6 @@
+#alarmpng_id
+#file_type
+alarm
+png
+
+file

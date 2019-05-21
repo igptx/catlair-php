@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>language_default</ID>
+    <Type>Language</Type>
+    <Langs>
+        <language_default>
+            <Caption></Caption>
+        </language_default>
+    <language_en><Caption>Default language</Caption></language_en><language_ru><Caption>Умолчальный язык</Caption></language_ru></Langs>
+    <Indexate/>
+</descript>

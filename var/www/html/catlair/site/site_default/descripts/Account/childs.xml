@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<binds>
+ 
+<bind IDChild="user" IDBind="bind_default"/><bind IDChild="still" IDBind="right_delete"/><bind IDChild="still" IDBind="right_select"/><bind IDChild="still" IDBind="right_update"/><bind IDChild="still" IDBind="right_insert"/><bind IDChild="user" IDBind="bind_right"/><bind IDChild="quest" IDBind="bind_right"/><bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="AccountForm.js" IDBind="bind_default"/><bind IDChild="AccountForm.js" IDBind="bind_right"/></binds>

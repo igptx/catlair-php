@@ -1,0 +1,4 @@
+<div class="Domains">
+    <a href="?&domain=%DomainName%">[local]</a>
+    <a href="http://%DomainName%" target="_blank">%CaptionSite%/%DomainName%</a>
+</div>

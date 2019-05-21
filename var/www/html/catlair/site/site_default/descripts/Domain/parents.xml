@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<binds>
+      
+<bind IDParent="module_online" IDBind="bind_default" Inherited=""/></binds>

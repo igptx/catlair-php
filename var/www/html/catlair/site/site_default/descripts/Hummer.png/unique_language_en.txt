@@ -1,0 +1,6 @@
+#hummerpng_id
+#file_type
+hummer
+png
+
+file

@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDParent="SiteContentFolder" IDBind="bind_default" Inherited=""/><bind IDParent="SiteContentFolder" IDBind="bind_right" Inherited=""/></binds>

@@ -1,0 +1,32 @@
+<cl content="clCatlair.js"/>
+<cl content="clDebug.js"/>
+
+window.onload = function ()
+{
+    cl = new TCatlair();
+    cl.ScriptLoad({ID:"clVector.js"});
+    cl.ScriptLoad({ID:"clDOM.js"});
+    cl.ScriptLoad({ID:"clAuth.js"});
+    cl.ScriptLoad({ID:"clString.js"});
+    cl.ScriptLoad({ID:"clMenu.js"});
+    cl.ScriptLoad({ID:"clMoment.js"});
+    cl.ScriptLoad({ID:"clConsole.js"});
+    cl.ScriptLoad({ID:"clMouse.js"});
+
+    cl.StyleLoad({ID:"clBase.css"});
+    cl.StyleLoad({ID:"Toolbar.css"});
+    cl.ScriptWait
+    (
+        [
+            'clDOM.js',
+            'clString.js',
+            'clVector.js',
+            'clAuth.js',
+            'clMouse.js'
+        ],
+        function()
+        {
+        }
+    );
+}
+

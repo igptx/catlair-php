@@ -1,0 +1,6 @@
+#flagpng_id
+#file_type
+flag
+png
+
+file

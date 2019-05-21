@@ -1,0 +1,5 @@
+#descriptbindproc_id
+#content_type
+descriptbindproc
+
+content

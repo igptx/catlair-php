@@ -1,0 +1,6 @@
+#poolpng_id
+#file_type
+pool
+png
+
+file

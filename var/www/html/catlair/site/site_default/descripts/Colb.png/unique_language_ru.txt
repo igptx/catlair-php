@@ -1,0 +1,6 @@
+#colbpng_id
+#file_type
+colb
+png
+file
+файл

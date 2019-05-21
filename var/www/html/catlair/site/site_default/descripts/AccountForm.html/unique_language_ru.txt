@@ -1,0 +1,10 @@
+#accountformhtml_id
+#content_type
+#array_id_accountform.html
+#array_idtype_content
+#array_idimage_
+#array_idtypedefault_0
+accountform
+html
+js
+content

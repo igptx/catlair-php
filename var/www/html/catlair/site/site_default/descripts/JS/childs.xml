@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<binds>
+ <bind IDChild="clAuth.js" IDBind="bind_default"/>
+ <bind IDChild="clBase.js" IDBind="bind_default"/>
+ <bind IDChild="clVector.js" IDBind="bind_default"/>
+ <bind IDChild="clMouse.js" IDBind="bind_default"/>
+ <bind IDChild="clUtils.js" IDBind="bind_default"/>
+ <bind IDChild="clString.js" IDBind="bind_default"/>
+ <bind IDChild="clMoment.js" IDBind="bind_default"/>
+ <bind IDChild="clDebug.js" IDBind="bind_default"/>
+ <bind IDChild="clMD5.js" IDBind="bind_default"/>
+ <bind IDChild="clMenu.js" IDBind="bind_default"/>
+ <bind IDChild="clAccount.js" IDBind="bind_default"/>
+ <bind IDChild="clAJAX.js" IDBind="bind_default"/>
+
+ <bind IDChild="clAuth.js" IDBind="bind_right"/>
+ <bind IDChild="clBase.js" IDBind="bind_right"/>
+ <bind IDChild="clVector.js" IDBind="bind_right"/>
+ <bind IDChild="clMouse.js" IDBind="bind_right"/>
+ <bind IDChild="clUtils.js" IDBind="bind_right"/>
+ <bind IDChild="clString.js" IDBind="bind_right"/>
+ <bind IDChild="clMoment.js" IDBind="bind_right"/>
+ <bind IDChild="clDebug.js" IDBind="bind_right"/>
+ <bind IDChild="clAJAX.js" IDBind="bind_right"/>
+ <bind IDChild="clAccount.js" IDBind="bind_right"/>
+ <bind IDChild="clMenu.js" IDBind="bind_right"/>
+ <bind IDChild="clMD5.js" IDBind="bind_right"/>
+ <bind IDChild="RGBA.js" IDBind="bind_default"/>
+
+ 
+ 
+ 
+ 
+ 
+<bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="clFile.js" IDBind="bind_default"/><bind IDChild="clFile.js" IDBind="bind_right"/></binds>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<binds>
+    <bind IDChild="module" IDBind="bind_right"/>
+    <bind IDChild="test" IDBind="bind_right"/>
+    <bind IDChild="guest" IDBind="right_select"/>
+    <bind IDChild="home" IDBind="bind_right"/>
+    <bind IDChild="administrator" IDBind="right_delete"/>
+    <bind IDChild="administrator" IDBind="right_select"/>
+    <bind IDChild="administrator" IDBind="right_update"/>
+    <bind IDChild="administrator" IDBind="right_insert"/>
+    <bind IDChild="DescriptTreeConteiner.html" IDBind="bind_right"/>
+    <bind IDChild="admin" IDBind="bind_default"/>
+    <bind IDChild="module" IDBind="bind_default"/>
+    
+    
+<bind IDChild="trash" IDBind="bind_default"/><bind IDChild="trash" IDBind="bind_right"/><bind IDChild="home" IDBind="bind_default"/></binds>

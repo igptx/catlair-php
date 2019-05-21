@@ -1,0 +1,9 @@
+#trash_id
+#folder_type
+#array_id_trash
+#array_idtype_folder
+#array_idimage_trash.png
+#array_idtypedefault_0
+trash
+
+folder

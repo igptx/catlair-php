@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="127.0.0.1" IDBind="bind_default"/><bind IDChild="localhost" IDBind="bind_default"/></binds>

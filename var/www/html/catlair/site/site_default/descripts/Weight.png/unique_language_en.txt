@@ -1,0 +1,6 @@
+#weightpng_id
+#file_type
+weight
+png
+
+file

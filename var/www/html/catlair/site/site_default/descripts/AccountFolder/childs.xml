@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="Unit" IDBind="bind_default"/><bind IDChild="Unit" IDBind="bind_right"/></binds>

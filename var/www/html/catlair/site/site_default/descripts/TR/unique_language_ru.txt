@@ -1,0 +1,6 @@
+#tr_id
+#country_type
+tr
+турция
+country
+страна

@@ -1,0 +1,49 @@
+<div class="Group">
+    <div class="Caption">
+        Поиск
+    </div>
+    <div class="Contein1">
+        <cl content="Select.html" clValue="language_ru" clID="IDLang" clName="IDLang" clType="Language" clPlaceholder="язык" clDisabled="" clBefore="" clAfter=""/>
+        <div class="CustomInput">
+            <input name="Search" id="Search" placeholder="поиск"/>
+        </div>
+        <button type="button" class="ImageLoad Unselected" id="BtnFind">
+            Найти
+        </button>
+    </div>
+</div>
+
+
+<div class="Group">
+    <div class="Caption">
+        Дескрипт
+    </div>
+    <div class="Contein1">
+        <button type="button" class="ImagePlus Unselected" id="BtnAdd">
+            Добавить
+        </button>
+        <label for="File" class="Unselected Button ImageCD" id="BtnUpload">
+            <input type="file" id="File" style="display:none; position:absolute; top:0; left:0; width:0; height:0; opacity:1; cursor:pointer;" multiple="multiple"/>
+            Загрузить
+        </label>
+    </div>
+</div>
+
+
+
+<div class="Group">
+    <div class="Caption">
+        Сессия
+    </div>
+    <div class="Contein1">
+        <button type="button" class="ImageMan Unselected" onclick="cl.UserPopup();">
+            Юзер
+        </button>
+        <button type="button" class="ImageLink Unselected" onclick="cl.SessionPopup();">
+            Сессия
+        </button>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,6 @@
+#common_id
+#folder_type
+common
+общие
+дескрипты
+folder

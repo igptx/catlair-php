@@ -1,0 +1,5 @@
+#filepng_id
+#file_type
+file
+png
+файл

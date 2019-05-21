@@ -1,0 +1,6 @@
+#checkpng_id
+#file_type
+check
+png
+
+file

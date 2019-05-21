@@ -1,0 +1,6 @@
+#phone_ringpng_id
+#file_type
+phone_ring
+png
+file
+файл

@@ -1,0 +1,7 @@
+#theorymanualhtml_id
+#content_type
+theorymanual
+html
+теория
+content
+контент

@@ -1,0 +1,6 @@
+#pl_id
+#country_type
+pl
+польша
+country
+страна

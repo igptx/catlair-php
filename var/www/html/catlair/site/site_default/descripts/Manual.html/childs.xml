@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="CreateSiteManual.html" IDBind="bind_right"/><bind IDChild="ThreeLayer.html" IDBind="bind_right"/>
+
+
+<bind IDChild="ManualContent" IDBind="bind_default"/><bind IDChild="ManualContent" IDBind="bind_right"/><bind IDChild="IntroManual.html" IDBind="bind_default"/><bind IDChild="IntroManual.html" IDBind="bind_right"/></binds>

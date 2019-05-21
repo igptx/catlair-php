@@ -1,0 +1,6 @@
+#finger_fistpng_id
+#file_type
+finger_fist
+png
+file
+файл

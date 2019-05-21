@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>root</ID>
+    <Type>Folder</Type>
+    <Langs>
+        <language_ru>
+            <Caption>Корень</Caption>
+        </language_ru>
+        <lanuage_en>
+            <Caption>Root</Caption>
+        </lanuage_en>
+    </Langs>
+    <Indexate>on</Indexate>
+    <IDTypeDefault>Folder</IDTypeDefault>
+    <IDImage>Earth.png</IDImage>
+    <ColorR>0</ColorR>
+    <ColorG>0</ColorG>
+    <ColorB>0</ColorB>
+    <ColorA>1</ColorA>
+    <Enabled>on</Enabled>
+</descript>

@@ -1,0 +1,159 @@
+<cl header="Content-Type: text/css"/>
+
+.Toolbar
+{
+    display:flex;
+}
+
+
+.Toolbar .Group .Caption
+{
+     height:14px;
+     overflow:hidden;
+     text-align:center;
+     font-size:0.5em;
+}
+
+
+
+.Toolbar .Group
+{
+    display:inline-block;
+    overflow:hidden;
+/*    border-top:1px solid rgba(255,255,255,0.2);*/
+    border-right:1px solid rgba(0,0,0,0.2);
+    border-left:1px solid rgba(255,255,255,0.2);
+    vertical-align:top;
+    padding-left:0.5em;
+    padding-right:0.5em;
+}
+
+
+
+.Toolbar .Separator
+{
+    margin:0px 10px 0px 10px;
+    width:1px;
+    height:100%:
+    display:inline-block;
+}
+
+
+
+.Toolbar .Group .Contein1
+{
+    vertical-align:top;
+    display:inline-block;
+    padding:0;
+    margin:0;
+/*    height:64px;*/
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+
+.Toolbar .Group .Contein2
+{
+    vertical-align:top;
+    display:inline-block;
+    padding:0px 3px 0px 3px;
+    margin:0px;
+    height:64px;
+    overflow:hidden;
+}
+
+
+
+.Toolbar .Group .Contein3
+{
+    vertical-align:top;
+    display:inline-block;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    height:64px;
+    overflow:hidden; 
+}
+
+
+
+.Toolbar button
+{
+    background-color:transparent;
+    border: none;
+}
+
+
+.Toolbar button, .Toolbar .Button 
+{
+    text-align:center;
+    vertical-align: middle;
+    color: black;
+    max-width:6em;
+    font-size:0.7em;
+    padding:2em 0.5em 0.3em 0.5em;
+    background-repeat: no-repeat;
+    background-position: center 0.5em;
+    background-size: 1.5em 1.5em;
+    position:relative;
+    display:inline-block;
+    word-wrap:break-word;
+    white-space:initial;
+ }
+
+
+@media (max-width:1024px)
+{
+    .Toolbar button, .Toolbar .Button 
+    {
+        font-size:0.5em;
+        padding:4em 0.5em 0.3em 0.5em;
+        background-size: 3em 3em;
+    }
+}
+
+
+.ToolbarList button
+{
+    width:100%;
+    display:block;
+    padding-left:2em;
+    background-repeat: no-repeat;
+    background-position: 0.5em center;
+    background-size: 1em 1em;
+    text-align:left;
+    vertical-align:middle;
+}
+
+
+
+.FormToolbar
+{
+    position:absolute;
+    bottom:0;
+    left:0em;
+    right:0em;
+    height:3em;
+    text-align:right;
+}
+
+
+
+
+
+.Toolbar .Group .Contein1 .CustomInput
+{
+    vertical-align:middle;
+    height: 2em;
+    width: 10em;
+}
+
+
+
+.Toolbar .CustomInput input
+{
+    box-sizing:border-box;
+    width:100%;
+}
+
+

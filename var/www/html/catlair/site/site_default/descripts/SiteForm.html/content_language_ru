@@ -1,0 +1,47 @@
+<form class="DescriptForm" id="Form" method="post" enctype="multipart/form-data">
+    <cl content="DescriptFormStandartFields.html" pars="true"/>
+    <div class="Group">
+        <h2>
+            Параметры сайта
+        </h2>
+
+        <div class="Line">
+            <div class="Caption">
+                Журналирование
+            </div>
+            <div class="Data">
+
+                <label class="Caption" for="LogEnabled">
+                    Включить
+                </label>
+                <input type="checkbox" name="LogEnabled" id="LogEnabled"/>
+
+                <label class="Caption" for="LogDebug">
+                    Отладка
+                </label>
+                <input type="checkbox" name="LogDebug" id="LogDebug"/>
+
+                <label class="Caption" for="LogInfo">
+                    Информация
+                </label>
+                <input type="checkbox" name="LogInfo" id="LogInfo"/>
+
+                <label class="Caption" for="LogWarning">
+                    Предупреждение
+                </label>
+                <input type="checkbox" name="LogWarning" id="LogWarning"/>
+
+                <label class="Caption" for="LogError">
+                    Ошибка
+                </label>
+                <input type="checkbox" name="LogError" id="LogError"/>
+
+                <label class="Caption" for="LogJob">
+                    Профилер
+                </label>
+                <input type="checkbox" name="LogJob" id="LogJob"/>
+
+            </div>
+        </div>
+    </div>
+</form>

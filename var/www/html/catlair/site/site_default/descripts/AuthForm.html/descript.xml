@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>AuthForm.html</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Форма авторизации</Caption>
+  </default>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Форма авторизации</Caption></language_ru></Langs>
+<Indexate>on</Indexate></descript>

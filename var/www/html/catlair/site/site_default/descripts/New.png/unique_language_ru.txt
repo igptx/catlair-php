@@ -1,0 +1,6 @@
+#newpng_id
+#file_type
+new
+png
+file
+файл

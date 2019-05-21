@@ -1,0 +1,9 @@
+#agent_id
+#object_type
+#array_id_agent
+#array_idtype_object
+#array_idimage_man.png
+#array_idtypedefault_0
+agent
+
+object

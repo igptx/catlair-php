@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>site_default</ID>
+    <Type>Site</Type>
+    <Langs>
+        <language_default>
+            <Caption></Caption>
+        </language_default>
+    <en><Caption>Умолчальный сайт</Caption></en><language_ru><Caption>Умолчальный сайт</Caption></language_ru></Langs>
+    <IDTypeDefault/>
+    <IDImage>CatHand.png</IDImage>
+    <ColorR>0</ColorR>
+    <ColorG>0</ColorG>
+    <ColorB>0</ColorB>
+    <ColorA>1</ColorA>
+<Enabled>on</Enabled></descript>

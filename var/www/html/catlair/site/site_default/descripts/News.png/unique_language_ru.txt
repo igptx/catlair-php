@@ -1,0 +1,6 @@
+#newspng_id
+#file_type
+news
+png
+file
+файл

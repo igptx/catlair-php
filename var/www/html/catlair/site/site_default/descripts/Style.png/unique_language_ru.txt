@@ -1,0 +1,6 @@
+#stylepng_id
+#file_type
+style
+png
+file
+файл

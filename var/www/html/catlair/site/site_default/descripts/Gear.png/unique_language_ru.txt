@@ -1,0 +1,6 @@
+#gearpng_id
+#file_type
+gear
+png
+file
+файл

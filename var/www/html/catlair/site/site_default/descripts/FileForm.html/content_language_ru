@@ -1,0 +1,19 @@
+<form method="post" enctype="multipart/form-data" id="Form" class="DescriptForm">
+    <cl content="DescriptFormStandartFields.html" pars="true"/>
+
+    <div class="Group">
+        <h2>
+            Опции файла
+        </h2>
+    </div>
+
+    <div class="Toolbar">
+        <button type="button" class="ImageCD Unselected" onclick="window.open('?&file=%ID%', '_blank');">
+            Скачать файл
+        </button>
+        <button type="button" class="ImageTrash Unselected" id="ImageClearCache">
+            Удаление кэша
+        </button>
+    </div>
+    
+</form>

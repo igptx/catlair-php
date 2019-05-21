@@ -1,0 +1,18 @@
+<button class="BindType Unselected" id="BindType" type="button">
+</button>
+<div class="Set">
+    <div class="Line">
+        <div class="Expend Unselected" id="Expend">
+        </div>
+        <label class="Caption Unselected Status%FOF%" id="Caption" draggable="true" style="background-image:url('?&image=%IDImagePreview%&scalex=16&scaley=16');">
+            <input type="radio" name="Folder" class="Check" id="Check">
+            <span class="Select" id="Select">
+                %Caption%
+            </span>   
+        </label>
+        <button class="Options Unselected" id="Options" type="button">
+        </button>
+    </div>
+    <div class="ChildList" id="ChildList">
+    </div>
+</div>

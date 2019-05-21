@@ -1,0 +1,6 @@
+#palletepng_id
+#file_type
+pallete
+png
+file
+файл

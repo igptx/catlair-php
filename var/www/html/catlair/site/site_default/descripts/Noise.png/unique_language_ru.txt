@@ -1,0 +1,6 @@
+#noisepng_id
+#file_type
+noise
+png
+file
+файл

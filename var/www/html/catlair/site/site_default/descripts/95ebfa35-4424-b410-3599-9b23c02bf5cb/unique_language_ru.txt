@@ -1,0 +1,13 @@
+#95ebfa354424b41035999b23c02bf5cb_id
+#unit_type
+#array_id_95ebfa354424b41035999b23c02bf5cb
+#array_idtype_unit
+#array_idimage_clock.png
+#array_idtypedefault_0
+95ebfa35
+4424
+b410
+3599
+9b23c02bf5cb
+минута
+unit

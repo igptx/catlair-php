@@ -1,0 +1,6 @@
+#uppng_id
+#file_type
+up
+png
+file
+файл

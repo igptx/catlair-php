@@ -1,0 +1,14 @@
+<div class="Collaps Unselected" role="Expend" onclick="clDescriptCollapsExpendClick(this);">
+</div>
+<div class="Select">
+ <div class="Caption Unselected" onclick="clDescriptSelect(clDescriptElementByObject(this));" draggable="true" ondrop="ElementDrop(event)" ondragstart="ElementDrag(event)" ondragover="ElementAllowDrop(event)">%Caption%<div class="CountChild">%CountChild%</div></div>
+ <div class="Options ImageCatPaw Unselected" onclick="clDescriptOptions(clDescriptElementByObject(this));">
+ </div>
+</div>
+
+<div class="SubCollaps">
+ <div class="SubCaption Unselected" onclick="clDescriptBinds(clDescriptElementByObject(this));">
+ </div>
+ <div class="SubConteiner">
+ </div>
+</div>

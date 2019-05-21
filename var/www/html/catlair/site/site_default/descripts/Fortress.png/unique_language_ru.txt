@@ -1,0 +1,6 @@
+#fortresspng_id
+#file_type
+fortress
+png
+file
+файл

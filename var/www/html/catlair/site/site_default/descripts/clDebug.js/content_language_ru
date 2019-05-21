@@ -1,0 +1,197 @@
+/**********************************************************************************************
+ * Отладочная система
+ * Содержит функции необходимые для ведения отладки.
+ * Форма лога описывается стилем CSS .Log и .FormPaper
+ */
+
+
+function TLog()
+{
+    var that = this;
+    /* переменные для JobBegin и JobEnd */
+    this.CountJob = 0; /* количество текущих активных задач */
+    /* эллемент индикатор работающей задачи на экране */
+    this.Indicator=document.createElement('div');
+    this.Indicator.className='PostIndicator';
+    document.body.appendChild(this.Indicator);
+    /* организаяи элемента вывода */
+    this.LogElement = document.createElement('div');
+    this.LogElement.style.display='none';
+    this.LogElement.id="clLogElement";
+    this.LogElement.className='MenuPopup Log';
+    this.LogElement.onclick=function()
+    {
+        that.LogElement.style.display="none";
+    };
+    document.body.appendChild(this.LogElement); /*добавляем фрэйм на страницу*/
+    return this;
+}
+
+
+/*
+ * Показ окна лога
+ */
+TLog.prototype.Show = function()
+{
+    this.LogElement.style.display = null;
+}
+
+
+/*
+ * Скрытие окна лога
+ */
+TLog.prototype.Hide = function()
+{
+    this.LogElement.style.display = 'none';
+}
+
+
+
+/*
+ * В лог пишется горизонтальный разделитель
+ */
+TLog.prototype.Line = function()
+{
+    this.LogElement.innerHTML='<div class="Line"></div>' + this.LogElement.innerHTML;
+}
+
+
+
+TLog.prototype.Beg = function(AMessage, AShow)
+{
+    this.Msg('Beg', AMessage, AShow);
+}
+
+
+
+TLog.prototype.End = function(AMessage, AShow)
+{
+    this.Msg('End', AMessage, AShow);
+}
+
+
+
+TLog.prototype.Deb = function(AMessage, AShow)
+{
+    this.Msg('Deb', AMessage, AShow);
+}
+
+
+
+TLog.prototype.Inf = function(AMessage, AShow)
+{
+    this.Msg('Inf', AMessage, AShow);
+}
+
+
+
+/*
+ * вывод сообщения
+ */
+
+TLog.prototype.War = function(AMessage, AShow)
+{
+    this.Msg('War', AMessage, AShow);
+    console.warn(AMessage);
+}
+
+
+
+/*
+ * вывод сообщения об ошибке
+ */
+TLog.prototype.Err = function(AMessage, AShow)
+{
+    this.Msg('Err', AMessage, AShow);
+    console.error(AMessage);
+}
+
+
+
+/*
+ * Функция, выполняющая запись в лог строки по определенному формату
+ * AClass - тип сообщения Inf War Deb Err
+ * AMessage - текст сообщения
+ * AShow - true показать окно лога, false - не показывать окно лога.
+ */
+TLog.prototype.Msg = function(AClass, AMessage, AShow)
+{
+    var that = this;
+    if (AMessage)
+    {
+        var lLine=document.createElement('div');
+        lLine.className='LogLine Log'+AClass;
+        lLine.innerHTML='<div class="LogMessage">'+AMessage+'</div>'+'<div class="LogTime">'+clMomentToStr(clNow())+'</class>';
+        /*запуск таймера до исчезновения сообщения*/
+        lLine.Timer=setTimeout
+        (
+            function()
+            {
+                lLine.IntervalCount = 0;
+                /*запуск таймера гасящего сообщение*/
+                lLineTimer = setInterval
+                (
+                    function()
+                    {
+                        lLine.IntervalCount ++;
+                        lLine.style.opacity = 1 - lLine.IntervalCount / 10;
+                        if (lLine.IntervalCount == 10)
+                        {
+                            clearInterval(lLine.Timer);
+                            lLine.Timer = null;
+                            lLine.className = '';
+                            lLine.parentNode.removeChild(lLine);
+                            if ( that.LogElement.childNodes.length == 0 ) that.Hide();
+                        }
+                    },
+                    10
+                )
+            },
+            clSec*4
+        )
+        this.LogElement.insertBefore(lLine, this.LogElement.firstChild);
+        if (AShow) this.LogElement.style.display=null;
+    }
+}
+
+
+
+/**
+ * Начало работы и вывод индикаторв
+ */
+TLog.prototype.JobBegin = function()
+{
+    if (document.body)
+    {
+        this.CountJob++;
+        if (this.CountJob>0)
+        {
+            this.Indicator.style.display = null;
+            this.Indicator.style.opacity = '1';
+        }
+        this.Indicator.innerHTML=this.CountJob;
+    }
+    return this;
+};
+
+
+
+/**
+ * Завершение работы и вывод индикаторв
+ */
+
+TLog.prototype.JobEnd = function()
+{
+    this.CountJob--;
+    if (this.Indicator)
+    {
+        this.Indicator.innerHTML = this.CountJob;
+        if (this.CountJob < 1)
+        {
+            this.Indicator.style.display = 'none';
+            this.Indicator.style.opacity = '0';
+            this.CountJob = 0;
+        }
+    }
+    return this;
+};

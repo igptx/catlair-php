@@ -1,0 +1,251 @@
+/**
+ * Catlair JS
+ * Набор функций расширений для работы с интерфейсами авторизации Catlair
+ *
+ * still@itserv.ru
+ */
+
+
+
+/**
+ * функциия вывода диалога о правах пользователя
+ */
+TCatlair.prototype.SessionPopup = function()
+{
+    var that = this;
+    var lContent = decodeURIComponent('<cl content="SessionInfoForm.html" convert="URI"/>');
+    this.SessionInfo
+    (
+        {
+            OnAfterInfo: function(AParam)
+            {
+                lContent = clContentFromObject(AParam.Result.Params, lContent);
+                that.Popup({TypeContent:tcText, Content:lContent});
+            }
+        }
+    );
+    return this;
+};
+
+
+
+
+/**
+ * функциия вывода диалога о правах пользователя
+ */
+TCatlair.prototype.UserPopup = function()
+{
+    var that = this;
+    var lContent = decodeURIComponent('<cl content="SessionInfoUserForm.html" convert="URI"/>');
+    this.SessionInfo
+    (
+        {
+            OnAfterInfo: function(AParam)
+            {
+                // Построение контента
+                lContent = clContentFromObject(AParam.Result.Params, lContent);
+                var Popup = that.Popup({TypeContent:tcText, Content:lContent});
+                /*Создание действия кнопки ОК*/
+                var BtnLogout = Popup.ChildByID('BtnLogout');
+                BtnLogout.onclick = function()
+                {
+                    that.Logout({});
+                    Popup.Close();
+                }
+                /*Создание действия кнопки Cancel*/
+                var BtnCancel = Popup.ChildByID('BtnCancel');
+                BtnCancel.onclick = function()
+                {
+                    Popup.Close();
+                }
+            }
+        }
+    );
+    return this;
+};
+
+
+
+/**
+ * функция проверки сесионных данных
+ */
+TCatlair.prototype.SessionInfo = function(AParams)
+{
+    var that = this;
+    AParams.Pars = true;
+    AParams.Library = 'session';
+    AParams.ProcName = 'SessionInfo';
+    AParams.OnAfterLoad = function()
+    {
+        if (that.PostResult(AParams))
+        {
+            if (AParams.OnAfterInfo) AParams.OnAfterInfo(AParams);
+        }
+    }
+    this.Post(AParams);
+    return this;
+};
+
+
+
+/**
+ * функция проверки является ли пользователь авторизованным
+ */
+TCatlair.prototype.AuthorizeStatus = function(AParams)
+{
+    var that = this;
+    AParams.Pars = true;
+    AParams.Library = 'session';
+    AParams.ProcName = 'SessionInfo';
+    AParams.OnAfterLoad = function()
+    {
+        if (that.PostResult(AParams))
+        {
+            if (AParams.Result.Params.Login !== "")
+            {
+                /*Пользователь является авторизованным*/
+                if (AParams.OnUser) AParams.OnUser(AParams);
+            }
+            else
+            {
+                /*Пользователь не авторизован*/
+                if (AParams.OnGuest) AParams.OnGuest(AParams);
+            }
+        }
+    }
+    this.Post(AParams);
+    return this;
+};
+
+
+
+/**
+ *
+ */
+TCatlair.prototype.TransparentAuthorization = function(AParams)
+{
+    SessionInfo();
+}
+
+
+
+/**
+ * Вызов формы авторизации
+ * AParams.OnAfterLogin - функция обратного вызова при успешной авторизации
+ */
+TCatlair.prototype.Authorization = function(AParams)
+{
+    var that = this;
+
+    /*контроль парметров*/
+    if (!AParams.Content) AParams.Content = decodeURIComponent('<cl content="AuthForm.html" convert="URI"/>');
+    if (!AParams.TypeContent) AParams.TypeContent = tcText;
+
+    var Popup = this.Popup(AParams); /*Создание формы Popup*/
+
+    var LoginParams = {};
+    LoginParams.Form = Popup.ChildByTag('FORM');
+
+    /*Обработка успешной авторизации*/
+    LoginParams.OnAfterLogin =function()
+    {
+        Popup.Close();
+        if (AParams.OnAfterLogin) AParams.OnAfterLogin(AParams);
+    }
+
+
+    /*Создание действия кнопки ОК*/
+    Popup.ChildByID('BtnOk').onclick = function()
+    {
+        that.Login(LoginParams);
+    }
+
+
+    /**/
+    Popup.ChildByID('Pass').onkeyup = function(AEvent)
+    {
+        if (AEvent.keyCode==13) that.Login(LoginParams);
+    }
+
+
+    /*Создание действия кнопки Cancel*/
+    var BtnCancel = Popup.ChildByID('BtnCancel');
+    BtnCancel.onclick = function()
+    {
+        Popup.Close();
+    }
+
+    return this;
+}
+
+
+
+/**
+ * процедура входа пользователя
+ */
+TCatlair.prototype.Login = function(AParams)
+{
+    var that = this;
+    var Params =
+    {
+        Pars:true,
+        TypeContent:tcText,
+        Form:AParams.Form,
+        Library:'session',
+        ProcName:'SessionLogin',
+        OnAfterLoad:function(p)
+        {
+            if (that.PostResult(p))
+            {
+              if (AParams.OnAfterLogin) AParams.OnAfterLogin(AParams);
+            }
+        }
+    };
+    this.Post(Params);
+    return this;
+};
+
+
+
+/**
+ * Процедура разлогинивания пользователя
+ */
+TCatlair.prototype.Logout = function(AParams)
+{
+    var that = this;
+    AParams.Pars = true;
+    AParams.Library = 'session';
+    AParams.ProcName = 'SessionLogout';
+    AParams.OnAfterLoad = function()
+    {
+        if (that.PostResult(AParams))
+        {
+          if (AParams.OnAfterLogout) AParams.OnAfterLogout(AParams);
+        }
+    }
+    this.Post(AParams);
+    return this;
+};
+
+
+
+
+/**
+ * Процедура переключения языка
+ */
+TCatlair.prototype.Lang = function(AParams)
+{
+    var that = this;
+    AParams.URL='?&idlang='+AParams.IDLang;
+    AParams.OnAfterLoad = function()
+    {
+        if (AParams.OnAfterLogout) AParams.OnAfterLogout(AParams);
+        else location.reload();
+    }
+    this.Post(AParams);
+    return this;
+};
+
+
+
+

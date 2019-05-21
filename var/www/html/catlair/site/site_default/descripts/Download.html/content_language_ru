@@ -1,0 +1,30 @@
+<h1>
+    Скачивание файлов Catlair
+</h1>
+
+<h2>
+    Ссылка
+</h2>
+
+<p>
+    <a href="?file=catlair.7z">Скачать актуальный архив</a>
+</p>
+
+<h2>
+    Командная строка
+</h2>
+
+<p>
+    Скачать файл возможно воспользовавшись командой:
+    <code>
+curl 'http://catlair.net/?&file=catlair.7z' -o catlair.7z
+    </code>
+</p>
+
+<h2>
+    GitHub
+</h2>
+
+<p>
+    Ссылка на репозиторий Github: <a href="https://github.com/johnthesmith/catlair-php" target="_blank">https://github.com/johnthesmith/catlair-php</a>
+</p>

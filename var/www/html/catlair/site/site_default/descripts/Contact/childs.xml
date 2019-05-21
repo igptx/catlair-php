@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="ContactContent" IDBind="bind_default"/><bind IDChild="ContactContent" IDBind="bind_right"/></binds>

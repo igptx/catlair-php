@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>user</ID>
+    <Type>Agent</Type>
+    <Langs>
+        <default>
+            <Caption>Обычный пользователь</Caption>
+        </default>
+        <language_default>
+            <Caption></Caption>
+        </language_default>
+    <language_ru><Caption>user</Caption></language_ru></Langs>
+    <Indexate/>
+</descript>

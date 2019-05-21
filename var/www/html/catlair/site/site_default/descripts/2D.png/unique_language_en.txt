@@ -1,0 +1,6 @@
+#2dpng_id
+#file_type
+2d
+png
+
+file

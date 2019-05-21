@@ -1,0 +1,6 @@
+#file_restrictpng_id
+#file_type
+file_restrict
+png
+
+file

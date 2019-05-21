@@ -1,0 +1,6 @@
+#net_port_ethernetpng_id
+#file_type
+net_port_ethernet
+png
+file
+файл

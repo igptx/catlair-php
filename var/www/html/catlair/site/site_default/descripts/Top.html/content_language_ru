@@ -1,0 +1,10 @@
+<a href="?&body=Body.html&page=Page.html">Catlair</a>
+<a href="?&body=Body.html&page=Download.html">Скачать</a>
+<a href="?&body=Body.html&page=Install.html">Установка</a>
+<a href="?&body=Body.html&page=CreateSiteManual.html">Новый сайт</a>
+<a href="?&body=Body.html&page=Manual.html&manual=IntroManual.html">Информация</a>
+<div class="Space">
+</div>
+<a href="javascript:" onclick="cl.Lang({IDLang:'language_ru'});" title="Русский язык">RU</a>
+<a href="javascript:" onclick="cl.Lang({IDLang:'language_en'});" title="English language">EN</a>
+<a href="javascript:" onclick="cl.Console({Authorize:true});">Консоль</a>

@@ -1,0 +1,6 @@
+#spicapng_id
+#file_type
+spica
+png
+file
+файл

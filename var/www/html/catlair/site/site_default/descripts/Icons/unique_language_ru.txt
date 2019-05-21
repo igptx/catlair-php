@@ -1,0 +1,10 @@
+#icons_id
+#folder_type
+#array_id_icons
+#array_idtype_folder
+#array_idimage_image_bitmap.png
+#array_idtypedefault_0
+icons
+иконки
+folder
+папка

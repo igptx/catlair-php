@@ -1,0 +1,6 @@
+#pipng_id
+#file_type
+pi
+png
+file
+файл

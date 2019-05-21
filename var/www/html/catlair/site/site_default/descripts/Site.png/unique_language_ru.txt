@@ -1,0 +1,6 @@
+#sitepng_id
+#file_type
+site
+png
+file
+файл

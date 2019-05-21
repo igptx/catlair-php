@@ -1,0 +1,297 @@
+<cl header="Content-Type: text/css"/>
+
+<cl content="clSpecific.css"/>
+<cl content="clDebug.css"/>
+<cl content="clGliph.css"/>
+
+
+
+*
+{
+    font-size:inherit;
+    margin:0;
+    padding:0;
+}
+
+
+
+p
+{
+    padding-bottom:0.5em;
+    text-align:justify;
+}
+
+
+
+ul
+{
+    padding:0 0 0 1em;
+}
+
+
+
+ol
+{
+    padding:0 0 0 1em;
+}
+
+
+
+code
+{
+    display: block;
+    white-space: pre-wrap;
+    border-left: 2px black solid;
+}
+
+
+
+h1,h2,h3,h4,h5,h6
+{
+ padding-bottom: 0.1em;
+ padding-top: 0.5em;
+ color: #7c7c7c;
+ font-weight: 300;
+ line-height: 1.1;
+}
+
+
+
+h1 {font-size:1.6em;}
+h2 {font-size:1.3em;}
+h3 {font-size:1.2em;}
+h4 {font-size:1.1em;}
+h5 {font-size:1.0em;}
+h6 {font-size:0.9em;}
+
+
+
+var
+{
+    font-weight:bolder;
+}
+
+
+
+html
+{
+    font-size: 1.2em;
+    font-family: Ubuntu, Arial, 'libra sans', sans-serif;
+    background-color: white;
+}
+
+
+
+.Form
+{
+    position:absolute;
+    bottom:4em;
+    top:1em;
+    left:1em;
+    right:1em;
+}
+
+
+
+.FormToolbar
+{
+ position:absolute;
+ bottom:0;
+ left:0em;
+ right:0em;
+ height:3em;
+ text-align:right;
+}
+
+
+
+button
+{
+    padding:0.2em;
+}
+
+
+
+.Gliph
+{
+    background-size:1em;
+    background-repeat:no-repeat;
+    background-position:0em center;
+    vertical-align:middle;
+    min-height:1em;
+    padding-left:1.5em;
+}
+
+
+
+.GliphInput
+{
+    padding-left:2em;
+    background-size:1em;
+    background-repeat:no-repeat;
+    background-position:0.5em center;
+}
+
+
+
+.Gliph:empty
+{
+    width:1em;
+    display:inline-block;
+}
+
+
+
+.PostIndicator
+{
+    font-size:12px;
+    text-align:center;
+    padding:32px;
+    z-index:9999;
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:1em;
+    height:1em;
+    background-image:url('?image=Loader.png');
+    background-position:center center;
+    background-repeat:no-repeat;
+    margin-left:-32px;
+    margin-top:-32px;
+
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+       
+}
+
+
+
+/******************************************************************************
+ * Оформление элементов формы
+ */
+
+.Group .Line
+{
+    margin-top:0.2em;
+    margin-bottom:0.2em;
+    display:flex;
+    align-items:center;
+    
+}
+
+
+
+.Group .Line .Caption
+{
+    flex-grow:0;
+    flex-shrink:0;
+    padding-right:0.5em;
+    text-align:right;
+    opacity:0.5;
+    white-space:nowrap;
+    font-size: 0.7em;
+}
+
+
+
+.Group .Line .Caption:after
+{
+    content: ":";
+}
+
+
+
+.Group .Line .Data
+{
+    flex-grow:1;
+    flex-shrink:1;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+
+.Group .Line .Data input[type=checkbox]
+{   
+    flex-shrink:0;
+    flex-grow:0;
+    width:1em;
+}
+
+
+
+.Group .Line .Data input, .Group .Line .Data .CustomInput
+{
+    flex-grow:2;
+    flex-shrink:2;
+    width:auto;
+}
+
+
+
+.Group .Line .Data .Caption
+{
+    margin-left:1px;
+    margin-right:1px;
+    flex-grow:1;
+    flex-shrink:1;
+    opacity:0.5;
+    width:auto;
+}
+
+
+
+@media (max-width:1024px)
+{
+    .Group .Line
+    {
+        flex-direction:column;
+        margin-bottom:1em;
+    }
+
+    .Group .Line .Caption
+    {
+        text-align:left;
+        width:100%;
+    }
+
+    .Group .Line .Caption:after
+    {
+        content:none;
+    }
+}
+
+
+
+/******************************************************************************
+ * Всякая всячина
+ */
+
+.UserSelectNone
+{
+    -webkit-user-select: none;  /* Chrome all  Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */   
+}
+
+
+
+/*Текст введенный с ошиибкой*/
+.TextError
+{
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-style: dashed;
+}
+
+
+
+/*Текст введенный правильно*/
+.TextCorrect
+{
+  text-decoration: underline;
+  text-decoration-color: green;
+  text-decoration-style: solid;
+}

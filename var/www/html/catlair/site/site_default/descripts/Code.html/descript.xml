@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>Code.html</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Страница с описанием кода</Caption>
+  </default>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Страница с описанием кода</Caption></language_ru></Langs>
+<Indexate/></descript>

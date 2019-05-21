@@ -1,0 +1,6 @@
+#catlairdatamodelsvg_id
+#file_type
+catlairdatamodel
+svg
+
+file

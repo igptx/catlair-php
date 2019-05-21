@@ -1,0 +1,14 @@
+#b19fb10ea9e6220b3c78f9c9af1d8bca_id
+#folder_type
+#array_id_b19fb10ea9e6220b3c78f9c9af1d8bca
+#array_idtype_folder
+#array_idimage_blackbox.png
+#array_idtypedefault_0
+b19fb10e
+a9e6
+220b
+3c78
+f9c9af1d8bca
+штучные
+folder
+папка

@@ -1,0 +1,6 @@
+#odspng_id
+#file_type
+ods
+png
+file
+файл

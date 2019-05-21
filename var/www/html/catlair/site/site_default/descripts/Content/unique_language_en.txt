@@ -1,0 +1,9 @@
+#content_id
+#object_type
+#array_id_content
+#array_idtype_object
+#array_idimage_source.png
+#array_idtypedefault_content
+content
+
+object

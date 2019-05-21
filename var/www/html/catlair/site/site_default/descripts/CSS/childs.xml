@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds>
+ <bind IDChild="clBase.css" IDBind="bind_default"/>
+ <bind IDChild="clSpecific.css" IDBind="bind_default"/>
+<bind IDChild="clBase.css" IDBind="bind_right"/><bind IDChild="clSpecific.css" IDBind="bind_right"/><bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/></binds>

@@ -1,0 +1,6 @@
+#finger_downpng_id
+#file_type
+finger_down
+png
+
+file

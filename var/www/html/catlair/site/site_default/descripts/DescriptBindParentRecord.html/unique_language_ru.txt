@@ -1,0 +1,9 @@
+#descriptbindparentrecordhtml_id
+#content_type
+descriptbindparentrecord
+html
+запиcь
+настройки
+связей
+content
+контент

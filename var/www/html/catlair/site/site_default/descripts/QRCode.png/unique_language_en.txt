@@ -1,0 +1,6 @@
+#qrcodepng_id
+#file_type
+qrcode
+png
+
+file

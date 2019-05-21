@@ -1,0 +1,6 @@
+#pathpng_id
+#file_type
+path
+png
+file
+файл

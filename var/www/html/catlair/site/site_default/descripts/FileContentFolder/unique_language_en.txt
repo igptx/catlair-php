@@ -1,0 +1,9 @@
+#filecontentfolder_id
+#folder_type
+#array_id_filecontentfolder
+#array_idtype_folder
+#array_idimage_source.png
+#array_idtypedefault_0
+filecontentfolder
+
+folder

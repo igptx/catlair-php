@@ -1,0 +1,38 @@
+<form method="post" enctype="multipart/form-data" style="width:100%;">
+ <div class="Toolbar" style="position:absolute;top:0;left:0;right:0;">
+  <div style="padding:0.2em; box-sizing:border-box; display:inline-block; vertical-align:middle; width:15em; height:100%;">
+   <input style="padding:0 1em 0 1em; box-sizing:border-box; height:100%; width:100%; vertical-align:middle;" name="ID" id="Search" placeholder="поиск"/>
+  </div>
+
+  <div style="display:inline-block; width:20em; vertical-align:middle;">
+   <cl content="DescriptSelect.html" exec="DescriptCaptionByID" Name="Lang" ID="language_ru" Placeholder="Выбор языка" Type="Language" Disabled="" Before="" After=""/>
+  </div>
+
+  <button type="button" class="ImageLoad" onclick="clTree.Load(this.form.Search.value);">
+   Найти
+  </button>
+
+  <button type="button" class="ImagePlus" onclick="clDescriptCreateForm(clTree.clDescriptGetSelectedID());">
+   Добавить
+  </button>
+ </div>
+</form>
+
+
+<div style="position:absolute; top:3em; left:0; bottom:0; width:40%; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none;user-select:none; overflow:auto;" id="TreeConteiner">
+</div>
+
+<div style="padding: 1px; font-family: monospace; white-space:pre-wrap; position:absolute; top:3em; left:40%; bottom:0; right:0; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none;user-select:none; overflow:auto;" id="ViewConteiner">
+</div>
+
+<style>
+ <cl content="Tree.css"/>
+</style>
+
+
+<script>
+ <cl content="Descript.js"/>
+ clTree = new TDescripts();
+ clTree.Conteiner = document.getElementById('TreeConteiner'); 
+ clTree.Load('', 'bind_default');
+</script>

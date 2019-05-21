@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="UnitFolder" IDBind="bind_default"/><bind IDChild="UnitFolder" IDBind="bind_right"/><bind IDChild="UnitContentFolder" IDBind="bind_default"/><bind IDChild="UnitContentFolder" IDBind="bind_right"/></binds>

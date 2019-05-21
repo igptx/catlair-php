@@ -1,0 +1,6 @@
+#quest_id
+#agent_type
+quest
+гость
+agent
+агент

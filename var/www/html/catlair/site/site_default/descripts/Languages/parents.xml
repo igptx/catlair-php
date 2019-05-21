@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="module_base" IDBind="default"/>
+  
+  <bind IDParent="module_base" IDBind="bind_right"/>
+<bind IDParent="Language" IDBind="bind_default" Inherited=""/></binds>

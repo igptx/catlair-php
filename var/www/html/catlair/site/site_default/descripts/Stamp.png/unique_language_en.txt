@@ -1,0 +1,6 @@
+#stamppng_id
+#file_type
+stamp
+png
+
+file

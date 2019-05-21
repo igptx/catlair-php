@@ -1,0 +1,33 @@
+<style>
+    .Domains a
+    {
+        margin-right:1em;
+    }
+</style>
+
+<div>
+    <h1>
+        Catlair
+    </h1>
+    <p>
+      Catlair is content menedgemnt system (CMS). Catlair is intend to automation compile Web content for LEMP. Content is compiling from files located on for language and site.
+    </p>
+    <h2>
+       Software conditions
+    </h2>
+    <ul>
+        <li>
+            Linux (ubintu, debian) - operation system;
+        </li>
+        <li>
+            nginx - web server;
+        </li>
+        <li>
+            php - script.
+        </li>
+    </ul>
+    <h2>
+    	Domain list
+    </h2>
+    <cl include="site" exec="SiteList" record="SiteListRecord.html"/>
+</div>

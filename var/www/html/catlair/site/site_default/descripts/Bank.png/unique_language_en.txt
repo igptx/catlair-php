@@ -1,0 +1,6 @@
+#bankpng_id
+#file_type
+bank
+png
+
+file

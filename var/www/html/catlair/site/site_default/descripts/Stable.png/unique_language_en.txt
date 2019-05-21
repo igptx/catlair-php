@@ -1,0 +1,6 @@
+#stablepng_id
+#file_type
+stable
+png
+
+file

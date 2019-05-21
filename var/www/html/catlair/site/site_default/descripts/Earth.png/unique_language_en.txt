@@ -1,0 +1,6 @@
+#earthpng_id
+#file_type
+earth
+png
+
+file

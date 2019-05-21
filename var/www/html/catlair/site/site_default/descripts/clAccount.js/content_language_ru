@@ -1,0 +1,29 @@
+TDescript.prototype.PasswordAdminPopup = function()
+{
+    var Content = decodeURIComponent('<cl content="AccountPasswordAdminForm.html" pars="true" convert="URI"/>');
+    Content = Content.replace('%ID%', this.ID);
+    var Popup = cl.Popup({Content:Content, TypeContent:tcText});
+
+    /*Действие на кнопку ОК*/
+    Popup.ChildByID('BtnOk').onclick = function(){Popup.Ok()};
+
+    /*Авторизация*/
+    Popup.Ok = function()
+    {
+        cl.Post
+        ({
+            Pars:true,
+            TypeContent:tcXML,
+            Form:this.ChildByID('Form'),
+            Library:'account',
+            ProcName:'AccountPasswordAdmin',
+            OnAfterLoad: function(p)
+            {
+                if (cl.PostResult(p))
+                {
+                    Popup.Close();
+                }
+            }
+        });
+    }
+}

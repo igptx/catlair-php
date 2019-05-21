@@ -1,0 +1,11 @@
+#authrecordhtml_id
+#content_type
+#array_id_authrecord.html
+#array_idtype_content
+#array_idimage_
+#array_idtypedefault_0
+authrecord
+html
+запись
+авторизации
+content

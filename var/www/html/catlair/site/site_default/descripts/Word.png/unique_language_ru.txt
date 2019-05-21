@@ -1,0 +1,6 @@
+#wordpng_id
+#file_type
+word
+png
+file
+файл

@@ -1,0 +1,453 @@
+/*******************************************************************************************
+ * Catlair JS Copyright (C) 2019  a@itserv.ru
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Main library. Содержит базвый функционал
+ * - динамическая работа со скриптом
+ * - ожидание загрузки скриптов
+ * - динамическая работа со стилями
+ * - управленеи индиактором загрузки
+ *
+ * Библиотеки расширения загружаемые отдельно программистом
+ * - clAuth.php
+ * - clPopup.php
+ */
+
+/* Умолчальный путь для запроса шаблонов cl*/
+var DefaultURL = '?&template=';
+
+
+var tcXML='XML';
+var tcHTML='HTML';
+
+
+function TCatlair(ADatabase)
+{
+    this.Log = new TLog();
+    this.FrameCount = 0; /*счетчик количества запросов используется в clPost*/
+    /* настройки DB */
+    this.Database = ADatabase;
+    this.DatabaseDomain = 'dbcatlair';
+    return  this;
+}
+
+
+/**
+ * Динамическая загрузка скрипта
+ * ID - идентификатор скрипта, по нему определяется надо ли загружать скрипт заново
+ * Type - источник, ссылка или сам кантнет
+ * OnAfterLoad - вызов функции в которую передаюется PAarams
+ */
+TCatlair.prototype.ScriptLoad = function(AParams)
+{
+    var that = this;
+    /*Заполнение параметров умолчальными значениями*/
+    if (!AParams.URL) var URL = DefaultURL + AParams.ID;
+    else var URL=AParams.URL;
+    /*Отметка о начале работы*/
+    this.Log.JobBegin();
+    /*Поиск идентификатора который возможно ранее был загружен*/
+    var Script = document.scripts[AParams.ID];
+    if (!Script)
+    {
+        /*Добавление раздела Script*/
+        Script = document.createElement('script');
+        AParams.Script = Script;
+        var Head = document.getElementsByTagName('head')[0];
+        Head.appendChild(Script);
+        Script.id = AParams.ID;
+        Script.type = 'text/javascript';
+        Script.onload = function(){OnLoad(AParams)};
+        Script.src = URL;
+        console.log('Begin to load dynamic script ' + Script.src);
+    }
+    else
+    {
+        /*Выполняем пользовательскую функцию, если скрипт уже загружен*/
+        AParams.Script = Script;
+        OnLoad(AParams);
+    }
+
+    function OnLoad(p)
+    {
+        console.log('Loaded dynamic script '+p.Script.src);
+        that.Log.JobEnd();
+        p.Script.Loaded=true;
+        if (p.OnAfterLoad) p.OnAfterLoad(p);
+    }
+    return this;
+}
+
+
+
+/*
+ * выгрузка скрипта
+ */
+TCatlair.prototype.ScriptUnload = function(AID)
+{
+    var Head=document.getElementsByTagName('head')[0];
+    var Script=Head.ChildByID(AParams.ID);
+    if (Script) Script.parentNode.removeChild(Script);
+    return this;
+}
+
+
+
+/*
+ * Ожидание завершения загрузки скриптов
+ */
+TCatlair.prototype.ScriptWait = function(AList, ACall)
+{
+    var that = this;
+    var c=0;
+    for (var i=0; i<AList.length; i++)
+    {
+        var iScript=document.scripts[AList[i]];
+        if (iScript && iScript.Loaded) c++;
+    }
+    if (c==i) ACall();
+    else setTimeout(function(){that.ScriptWait(AList, ACall)}, 100);
+    return this;
+}
+
+
+
+/*********************************************************************************************
+ * Динамическая загрузка стиля
+ * ID - идентификатор скрипта, по нему определяется надо ли загружать скрипт заново
+ * Type - источник, ссылка или сам кантнет
+ * OnAfterLoad - вызов функции в которую передаюется PAarams
+ */
+
+TCatlair.prototype.StyleLoad = function(AParams)
+{
+    var that = this;
+    /*Заполнение параметров умолчальными значениями*/
+    if (!AParams.URL) AParams.URL = DefaultURL + AParams.ID;
+//    /*Отметка о начале работы*/
+//    this.Log.JobBegin();
+    /*Поиск идентификатора который возможно ранее был загружен*/
+    var Style = document.getElementById(AParams.ID);
+    if (!Style)
+    {
+        var Head  = document.getElementsByTagName('head')[0];
+        var Link  = document.createElement('link');
+        /*Добавление раздела Style*/
+        Link.id=AParams.ID;
+        Link.type='text/css';
+        Link.rel='stylesheet';
+        Link.href=AParams.URL;
+        Head.appendChild(Link);
+        console.log('Begin to load dynamic style ' + Link.href);
+    }
+    else
+    {
+        /*Выполняем пользовательскую функцию, если скрипт уже загружен*/
+        AParams.Style = Style;
+//        OnLoad(AParams);
+    }
+
+//    function OnLoad(p)
+//    {
+//        console.log('Loaded dynamic style '+p.Style.href);
+//        that.Log.JobEnd();
+//        p.Style.Loaded=true;
+//        if (p.OnAfterLoad) p.OnAfterLoad(p);
+//    }
+
+    return this;
+}
+
+
+TCatlair.prototype.StyleUnload = function(AID)
+{
+    var obj=document.getElementById(AID);
+    if (obj) {obj.parentNode.removeChild(obj);};
+    return this;
+}
+
+
+
+/****************************************************************************************************
+ * AJAX
+ */
+
+/**
+ * Вызов процедуры AJAX
+ * URL - необязательный параметр URL через &.
+ * Form - необязательная форма, будет создана если не указать
+ * Param - необязательная строка параметров через & будут прописаны в форму
+ * Proc - добавит в URL имя процедуры для вызова и вызовет шаблон clproc
+ * DB - добавить в URL имя базы данных &db=NAME
+ * Template - добавить в URL &template=NAME
+*/
+
+TCatlair.prototype.Post = function(APrm)
+{
+    /*
+     * основное тело функции
+     */
+    var that = this;
+
+    /*Проверка необходимости авторизации для запроса*/
+    if (APrm.Authorize)
+    {
+        that.AuthorizeStatus
+        ({
+            OnUser:Start,
+            OnGuest:function()
+            {
+                that.Login({OnAafterLoad:Start});
+            }
+        });
+    }
+    else Start();
+
+    /*
+     * Выполненеи открытия формы
+     */
+    function Start()
+    {
+        /*Установка параметров*/
+        if (!APrm.FormData)
+        {
+             if (APrm.Form != null) APrm.FormData = new FormData(APrm.Form);
+             else APrm.FormData = new FormData();
+        }
+        if (!APrm.URL) APrm.URL = '';
+        /*Установка параметров для строки URL*/
+        if (APrm.ProcName) APrm.URL=clSourceURL(APrm.URL, DefaultURL+'Autoproc.html&name='+APrm.ProcName);
+        if (APrm.Template) APrm.URL=clSourceURL(APrm.URL, DefaultURL + APrm.Template);
+        if (APrm.DB) APrm.URL=clSourceURL(APrm.URL, '&db=' + APrm.DB);
+        if (APrm.Library) APrm.FormData.append('library', APrm.Library);
+        if (!APrm.Convert) APrm.URL=clSourceURL(APrm.URL, '&convert=' + "default");
+        if (APrm.Content) APrm.URL=clSourceURL(APrm.URL, '&content=' + APrm.Content);
+        else APrm.URL=clSourceURL(APrm.URL, '&content=none');
+        if (APrm.DomainSource) APrm.URL = APrm.DomainSource + APrm.URL;
+
+        var formData = new FormData(APrm.Form);
+        var Request = new XMLHttpRequest();
+        /*устанавливаем процедуры обратного вызова*/
+        Request.onload=function(AResult)
+        {
+            that.Log.JobEnd();
+            if (!APrm.Stoped)
+            {
+                /* Получение контента */
+                APrm.Content=AResult.target.response;
+                /* Парсинг параметров результата при взведенном флаге Pars */
+                if (APrm.Pars)
+                {
+                    try {APrm.Result = clDOMToObject(AResult.target.responseXML.documentElement)}
+                    catch (e) {that.Log.War(e, true)}
+                }
+
+                /*обработка пользовательской функции после загрузки при наличии*/
+                if (APrm.OnAfterLoad)
+                {
+                    try {APrm.OnAfterLoad(APrm)}
+                    catch (e)
+                    {
+                        that.Log.Err('Error ['+e.message+'] in ['+APrm.OnAfterLoad.name+'] for ['+APrm.URL+']', true)
+                    }
+                }
+            }
+        }
+
+        /*обработчик ошибки вызова*/
+        Request.onerror=function(AResult)
+        {
+            that.Log.JobEnd();
+            that.Log.Err('Post error', true);
+        }
+
+        /*обработчик отмены вызова*/
+        Request.onabort=function(AResult)
+        {
+            that.Log.JobEnd();
+            that.Log.Err('Post abort', true);
+        }
+
+        /*Выполнение события до загрузки если оно назначено*/
+        if (APrm.OnBeforeLoad) APrm.OnBeforeLoad(APrm);
+        console.log('Begin AJAX request for URL:'+APrm.URL);
+
+        APrm.Stoped = false;
+        that.Log.JobBegin();
+        Request.open("POST", APrm.URL);
+        Request.send(APrm.FormData);
+    }
+
+    return this;
+}
+
+/**
+ * Обработка результатов запроса. Если запрос вернул положительные результат то функцяи возвращает true
+ * в противном случае возвращается ошибка выводится в лог
+ */
+TCatlair.prototype.PostResult = function(APrm, AHide)
+{
+    var r = false;
+    if (APrm.Result && APrm.Result.Header)
+    {
+        if (APrm.Result.Header.Code=='Ok') r = true;
+        else this.Log.War(APrm.Result.Header.Message, true);
+    }
+    else
+    {
+        this.Log.War('Unknown header for ['+APrm.URL+']', true);
+        console.log(APrm);
+    }
+    return r;
+}
+
+
+/*
+ *
+ * AParams.Files
+ * AParams.IDParent
+ * AParams.ID
+ */
+
+TCatlair.prototype.FilesUpload = function(AParams)
+{
+    var that=this;
+    /*проверка и загрузка библиотеки при необходмости*/
+    if (!this.File)
+    {
+        cl.ScriptLoad
+        ({
+            ID:'clFile.js',
+            OnAfterLoad: function()
+            {
+                that.File = new TFile();
+                that.File.Params = AParams;
+            }
+        });
+    }
+    else
+    {
+        this.File.Params = AParams;
+    }
+}
+
+
+
+
+/**
+ * Преобразование контента DOM в объект
+ * рекурсивно объходит переданную ноду формирует объект с своствами и методами
+ */
+
+function clDOMToObject(AStartNode, AStartObject)
+{
+    function Recurs(ANode, AObject)
+    {
+        if (ANode.attributes)
+        {
+            var l=ANode.childNodes.length;
+            var i=0;
+            while (i<l)
+            {
+                var iNode = ANode.childNodes[i];
+                if (iNode.nodeType == 1)
+                {
+                    if (iNode.childElementCount==0 && iNode.attributes.length==0 || iNode.firstChild && iNode.firstChild.nodeType==3)
+                    {
+                        if (Array.isArray(AObject)) AObject.push(iNode.textContent);
+                        else AObject[iNode.tagName] = iNode.textContent;
+                    }
+                    else
+                    {
+                        /*Создание массива или объекта для новой ноды*/
+                        if (iNode.getAttribute('Type')=="Array") var iObject = new Array();
+                        else var iObject = new Object();
+                        /*Запись элемента как элемент массива или объект*/
+                        if (Array.isArray(AObject)) AObject.push(iObject);
+                        else AObject[iNode.tagName] = iObject;
+                        /*Взов рекурсии*/
+                        Recurs(iNode,iObject);
+                    }
+                }
+                i++;
+            }
+            /*Сохранение атрибутов в текущий объект*/
+            var l=ANode.attributes.length;
+            var i=0;
+            while (i<l)
+            {
+                var iAttribute = ANode.attributes[i];
+                /*если это не ключ массива, тогда записываем атрибут*/
+                if (iAttribute.name!='Type' && iAttribute.value!='Array') AObject[iAttribute.name] = decodeURIComponent(iAttribute.value);
+                i++;
+            }
+        }
+    }
+
+    if (!AStartObject) AStartObject = new Object();
+    Recurs(AStartNode, AStartObject);
+    return AStartObject;
+}
+
+
+
+/*******************************************************************************
+ * Функции для работы с фэрймом
+ */
+
+
+/**
+ * Определяем в где же хранится загруженный документ
+ */
+function clGetFrameDocument(AFrame)
+{
+ var Result=null;
+ Result=AFrame.contentWindow.document;
+ return Result;
+}
+
+
+
+/**
+ * Получить контент из фрэйма.
+ */
+function clGetFrameContent(AFrame)
+{
+ var Result='';
+ var lDocument=clGetFrameDocument(AFrame);
+ if (lDocument && lDocument.body) Result=lDocument.body.innerHTML;
+ return Result;
+}
+
+
+
+/**
+ * Получить контент из фрэйма по идентификатору контейнера.
+ */
+function clContentByID(AFrame, AObjectID, ADefault)
+{
+ r=ADefault;
+ if (AFrame)
+ {
+  var e=clGetFrameDocument(AFrame).getElementById(AObjectID);
+  if (e) r=e.innerHTML;
+ }
+ return r;
+}
+
+
+function clFindPrepare(AString)
+{
+    return AString.replace(/[^a-zA-Zа-яА-Я0-9_]/g, '');
+}

@@ -1,0 +1,5 @@
+<div title="%ID%">
+ <input type="checkbox" id="%ID%" value="Bind_%ID%" %Enabled% title="Право">
+ <input type="checkbox" value="Inherited_%ID%" %Inherited% title="Наследуется потомками">
+ <label for="%ID%">%Caption%</label>
+</div>

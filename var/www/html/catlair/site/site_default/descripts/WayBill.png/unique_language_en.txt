@@ -1,0 +1,6 @@
+#waybillpng_id
+#file_type
+waybill
+png
+
+file

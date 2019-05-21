@@ -1,0 +1,9 @@
+#readme_id
+#typecontactcontent_type
+#array_id_readme
+#array_idtype_typecontactcontent
+#array_idimage_book.png
+#array_idtypedefault_0
+readme
+
+typecontactcontent

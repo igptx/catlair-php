@@ -1,0 +1,6 @@
+#descriptpng_id
+#file_type
+descript
+png
+file
+файл

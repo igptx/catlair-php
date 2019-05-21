@@ -1,0 +1,7 @@
+#tree_id
+#folder_type
+tree
+дерево
+объектов
+folder
+папка

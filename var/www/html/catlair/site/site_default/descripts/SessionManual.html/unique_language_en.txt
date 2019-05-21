@@ -1,0 +1,6 @@
+#sessionmanualhtml_id
+#content_type
+sessionmanual
+html
+
+content

@@ -1,0 +1,6 @@
+#vpntxt_id
+#content_type
+vpn
+txt
+
+content

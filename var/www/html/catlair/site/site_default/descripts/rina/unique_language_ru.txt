@@ -1,0 +1,5 @@
+#rina_id
+#content_type
+rina
+content
+контент

@@ -1,0 +1,9 @@
+#address_id
+#typecontact_type
+#array_id_address
+#array_idtype_typecontact
+#array_idimage_home.png
+#array_idtypedefault_0
+address
+
+typecontact

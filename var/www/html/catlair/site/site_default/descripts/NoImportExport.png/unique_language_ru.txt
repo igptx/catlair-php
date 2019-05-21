@@ -1,0 +1,6 @@
+#noimportexportpng_id
+#file_type
+noimportexport
+png
+file
+файл

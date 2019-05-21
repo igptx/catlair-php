@@ -1,0 +1,95 @@
+<cl header="Content-Type: text/css"/>
+
+/**
+ * CSS for Window
+ */
+
+
+/*
+ * Full screen obect for widow
+ */
+.PopupFullScreen
+{
+    position:fixed; 
+    top:0; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    background-color: white;
+}
+
+
+
+.WinControl
+{
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+}
+
+
+.WindowToolbar
+{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;    
+    display: flex;
+    justify-content: space-between;    
+}
+
+
+
+.WindowToolbar .Toolbar
+{
+    width:auto;
+    height:4em;
+    overflow:hidden;
+}
+
+
+
+.WindowContent
+{
+    position:absolute; 
+    top:4em; 
+    bottom:0.1em; 
+    left:0.1em; 
+    right:0.1em; 
+    overflow:auto;
+}
+
+
+
+.WinControl
+{
+    z-index: 99999;    
+    padding: 0.5em;
+    font-size: 0.8em;
+    display: flex;
+    flex-wrap:wrap;
+    max-width: 50%;
+}
+
+.WinControl .WinIcon
+{
+    background-image:url(?&image=Info.png&scalex=32&scaley=32); 
+    background-size:2em 2em; 
+    background-position:0.5em 0.5em; 
+    background-repeat:no-repeat; 
+    padding:0.5em 0.5em 0.5em 3em; 
+    min-height:2em;
+}
+
+.WinControl .WinIcon .Caption
+{
+    max-height:3.8em; 
+    max-width:10em;
+    overflow:hidden;
+}
+
+.WinControl .WinIcon .Group
+{
+    font-size:0.8em;
+}
+

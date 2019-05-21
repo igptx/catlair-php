@@ -1,0 +1,5 @@
+#descriptbindrecord_id
+#content_type
+descriptbindrecord
+
+content

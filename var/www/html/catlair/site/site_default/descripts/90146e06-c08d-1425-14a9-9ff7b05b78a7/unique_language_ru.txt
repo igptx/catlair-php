@@ -1,0 +1,13 @@
+#90146e06c08d142514a99ff7b05b78a7_id
+#unit_type
+#array_id_90146e06c08d142514a99ff7b05b78a7
+#array_idtype_unit
+#array_idimage_clock.png
+#array_idtypedefault_0
+90146e06
+c08d
+1425
+14a9
+9ff7b05b78a7
+час
+unit

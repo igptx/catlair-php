@@ -1,0 +1,6 @@
+#image_bitmappng_id
+#file_type
+image_bitmap
+png
+file
+файл

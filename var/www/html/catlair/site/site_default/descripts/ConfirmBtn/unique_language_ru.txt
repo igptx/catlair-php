@@ -1,0 +1,7 @@
+#confirmbtn_id
+#content_type
+confirmbtn
+конпка
+подтверждения
+действий
+content

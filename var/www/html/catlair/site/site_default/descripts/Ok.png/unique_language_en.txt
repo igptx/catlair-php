@@ -1,0 +1,6 @@
+#okpng_id
+#file_type
+ok
+png
+
+file

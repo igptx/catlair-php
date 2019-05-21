@@ -1,0 +1,6 @@
+#heraclysvg_id
+#file_type
+heracly
+svg
+
+file

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="JS" IDBind="bind_default"/>
+  <bind IDParent="JS" IDBind="bind_right"/>
+</binds>

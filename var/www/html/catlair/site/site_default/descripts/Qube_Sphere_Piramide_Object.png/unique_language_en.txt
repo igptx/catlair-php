@@ -1,0 +1,6 @@
+#qube_sphere_piramide_objectpng_id
+#file_type
+qube_sphere_piramide_object
+png
+
+file

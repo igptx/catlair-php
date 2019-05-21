@@ -1,0 +1,6 @@
+#safepng_id
+#file_type
+safe
+png
+
+file

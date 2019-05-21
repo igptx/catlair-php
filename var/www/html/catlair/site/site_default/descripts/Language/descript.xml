@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>Language</ID>
+    <Type>Object</Type>
+    <Langs>
+        <language_default>
+            <Caption></Caption>
+        </language_default>
+    <language_ru><Caption>Язык</Caption></language_ru></Langs>
+    <Indexate>on</Indexate>
+<IDTypeDefault>0</IDTypeDefault><IDImage>Language.png</IDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA></descript>

@@ -1,0 +1,6 @@
+#questionpng_id
+#file_type
+question
+png
+file
+файл

@@ -1,0 +1,9 @@
+#test_id
+#folder_type
+#array_id_test
+#array_idtype_folder
+#array_idimage_source.png
+#array_idtypedefault_0
+test
+
+folder

@@ -1,0 +1,9 @@
+#filefolder_id
+#folder_type
+#array_id_filefolder
+#array_idtype_folder
+#array_idimage_
+#array_idtypedefault_0
+filefolder
+графика
+folder

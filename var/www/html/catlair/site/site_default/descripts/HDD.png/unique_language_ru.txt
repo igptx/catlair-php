@@ -1,0 +1,6 @@
+#hddpng_id
+#file_type
+hdd
+png
+file
+файл

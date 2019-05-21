@@ -1,0 +1,6 @@
+#piramidepng_id
+#file_type
+piramide
+png
+
+file

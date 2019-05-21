@@ -1,0 +1,6 @@
+#theorymanualhtml_id
+#content_type
+theorymanual
+html
+
+content

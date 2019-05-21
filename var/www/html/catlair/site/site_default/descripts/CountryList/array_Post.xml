@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Post><ID>CountryList</ID><IDType>Folder</IDType><CaptionIDType>Папка</CaptionIDType><Caption>Перечень</Caption><IDImage></IDImage><CaptionIDImage></CaptionIDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA><IDTypeDefault>Country</IDTypeDefault><CaptionIDTypeDefault>Страна</CaptionIDTypeDefault><Enabled>on</Enabled><library>descript_update</library></Post>

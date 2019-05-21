@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDParent="Manual.html" IDBind="bind_right" Inherited="1"/><bind IDParent="IntroManual.html" IDBind="bind_default" Inherited="1"/></binds>

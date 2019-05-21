@@ -1,0 +1,5 @@
+#ru_id
+#country_type
+ru
+
+country

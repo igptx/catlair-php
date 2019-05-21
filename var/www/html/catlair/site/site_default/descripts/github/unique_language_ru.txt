@@ -1,0 +1,9 @@
+#github_id
+#folder_type
+#array_id_github
+#array_idtype_folder
+#array_idimage_github.png
+#array_idtypedefault_0
+github
+folder
+папка

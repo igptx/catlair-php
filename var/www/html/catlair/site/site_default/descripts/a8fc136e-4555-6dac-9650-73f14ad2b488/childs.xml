@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="SiteCreateForm.html" IDBind="bind_default"/><bind IDChild="SiteCreateForm.html" IDBind="bind_right"/><bind IDChild="SiteCreate.js" IDBind="bind_default"/><bind IDChild="SiteCreate.js" IDBind="bind_right"/></binds>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Post><ID>Unit</ID><IDType>Object</IDType><CaptionIDType>Объект</CaptionIDType><Caption>Единица измерения</Caption><IDImage>Unit.png</IDImage><CaptionIDImage>Unit.png</CaptionIDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA><IDTypeDefault>Folder</IDTypeDefault><CaptionIDTypeDefault>Папка</CaptionIDTypeDefault><library>descript_update</library></Post>

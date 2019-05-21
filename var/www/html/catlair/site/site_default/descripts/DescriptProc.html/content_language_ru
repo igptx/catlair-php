@@ -1,0 +1,6 @@
+<cl>
+ <header value="Content-Type: text/html;charset=UTF-8"/>
+ <header value="Content-Language: ru"/>
+</cl>
+
+<cl content="DescriptForm.html" exec="DescriptPrepare"/>

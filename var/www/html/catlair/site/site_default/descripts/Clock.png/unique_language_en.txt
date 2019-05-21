@@ -1,0 +1,6 @@
+#clockpng_id
+#file_type
+clock
+png
+
+file

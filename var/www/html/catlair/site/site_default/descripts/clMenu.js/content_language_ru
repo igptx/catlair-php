@@ -1,0 +1,271 @@
+/******************************************************************************
+ * Выпадающее меню
+ * Catlair JS
+ * Скрипт содержит функции позволяющие управлять выпадающими меню.
+ * Расширяет возможности класса TCatlair
+ * Вроде бы скрипт доведён до работоспособного состояния.
+ */
+
+cl.StyleLoad({ID:'Menu.css'});
+
+/*Перечень символических констант определяющих метод получения информации для выпадающего меню*/
+var tcNone=0; /*Контент не загружается*/
+var tcText=1; /*Текстовое содержимое*/
+var tcURL=2; /*Ссылка на URL которая будет загружена*/
+var tcObject=3; /*ID объекта из которого будет принят контент*/
+var tcObjectURI=4; /*ID объекта из которого будет принят контент в URI*/
+var tcURLCache=5; /*Ссылка на URL которая будет загружена в меню и может быть закеширована*/
+
+var ptDefault=1;
+
+var mtInfo = 'info';
+var mtWarning = 'warning';
+var mtError = 'error';
+var mtConfirm = 'confirm';
+
+var mbOk = 'mbOk';
+var mbCancel = 'mbCancel';
+
+
+
+/**
+ * вывод диалога подтверждения с одной кнопкой в стиле ДА-УВЕРЕН
+ * AParams.
+ */
+TCatlair.prototype.Confirm = function(AParams)
+{
+    // Дополение параметров
+    if (AParams.ImageClass === undefined) AParams.ImageClass = "ImageOk";
+    if (AParams.Caption === undefined) AParams.Caption = "Ok";
+    // Построение контента
+    var Content=decodeURIComponent('<cl content="ConfirmBtn.html" Pars="True" Convert="URI"/>');
+    Content = clContentFromObject(AParams, Content);
+    // Вывод окошка с кнопкой
+    var Popup = this.Popup({ID:'clConfirmBtn', TypeContent:tcText, Content:Content});
+    Popup.ChildByID('ConfirmObject').onclick=function()
+    {
+        if (AParams.OnClick) AParams.OnClick(AParams);
+        Popup.Close();
+    }
+}
+
+
+
+/**
+ * Функция открывающая меню
+ * AParams.ID - id объекта используемого как выпадающее меню. Рекомендуется DIV. В случае если параметр не передан пустым, используется  объект с идентификатором clPopupMenu.
+ * AParams.TypeContent - тип контента.
+ * AParams.Content - значение интерпритируемое в зависимости от типа контента.
+ * AParams.Pos - позиция на экране. Если не передана, то попап выводится на мышкурсоре.
+ * AParams.Class - имя класса которое будет примененео к окну если указано
+ * AParams.FullScreen - признак того что попап открывается на всеь экран
+ */
+TCatlair.prototype.Popup = function(AParams)
+{
+    var that = this;
+
+    /*
+     Функция обратного вызова для таймера корректировки положения окна на экране.
+     Выполняет перемещение меню в рамку экрана
+    */
+    function WinPos(AObject)
+    {
+        var DocSize = new clVector().Load(clGetSizeDocument()); /*размер документа*/
+        var ObjPos = new clVector().Load(clGetObjectPos(AObject)); /*размер объекта*/
+        var ObjSize = new clVector().Load(clGetObjectSize(AObject)); /*размер объекта*/
+        var NewObjPos = new clVector().Load(ObjPos); /*новая позиция объекта*/
+
+        if (DocSize.x < ObjPos.x+ObjSize.x-5) NewObjPos.x = DocSize.x - ObjSize.x-5;
+        if (DocSize.y < ObjPos.y+ObjSize.y-5) NewObjPos.y = DocSize.y - ObjSize.y-5;
+        if (NewObjPos.x < 5) NewObjPos.x = 5;
+        if (NewObjPos.y < 5) NewObjPos.y = 5;
+
+        if (!ObjPos.Equal(NewObjPos)) clSetObjectPos(AObject, NewObjPos);
+    }
+
+
+    function Show(AObject)
+    {
+        that.ChangePopupDepth(2);
+
+        /*Устанавливаем видимость объект подложки*/
+        AObject.Back.style.display= null;
+        AObject.Back.style.zIndex = that.GetPopupDepth();
+
+        /*Устанавливаем видимость*/
+        AObject.style.zIndex = that.GetPopupDepth()+1;
+        AObject.style.display = null;
+
+        /*создаем таймер для позиционирования открытых окон в случае если позиционирование необходимо*/
+        if (AObject.Timer==null && AObject.p!=ptDefault && !AParams.FullScreen)
+        {
+            AObject.Timer=setInterval
+            (
+                function()
+                {
+                    WinPos(AObject)
+                },
+                100
+            );
+        }
+
+        if (AObject.Pos!=ptDefault && !AParams.FullScreen) WinPos(AObject);
+    }
+
+    /*Проверка параметров*/
+    if (!AParams.ID) AParams.ID = 'clPopupMenu';
+    if (!AParams.Class) AParams.Class = 'MenuPopup';
+    if (!AParams.Pos) AParams.Pos = clVec(posX-5, posY-5);
+
+    /*Создание объекта самого окна если оно не существует*/
+    var obj=document.getElementById(AParams.ID);
+    if (!obj)
+    {
+        /*Не удалось найти элемент, значит создаем его*/
+        obj=document.createElement('div'); /*Создали элемент*/
+        obj.style.display='none';
+        obj.id=AParams.ID;
+        obj.name=AParams.ID;
+        obj.className = AParams.Class;
+        obj.innerHTML='';
+        obj.Delete=true;
+        obj.style.position='fixed';
+        if (AParams.FullScreen)
+        {
+            obj.style.top='0';
+            obj.style.bottom='0';
+            obj.style.left='0';
+            obj.style.right='0';
+        }
+        document.body.appendChild(obj);
+    }
+
+    /*Создание объекта подложки покрывающего весь экран если его не существует*/
+    if (!obj.Back)
+    {
+        /* объект выводимый на фон для определения клика мимо Popup */
+        obj.Back = document.createElement('div'); /*Создали элемент*/
+        obj.Back.style.position='fixed';
+        obj.Back.style.top='0px';
+        obj.Back.style.bottom='0px';
+        obj.Back.style.left='0px';
+        obj.Back.style.right='0px';
+        obj.Back.style.display='none';
+        obj.Back.id='clBackObject';
+        obj.Back.className='BackObject';
+        obj.Back.innerHTML='';
+        obj.Back.onclick=function()
+        {
+            obj.Close();
+        };
+        document.body.appendChild(obj.Back);
+    }
+
+    /*Устанавливаем процедуру закрытия окошка*/
+    obj.Close = function()
+    {
+        /*Останавливаем таймер центрирования окошка*/
+        clearInterval(this.Timer);
+        this.Timer=null;
+        /*Удаление фонового объекта*/
+        if (this.Back)
+        {
+            this.Back.style.display='none';
+            this.Back.parentNode.removeChild(this.Back);
+            this.Back=null;
+        }
+        /*Убираем объект с экрана*/
+        this.style.display='none';
+        if (this.Delete)
+        {
+            this.innerHTML='';
+            this.parentNode.removeChild(this);
+            this.remove;
+        }
+        that.ChangePopupDepth(-2);
+    }
+
+    /*устанавливаем позицию если передана позиция*/
+    if (AParams.Pos != ptDefault && !AParams.FullScreen) clSetObjectPos(obj, AParams.Pos);
+
+    /*определяем тип контента*/
+    switch(AParams.TypeContent)
+    {
+        case tcNone:
+            Show(obj);
+            break;
+        /*загружаем контент переданный в параметр*/
+        case tcText:
+            obj.innerHTML=AParams.Content;
+            Show(obj);
+            break;
+        /*загружаем контент из объекта*/
+        case tcObject:
+            objContent=document.getElementById(AContent);
+            if (objContent.innerHTML!='')
+            {
+                obj.innerHTML=objContent.innerHTML;
+                Show(obj);
+            }
+            break;
+        /*загружаем контент из урла*/
+        case tcURL:
+            obj.innerHTML='';
+            this.Post
+            (
+                {
+                    URL:AContent,
+                    Conteiner:obj,
+                    Message:AMessage,
+                    OnAfterLoad: function()
+                    {
+                        /*Функция обратного вызова для события завершения загрузки*/
+                        var lContent=clGetFrameContent(p.Frame);
+                        if (lContent!='')
+                        {
+                            p.Conteiner.innerHTML=lContent;
+                            if (p.Conteiner.p!=ptDefault) clSetObjectPos(p.Conteiner, p.Conteiner.p); /*возвращаем объект на место*/
+                            Show(p.Conteiner);
+                        }
+                    }
+                }
+            );
+            break;
+        /*загружаем контент из объекта*/
+        case tcObjectURI:
+            objContent=document.getElementById(AContent);
+            if (objContent.innerHTML!='')
+            {
+                obj.innerHTML=decodeURIComponent(objContent.innerHTML);
+                if (AParams.Pos!=ptDefault) clSetObjectPos(obj, obj.p);
+                Show(obj);
+            }
+            break;
+    }
+
+
+    AParams.Popup = obj;
+    return obj;
+}
+
+
+
+/**
+ * Изменение глубины вызова попапов
+ */
+TCatlair.prototype.ChangePopupDepth = function(AValue)
+{
+    if (!this.PopupDepth) this.PopupDepth = 0;
+    this.PopupDepth = this.PopupDepth + AValue;
+}
+
+
+
+/**
+ * Изменение глубины вызова попапов
+ */
+TCatlair.prototype.GetPopupDepth = function()
+{
+    if (!this.PopupDepth) this.PopupDepth = 0;
+    return this.PopupDepth+100;
+}

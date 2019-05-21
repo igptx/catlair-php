@@ -1,0 +1,11 @@
+#iconcolorfolder_id
+#folder_type
+#array_id_iconcolorfolder
+#array_idtype_folder
+#array_idimage_image_bitmap.png
+#array_idtypedefault_0
+iconcolorfolder
+иконки
+цвет
+folder
+папка

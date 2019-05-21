@@ -1,0 +1,8 @@
+#descriptselectmenu_id
+#agent_type
+descriptselectmenu
+меню
+выбора
+дескрипта
+agent
+агент

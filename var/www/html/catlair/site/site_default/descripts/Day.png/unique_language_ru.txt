@@ -1,0 +1,5 @@
+#daypng_id
+#file_type
+day
+png
+file

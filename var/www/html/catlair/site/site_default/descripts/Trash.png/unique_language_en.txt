@@ -1,0 +1,6 @@
+#trashpng_id
+#file_type
+trash
+png
+
+file

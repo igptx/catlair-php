@@ -1,0 +1,6 @@
+#docpng_id
+#file_type
+doc
+png
+
+file

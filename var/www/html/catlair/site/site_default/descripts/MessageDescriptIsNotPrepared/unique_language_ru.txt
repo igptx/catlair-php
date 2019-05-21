@@ -1,0 +1,10 @@
+#messagedescriptisnotprepared_id
+#content_type
+messagedescriptisnotprepared
+дескрипт
+не
+подготовлен
+для
+операции
+content
+контент

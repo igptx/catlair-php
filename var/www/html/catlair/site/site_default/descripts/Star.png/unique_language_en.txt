@@ -1,0 +1,6 @@
+#starpng_id
+#file_type
+star
+png
+
+file

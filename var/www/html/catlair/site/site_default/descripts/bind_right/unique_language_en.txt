@@ -1,0 +1,5 @@
+#bind_right_id
+#bind_type
+bind_right
+
+bind

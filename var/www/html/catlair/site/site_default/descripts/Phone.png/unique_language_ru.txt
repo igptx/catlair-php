@@ -1,0 +1,6 @@
+#phonepng_id
+#file_type
+phone
+png
+file
+файл

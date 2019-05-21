@@ -1,0 +1,6 @@
+#changepng_id
+#file_type
+change
+png
+
+file

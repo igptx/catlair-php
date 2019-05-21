@@ -1,0 +1,188 @@
+<h1>
+    Install and setings
+</h1>
+
+<h2>
+    Operation system
+</h2>
+
+<p>
+    As an operation system is any actual version of Linux. Serviceability tested on <a href="https://www.ubuntu.com/download/server">Ubuntu</a>, <a href="https://www.debian.org/">Debian</a>.
+</p>
+
+<p class="Warning">
+   Is reccomended installation on "pure" server. If you have any web application on the server, you need to undestand what you are doing, and effects for your applications.
+</p>
+
+<h3>
+    Install software
+</h3>
+
+<p>
+    In the begining we need to update operation system and install following software <a href="https://nginx.org/ru/" target="_blank">nginx</a>, <a href="https://www.php.net/" target="_blank">php</a>, <a href="https://www.7-zip.org/" target="_blank">7z</a>, <a href="https://curl.haxx.se/" target="_blank">curl</a>.
+
+    <code>
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y autoclean
+sudo apt -y install nginx nginx-extras php-common php-cli php-fpm php-gd php-xml php-mbstring p7zip curl
+    </code>
+</p>
+
+<p>
+     After that we check servisability of the web server, going to adress <var>http://[сервер]</var>. After a successful installation, we can get information about nginx.
+.
+</p>
+
+<h2>
+    NGIX settings
+</h2>
+
+<p>
+    We modify to confugure file <var>/etc/nginx/sites-enabled/default</var>.
+    <code>
+sudo nano /etc/nginx/sites-enabled/default
+    </code>
+</p>
+
+<p>
+    The line in section <var>server</var> key <var>index</var> must looks like this:
+    <code>
+index catlair/site/site_default/php/cl.php
+    </code>
+</p>
+
+<p>
+    Futher we uncomment the section:
+    <code>
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+}
+    </code>
+</p>
+
+<p>
+    Restart the nginx:
+    <code>
+sudo service nginx restart
+    </code>
+</p>
+
+<p>
+    If nginx is restarted, we can see the information about his version on web page.
+</p>
+
+<h2>
+     PHP settings
+</h2>
+
+<p>
+    Детальные рекомендации по инсталляции и настройке PHP находятся <a href="http://php.net/manual/ru/install.php">тут</a>.
+</p>
+
+<p>
+    Необходимо внести изменения в конфигурационные файлы <var>/etc/php/7.2/fpm/php.ini</var>.
+    <code>
+sudo nano /etc/php/7.2/fpm/php.ini
+    </code>
+    Параметры необходимо изменить:
+    <code>
+memory_limit = 128M
+post_max_size=2000М
+upload_max_filesize=200M
+max_file_uploads = 100
+    </code>
+    В последствии данные параметры имеет смысл изменить под ваши конкретные нужды.
+</p>
+
+<p>
+   После установки параметров необходимо перезапустить php.
+   <code>
+sudo service php7.2-fpm restart
+   </code>
+</p>
+
+<h2>
+    Установка Catlair
+</h2>
+
+<p>
+    Скачиваем <a href="?file=catlair.7z">текущий релиз</a>, распаковываем его и удалем архив.
+    <code>
+sudo curl 'http://catlair.net/?&file=catlair.7z' -o /tmp/catlair.7z
+sudo 7z -y x /tmp/catlair.7z -o/
+sudo rm /tmp/catlair.7z
+    </code>
+</p>
+
+<p>
+    Запускаем переиндексацию декскриптов:
+    <code>
+sudo php /var/www/html/catlair/site/site_default/php/descript_index_cli.php '*' site_default language_ru clear
+    </code>
+    После завершения процедуры будут построены поисковые индексы.
+</p>
+
+<p>
+    Запускаем раздачу прав:
+    <code>
+sudo /var/www/right.sh;
+    </code>
+    Данная процедура выполняет раздачу прав к новым папкам и файлам <var>/var/www/html/*</var> для пользователя вебсервера.
+</p>
+
+<p>
+    После выполнения указанных действий у вас есть копия Catlair. Обратившись по адресу <a href="http://localhost" target="_blank">http://localhost</a> с локальной машины вы можете открыть веб страницу.
+</p>
+
+<p>
+    В случае если вы работаете с удаленного компьютера открыть страницу Catlair на вашем сервере возможное перейдя по ссылке <var>http://[ваш сервер]?/domain=localhost
+</p>
+
+
+<h2>
+   Создание первого сайта
+</h2>
+
+<p>
+    У вас уже работает сайт <var>default_site</var>. Однако не рекомендуется в него вносить изменения, так как это исключает возможность дальнейших обновлений. Для ваших задач следует создать новый сайт. Выполните команду заменив <var>new_site</var> на необходимый вам идентификатор. Пробелы лучше не использовать.
+    <code>
+sudo php /var/www/html/catlair/site/site_default/php/site_create_cli.php "new_site"
+    </code>
+</p>
+<p>
+    Далее следует создать домен для вашего сайта на котором он будет доступен. Идентификаторы <var>new_site</var> и <var>new.domain</var> должны быть заменены на необходимые вам.
+    <code>
+sudo php /var/www/html/catlair/site/site_default/php/domain_create_cli.php "new_site" "new.domain"
+    </code>
+</p>
+<p>
+    Далее необходимо создать создать учетную запись для администрирования вашего сайта.
+    <code>
+sudo php /var/www/html/catlair/site/site_default/php/account_create_cli.php "new_site" "administrator"
+    </code>
+</p>
+<p>
+    Изменить пароль для вновь созданного пользователя.
+    <code>
+sudo php /var/www/html/catlair/site/site_default/php/account_password_cli.php "new_site" "administrator" "password"
+    </code>
+</p>
+
+
+<p>
+    Запускаем раздачу прав.
+    <code>
+sudo /var/www/right.sh
+    </code>
+</p>
+
+
+<p>
+    Теперь ваш новый сайт должен быть доступен по адресу <var>http://[ваш сервер]?/domain=new.domain</var>. Если имя <var>new.domain</var> разрешается в IP адрес вашего сервера то сайт будет доступен по ссылке <var>http://new.domain</var>.
+</p>
+
+<p>
+    Установка завершена. Дальнейшие действия можно производить из административной консоли.
+</p>

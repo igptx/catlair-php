@@ -1,0 +1,25 @@
+function clFileFormInit(ADescript)
+{
+    ADescript.ImageClearCache = function()
+    {
+       cl.Post
+       ({
+           URL:'ID='+ADescript.ID,
+           TypeContent:tcXML,
+           Pars:true,
+           Library:'file_clear_cache',
+           ProcName:'FileClearCache',
+           /*Отработка после загрузки*/
+           OnAfterLoad:function(p)
+           {
+               cl.PostResult(p, true);
+           }
+        });
+    }
+
+    ADescript.Window.ChildByID('ImageClearCache').onclick = function()
+    {
+        ADescript.ImageClearCache();
+    }
+}
+

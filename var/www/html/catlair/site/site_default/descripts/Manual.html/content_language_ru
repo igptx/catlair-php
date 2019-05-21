@@ -1,0 +1,7 @@
+<style>
+    .ManualTopic a
+    {
+        display:block;
+    }
+</style>
+<cl content="%manual%" pars="true"/>

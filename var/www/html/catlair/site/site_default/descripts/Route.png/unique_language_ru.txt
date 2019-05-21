@@ -1,0 +1,6 @@
+#routepng_id
+#file_type
+route
+png
+file
+файл

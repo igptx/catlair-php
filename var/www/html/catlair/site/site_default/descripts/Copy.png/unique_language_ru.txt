@@ -1,0 +1,5 @@
+#copypng_id
+#file_type
+copy
+png
+file

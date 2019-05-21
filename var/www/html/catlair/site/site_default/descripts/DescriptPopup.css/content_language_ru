@@ -1,0 +1,60 @@
+<cl header="Content-Type: text/css"/>
+
+
+.DescriptPopup
+{
+    min-width:15em;
+}
+
+
+.DescriptPopup .Records
+{
+    max-height:15em; 
+    overflow:auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content:flex-start;
+}
+
+
+
+
+
+.DescriptPopup .Records .Record
+{
+    width: 15em;
+}
+
+
+
+.DescriptPopup .Records .Record .Frame
+{
+   padding:0.2em 0.5em 0.2em 3em;
+   background-repeat:no-repeat;
+   background-position:0.5em center;
+   background-size: 2em 2em;
+}
+
+
+
+.DescriptPopup .Records .Record .Frame .Caption
+{
+    font-weight:bolder;
+}
+
+
+
+.DescriptPopup .Records .Record .Frame .CaptionType
+{
+    font-size:0.75em;
+}
+
+
+.DescriptPopup .Records .Record .Frame .ID
+{
+    font-size:0.6em;
+}
+
+

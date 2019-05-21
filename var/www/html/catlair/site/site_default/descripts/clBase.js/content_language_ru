@@ -1,0 +1,15 @@
+<cl>
+ <header value="Content-Type: text/javascript;charset=UTF-8"/>
+ <header value="Content-Language: ru"/>
+</cl>
+
+<cl content="clAuth.js"/>
+<cl content="clAJAX.js"/>
+<cl content="clDebug.js"/>
+<cl content="clMoment.js"/>
+<cl content="clString.js"/>
+<cl content="clMD5.js"/>
+<cl content="clMenu.js"/>
+<cl content="clVector.js"/>
+<cl content="clMouse.js"/>
+<cl content="RGBA.js"/>

@@ -1,0 +1,6 @@
+#quartzpng_id
+#file_type
+quartz
+png
+file
+файл

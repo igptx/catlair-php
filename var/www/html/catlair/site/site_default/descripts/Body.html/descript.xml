@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>Body.html</ID>
+    <Type>Content</Type>
+    <Langs>
+    <default>
+    <Caption>Основное оформление сайта</Caption>
+    </default>
+        <language_default>
+            <Caption></Caption>
+        </language_default>
+    <language_ru><Caption>Основное оформление сайта</Caption></language_ru></Langs>
+    <Indexate>on</Indexate>
+</descript>

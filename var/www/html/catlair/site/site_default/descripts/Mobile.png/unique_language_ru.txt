@@ -1,0 +1,6 @@
+#mobilepng_id
+#file_type
+mobile
+png
+file
+файл

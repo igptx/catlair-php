@@ -1,0 +1,6 @@
+#1cpng_id
+#file_type
+1c
+png
+
+file

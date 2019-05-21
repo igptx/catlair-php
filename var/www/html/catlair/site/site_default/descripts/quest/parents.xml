@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="Account" IDBind="bind_right"/>
+</binds>

@@ -1,0 +1,6 @@
+#ru_id
+#country_type
+ru
+россия
+country
+страна

@@ -1,0 +1,8 @@
+#descriptbindproc_id
+#content_type
+descriptbindproc
+форма
+списка
+связей
+content
+контент

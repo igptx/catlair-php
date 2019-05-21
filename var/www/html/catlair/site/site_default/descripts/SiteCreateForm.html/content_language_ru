@@ -1,0 +1,38 @@
+<h1>
+    Создание сайта
+</h1>
+
+<form method="post" id="Form" style="min-width:30em;">
+
+    <div class="Group">
+        <h2>
+            Параметры сайта
+        </h2>
+        <div class="Line">
+            <div class="Caption">
+                Идентификатор
+            </div>
+            <div class="Data">
+                <input type="text" name="ID" id="ID" placeholder="в последствии неизменный" autocomplete="off">
+            </div>
+        </div>
+        <div class="Line">
+            <div class="Caption">
+                Наименование
+            </div>
+            <div class="Data">
+                <input name="Caption" id="Caption" placeholder="возможно изменение в последствии">
+            </div>
+        </div>
+    </div>
+
+    <div class="Toolbar">
+        <button type="button" class="Unselected ImageOk" id="BtnOk">
+            Создать сайт
+        </button>
+        <button type="button" class="Unselected ImageCancel" id="BtnCancel">
+            Отмена
+        </button>
+    </div>
+
+</form>

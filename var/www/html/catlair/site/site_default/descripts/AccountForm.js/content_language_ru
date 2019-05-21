@@ -1,0 +1,15 @@
+function clAccountFormInit(ADescript)
+{
+    cl.ScriptLoad({ID:'clAccount.js'});
+    ADescript.Window.ChildByID('ChangePassword').onclick = function()
+    {
+        cl.ScriptWait
+        (
+            ['clAccount.js'],
+            function()
+            {
+                ADescript.PasswordAdminPopup();
+            }
+        );
+    }
+}

@@ -1,0 +1,6 @@
+#importpng_id
+#file_type
+import
+png
+file
+файл

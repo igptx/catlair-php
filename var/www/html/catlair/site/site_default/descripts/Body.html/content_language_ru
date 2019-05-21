@@ -1,0 +1,9 @@
+<div class="Top">
+ <cl content="Top.html"/>
+</div>
+<div class="Page">
+ <cl content="%page%"/>
+</div>
+<div class="Bottom">
+ <cl content="Bottom.html"/>
+</div>

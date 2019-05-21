@@ -1,0 +1,207 @@
+/*
+-----------------------------------------------------
+Модуль работы с координатами cl.js.Vector
+-----------------------------------------------------
+JavaScript «Catlair»
+http://catlair.net/index.asp?template=cl.js.Vector&optimize=1
+-----------------------------------------------------
+Планы:
+1. Сделать надо нормальный генератор RND и на него переделать метод RND для получения случайной точки.
+2. Вычистить функции clVec*.
+
+Замечания:
+1. Функциями clVec* не пользоваться. Они по сути работают гораздо медленее. Использовать clVector и его методы.
+-----------------------------------------------------
+*/
+
+
+/*----------------------------------------------------
+Константа малой величины. Применяется для сравнения с значение близких к нулю. Если значение меньше Epsilon то значит она равна нулю.
+-----------------------------------------------------*/
+var clEpsilon=0.00000001;
+var clEpsilonLength=8;
+
+var clXVector = new clVector(1,0,0);
+var clYVector = new clVector(0,1,0);
+var clZVector = new clVector(0,0,1);
+var clPI2 = Math.PI*2;
+var clPI1 = Math.PI;
+var clPI05 = Math.PI*0.5;
+
+function clEpsilonControl(A)
+{
+ if (Math.abs(A) < clEpsilon) {return 0} else {return A};
+}
+
+
+
+function clVector(AX, AY, AZ)
+{
+ if (AX) {this.x=AX} else {this.x=0};
+ if (AY) {this.y=AY} else {this.y=0};
+ if (AZ) {this.z=AZ} else {this.z=0};
+ return this;
+}
+
+
+clVector.prototype = 
+{
+ x:0,
+ y:0,
+ z:0,
+
+ Set: function(AX, AY, AZ)
+ {
+  this.x=AX;
+  this.y=AY;
+  this.z=AZ;
+  return this;
+ },
+
+ Get:function ()
+ {
+  return new clVector(this.x, this.y, this.z);
+ },
+
+ Zero: function()
+ {
+  this.x=0;
+  this.y=0;
+  this.z=0;
+  return this;
+ },
+
+
+ Mov: function(AVector)
+ {
+  AVector.x=this.x;
+  AVector.y=this.y;
+  AVector.z=this.z;
+  return AVector;
+ },
+
+ Not: function()
+ {
+  this.x=-this.x;
+  this.y=-this.y;
+  this.z=-this.z;
+  return this;
+ },
+
+ GetNot: function()
+ {
+  return new clVector(-this.x, -this.y, -this.z);
+ },
+
+ Equal: function(AVector)
+ {
+  return (Math.abs(this.x-AVector.x) < clEpsilon && Math.abs(this.y-AVector.y) < clEpsilon && Math.abs(this.z-AVector.z) < clEpsilon);
+ },
+
+
+ Epsilon: function()
+ {
+  return (Math.abs(this.x) < clEpsilon && Math.abs(this.y) < clEpsilon && Math.abs(this.z) < clEpsilon);
+ },
+
+ Add: function(AVector)
+ {
+  this.x=this.x+AVector.x;
+  this.y=this.y+AVector.y;
+  this.z=this.z+AVector.z;
+  return this;  
+ },
+
+ GetAdd: function(AVector)
+ {
+  return new clVector(this.x+AVector.x, this.y+AVector.y, this.z+AVector.z);
+ },
+
+ Sub: function(AVector)
+ {
+  this.x=this.x-AVector.x;
+  this.y=this.y-AVector.y;
+  this.z=this.z-AVector.z;
+  return this;  
+ },
+
+ GetSub: function(AVector)
+ {
+  return new clVector(this.x-AVector.x, this.y-AVector.y, this.z-AVector.z);  
+ },
+
+ Scal: function(AScale)
+ {
+  this.x=this.x*AScale;
+  this.y=this.y*AScale;
+  this.z=this.z*AScale;
+  return this;  
+ },
+
+ GetScal: function(AScale)
+ {
+  return new clVector(this.x*AScale, this.y*AScale, this.z*AScale);  
+ },
+
+ Mul: function(AVector)
+ {
+  this.x=this.x*AVector.x;
+  this.y=this.y*AVector.y;
+  this.z=this.z*AVector.z;
+  return this;  
+ },
+
+ GetMul: function(AVector)
+ {
+  return new clVector(this.x*AVector.x, this.y*AVector.y, this.z*AVector.z);  
+ },
+
+ String: function()
+ {
+  return 'x:'+clFloatToStr(this.x)+' y:'+clFloatToStr(this.y)+' z:'+clFloatToStr(this.z);
+ }
+
+};
+
+
+
+clVector.prototype.Load = function(AVector)
+{
+ this.x=AVector.x;
+ this.y=AVector.y;
+ this.z=AVector.z;
+ this.v=AVector.v;
+ return this;
+};
+
+
+
+/*
+-----------------------------------------------------
+Нижеселедующий мусор надо вычистить
+-----------------------------------------------------
+*/
+
+function clVecZero()
+{
+ return {x:0, y:0}
+}
+
+function clVec(AX, AY)
+{
+ return {x:AX, y:AY}
+}
+
+function clVecAdd(v1,v2)
+{
+ var x=v1.x+v2.x;
+ var y=v1.y+v2.y;
+ return {x:x, y:y}
+}
+
+function clVecSub(v1,v2)
+{
+ var x=v1.x-v2.x;
+ var y=v1.y-v2.y;
+ return {'x':x, 'y':y}
+}

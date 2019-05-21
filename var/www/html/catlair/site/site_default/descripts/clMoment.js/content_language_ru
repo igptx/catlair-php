@@ -1,0 +1,319 @@
+/*
+http://learn.javascript.ru/datetime-functions
+*/
+
+/*Описание константных значений*/
+/*Количество миллисекундах в единицах времени*/
+
+
+var clMsec=1;
+var clSec=1000;
+var clMin=60000;
+var clHour=3600000;
+var clDate=86400000;
+var clMonth=2635200000;
+var clYear=31536000000;
+
+
+
+function clDateToMoment(ADate)
+{
+ return ADate.getTime();
+}
+
+
+
+function clMomentToDate(AMoment)
+{
+ var r=new Date(AMoment);
+ return r;
+}
+
+
+
+function clNow()
+{
+ var d=new Date();
+ return clDateToMoment(d) - d.getTimezoneOffset()*clMin;
+}
+
+
+function clGetTime(AMoment)
+{
+ return parseInt(((AMoment / clDate) - parseInt(AMoment / clDate)) * clDate);
+}
+
+
+
+function clGetDayBegin(AMoment)
+{
+ return parseInt(AMoment / clDate) * clDate;
+}
+
+
+
+/*Возвращает true если время ATime лежит в пределах между моментами ABegin и AEnd*/
+function clTimeInInterval(ATime, ABegin, AEnd)
+{
+ var r = null;
+ var b = ABegin - clGetDayBegin(ABegin);
+ var l = AEnd - ABegin;
+ if ((ATime>=b && ATime<b+l) || (ATime+clDate>=b && ATime+clDate<b+l)) r = clGetDayBegin(ABegin) + ATime;
+ return r;
+}
+
+
+
+
+function clSetDay(AMoment,ADay)
+{
+ return clMomentToDate(AMoment).setUTCDay(ADay);
+}
+
+function clSetYear(AMoment,AYear)
+{
+ return clMomentToDate(AMoment).setUTCFullYear(AYear);
+}
+
+function clSetMonth(AMoment,AMonth)
+{
+ return clMomentToDate(AMoment).setUTCMonth(AMonth);
+}
+
+function clSetDate(AMoment,ADay)
+{
+ return clMomentToDate(AMoment).setUTCDate(ADay);
+}
+
+function clSetHour(AMoment,AHour)
+{
+ return clMomentToDate(AMoment).setUTCHours(AHour);
+}
+
+function clSetMin(AMoment,AMin)
+{
+ return clMomentToDate(AMoment).setUTCMinutes(AMin);
+}
+
+function clSetSec(AMoment,ASec)
+{
+ return clMomentToDate(AMoment).setUTCSeconds(ASec);
+}
+
+function clSetMilli(AMoment,AMilli)
+{
+ return clMomentToDate(AMoment).setUTCMilliseconds(AMilli);
+}
+
+
+
+function clGetDay(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCDay();
+}
+
+function clGetYear(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCFullYear();
+}
+
+function clGetMonth(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCMonth();
+}
+
+function clGetDate(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCDate();
+}
+
+function clGetHour(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCHours();
+}
+
+function clGetMin(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCMinutes();
+}
+
+function clGetSec(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCSeconds();
+}
+
+function clGetMilli(AMoment)
+{
+ return clMomentToDate(AMoment).getUTCMilliseconds();
+}
+
+
+
+function clGetMonthName(AMoment)
+{
+ var n=new Array('Ja', 'Fe', 'Mr', 'Ap', 'My', 'Jn', 'Jl', 'Ag', 'Sp', 'Oc', 'No', 'Ds');
+ return n[clGetMonth(AMoment)];
+}
+
+function clGetDayName(AMoment)
+{
+ var n=new Array('S', 'M', 'T', 'W', 'S', 'F', 'S');
+ return n[clGetDay(AMoment)];
+}
+
+function clBegYear(AMoment)
+{
+ var d=clMomentToDate(AMoment);
+ return Date.UTC(d.getUTCFullYear(), 0, 1, 0, 0, 0, 0);
+}
+
+function clEndYear(AMoment)
+{
+ var d=clMomentToDate(AMoment);
+ return Date.UTC(d.getUTCFullYear()+1, 0, 1, 0, 0, 0, 0);
+}
+
+function clBegMonth(AMoment)
+{
+ var d=clMomentToDate(AMoment);
+ return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1, 0, 0, 0, 0);
+}
+
+function clEndMonth(AMoment)
+{
+ var d=clMomentToDate(AMoment);
+ return Date.UTC(d.getUTCFullYear(), d.getUTCMonth()+1, 1, 0, 0, 0, 0);
+}
+
+function clBegDate(AMoment)
+{
+ return parseInt(AMoment/clDate) * clDate;
+}
+
+function clEndDate(AMoment)
+{
+ return parseInt(AMoment/clDate) * clDate+clDate;
+}
+
+function clBegHour(AMoment)
+{
+ return parseInt(AMoment/clHour)*clHour;
+}
+
+function clEndHour(AMoment)
+{
+ return parseInt(AMoment/clHour)*clHour+clHour;
+}
+
+function clBegMin(AMoment)
+{
+ return parseInt(AMoment/clMin)*clMin;
+}
+
+function clEndMin(AMoment)
+{
+ return parseInt(AMoment/clMin)*clMin+clMin;
+}
+
+function clBegSec(AMoment)
+{
+ return parseInt(AMoment/clSec)*clSec;
+}
+
+function clEndSec(AMoment)
+{
+ return parseInt(AMoment/clSec)*clSec+clSec;
+}
+
+
+
+function clStrToMoment(AString, ADefault)
+{
+ r=ADefault;
+
+ if (AString)
+ {
+  AString=clStrRight(AString, 19, '0');
+
+  var y=parseInt(AString.substring(6,10));
+  var m=parseInt(AString.substring(3,5)) - 1;
+  var d=parseInt(AString.substring(0,2));
+  var h=parseInt(AString.substring(11,13));
+  var n=parseInt(AString.substring(14,16));
+  var s=parseInt(AString.substring(17,19));
+
+  if (!isNaN(y) && !isNaN(m) && !isNaN(d) && !isNaN(h) && !isNaN(n) && !isNaN(s)) r=Date.UTC(y, m, d, h, n, s, 0);
+ }
+
+ return r;
+}
+
+
+function clStrTimeToMoment(AString, ADefault)
+{
+ if (AString) 
+ {
+  AString=clStrRight(AString, 8, '0');
+  var h=parseInt(AString.substring(0,2));
+  var n=parseInt(AString.substring(3,5));
+  var s=parseInt(AString.substring(6,8));
+ }
+
+ if (!isNaN(h) && !isNaN(n) && !isNaN(s) && AString)
+ {
+  r=clGetTime(Date.UTC(1999, 0, 0, h, n, s, 0))
+ }
+ else
+ {
+  if (ADefault) 
+  {
+   r=clGetTime(Date.UTC(1999, 0, 0, 23, 59, 59, 999))
+  }
+  else 
+  {
+   r=clGetTime(Date.UTC(1999, 0, 0, 0, 0, 0, 0))
+  }  
+ }
+
+ return r;
+}
+
+
+
+
+function clMomentToStr(AMoment, ADefault)
+{
+ var r;
+ if (AMoment)
+ {
+  var d=clMomentToDate(AMoment);
+  var s=d.getUTCDate().zeroFix(2)+'.' + (d.getUTCMonth()+1).zeroFix(2)+'.'+d.getUTCFullYear().zeroFix(4)+' '+d.getUTCHours().zeroFix(2)+':'+d.getUTCMinutes().zeroFix(2)+':'+d.getUTCSeconds().zeroFix(2);
+  r=s;
+ }
+ else
+ {
+  if (ADefault) {r=ADefault} else r='oo';
+ }
+ return r;
+}
+
+
+
+Number.prototype.zeroFix=function(l)
+{
+ return '000000000000'.concat(this).slice(-l||l)
+};
+
+
+
+function clMomentDeltaToStr(ADelta, AZero)
+{
+ if (ADelta >= clYear) return (ADelta/clYear).toFixed(1) + ' лет';
+ else if (ADelta >= clMonth) return (ADelta/clMonth).toFixed(1) + ' мес';
+    else if (ADelta >= clDate) return (ADelta/clDate).toFixed(1) + ' сут';
+         else if (ADelta >= clHour) return (ADelta/clHour).toFixed(1) + ' час';
+             else if (ADelta >= clMin) return (ADelta/clMin).toFixed(1) + ' мин';
+                else if (ADelta >= clSec) return (ADelta/clSec).toFixed(1) + ' сек';
+                    else if (ADelta >= 1 && AZero!=undefined) return ADelta.toFixed(1)+' млс';
+                        else return AZero;
+}

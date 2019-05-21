@@ -1,0 +1,6 @@
+#vkontaktepng_id
+#file_type
+vkontakte
+png
+file
+файл

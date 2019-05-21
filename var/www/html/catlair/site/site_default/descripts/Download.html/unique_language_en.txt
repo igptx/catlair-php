@@ -1,0 +1,9 @@
+#downloadhtml_id
+#content_type
+#array_id_download.html
+#array_idtype_content
+#array_idimage_cd.png
+#array_idtypedefault_0
+download
+html
+content

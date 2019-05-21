@@ -1,0 +1,6 @@
+#previewpng_id
+#file_type
+preview
+png
+
+file

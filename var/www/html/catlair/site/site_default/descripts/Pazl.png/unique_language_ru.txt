@@ -1,0 +1,6 @@
+#pazlpng_id
+#file_type
+pazl
+png
+file
+файл

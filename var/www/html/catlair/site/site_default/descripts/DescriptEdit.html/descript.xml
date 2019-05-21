@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>DescriptEdit.html</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Элемент редактирования дескрипта</Caption>
+  </default>
+  <en>
+   <Caption>Descript editor element</Caption>
+  </en>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Элемент редактирования дескрипта</Caption></language_ru></Langs>
+<Indexate>on</Indexate></descript>

@@ -1,0 +1,9 @@
+#accountfolder_id
+#folder_type
+#array_id_accountfolder
+#array_idtype_folder
+#array_idimage_table.png
+#array_idtypedefault_0
+accountfolder
+учет
+folder

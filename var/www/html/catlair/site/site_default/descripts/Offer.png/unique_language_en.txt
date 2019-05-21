@@ -1,0 +1,6 @@
+#offerpng_id
+#file_type
+offer
+png
+
+file

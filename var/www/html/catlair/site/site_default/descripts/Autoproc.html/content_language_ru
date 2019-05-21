@@ -1,0 +1,7 @@
+<cl content="%content%" include="%library%" exec="%name%" pars="true" convert="%convert%"/>
+
+<cl>
+    <header value="Content-Type: application/xml; charset=utf-8"/>
+    <header value="Content-Language: ru"/>
+</cl>
+

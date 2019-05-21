@@ -1,0 +1,5 @@
+<div class="Toolbar">
+    <button type="button" class="Unselected %ImageClass%" id="ConfirmObject">
+        %Caption%
+    </button>
+</div>

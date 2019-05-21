@@ -1,0 +1,6 @@
+#sunpng_id
+#file_type
+sun
+png
+
+file

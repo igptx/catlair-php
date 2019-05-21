@@ -1,0 +1,29 @@
+<form method="post" enctype="multipart/form-data" id="clBindParentForm">
+ <h1>Cвязи</h1>
+
+ <div style="width:45%; display:inline-block; vertical-align:middle;">
+  <cl content="DescriptSelect.html" exec="DescriptCaptionByID" Name="ID" ID="" Placeholder="" Type="" Disabled="" Before="" After=""/>
+ </div>
+ <div style="width:5%; display:inline-block; vertical-align:middle; text-align:center;">
+  >
+ </div>
+ <div style="width:45%; display:inline-block; vertical-align:middle;">
+  <cl content="DescriptSelect.html" exec="DescriptCaptionByID" Name="IDParent" ID="" Placeholder="" Type="" Disabled="" Before="" After=""/>
+ </div>
+
+ <div class="CaptionGroup">
+  <input type="checkbox" name="Recurs" id="Recurs"><label for="Recurs">Распространить на потомков</label>
+ </div>
+
+ <div id="clBindParentList" class="CaptionGroup">
+ </div>
+
+ <div class="Toolbar">
+  <button type="button" class="ImageOk" onclick="clDescriptBindSend(this.form);">
+   Ок
+  </button>
+  <button type="button" class="ImageLoad" onclick="clDescriptBindsRefresh(this.form.ID.value, this.form.IDParent.value);">
+   Обновить
+  </button>
+ </div>
+</form>

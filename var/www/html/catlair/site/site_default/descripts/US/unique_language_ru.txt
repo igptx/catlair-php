@@ -1,0 +1,6 @@
+#us_id
+#country_type
+us
+сша
+country
+страна

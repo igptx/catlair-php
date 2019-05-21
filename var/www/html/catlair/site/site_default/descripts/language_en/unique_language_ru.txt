@@ -1,0 +1,6 @@
+#language_en_id
+#language_type
+language_en
+английский
+язык
+language

@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="language_default" IDBind="bind_default"/><bind IDChild="language_ru" IDBind="bind_default"/><bind IDChild="language_default" IDBind="bind_right"/><bind IDChild="language_ru" IDBind="bind_right"/><bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="language_en" IDBind="bind_default"/><bind IDChild="language_en" IDBind="bind_right"/></binds>

@@ -1,0 +1,21 @@
+<form class="DescriptForm" id="Form" method="post" enctype="multipart/form-data">
+    <cl content="DescriptFormStandartFields.html" pars="true"/>
+    <div class="Group">
+        <h2>
+            Параметры учетной записи
+        </h2>
+        <div class="Line">
+            <div class="Caption">
+                Пользователь
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clID="" clName="IDUser" clValue="%IDUser%" clPlaceholder="Agent" clType="" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+    </div>
+    <div class="Toolbar">
+        <button type="button" id="ChangePassword" class="Unselected ImageKey">
+            Смена пароля
+        </button>
+    </div>
+</form>

@@ -1,0 +1,6 @@
+#mailpng_id
+#file_type
+mail
+png
+file
+файл

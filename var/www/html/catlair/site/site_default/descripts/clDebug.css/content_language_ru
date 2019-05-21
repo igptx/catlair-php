@@ -1,0 +1,66 @@
+<cl header="Content-Type: text/css"/>
+
+
+
+.Log
+{
+    z-index:10000;
+    overflow:auto;
+    position:fixed;
+    right:1em;
+    top:1em;
+    max-width:50%;
+    max-height:80%;
+    font-size:0.8em;
+}
+
+
+
+.LogLine
+{
+    background-position:5px 5px;
+    background-repeat:no-repeat;
+    background-size: 32px 32px;
+    padding: 5px 5px 5px 48px;
+}
+
+
+
+.LogTime
+{
+    font-size:0.5em;
+}
+
+
+
+.LogMessage
+{
+}
+
+
+
+.LogErr
+{
+ background-image: url(?&image=Error.png&scalex=32&scaley=32);
+}
+
+
+
+.LogInf
+{
+    background-image: url(?&image=Info.png&scalex=32&scaley=32);
+}
+
+
+
+.LogWar
+{
+    background-image: url(?&image=Warning.png&scalex=32&scaley=32);
+}
+
+
+
+.LogDeb
+{
+    background-image: url(?&image=Debug.png&scalex=32&scaley=32);
+}

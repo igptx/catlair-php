@@ -1,0 +1,5 @@
+#ru_id
+#language_type
+ru
+
+language

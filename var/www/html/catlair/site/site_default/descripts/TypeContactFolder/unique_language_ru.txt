@@ -1,0 +1,10 @@
+#typecontactfolder_id
+#folder_type
+#array_id_typecontactfolder
+#array_idtype_folder
+#array_idimage_stick.png
+#array_idtypedefault_typecontact
+typecontactfolder
+перечень
+folder
+папка

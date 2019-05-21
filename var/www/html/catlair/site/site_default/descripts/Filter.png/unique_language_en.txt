@@ -1,0 +1,6 @@
+#filterpng_id
+#file_type
+filter
+png
+
+file

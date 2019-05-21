@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>clBase.js</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Базовые скрипты</Caption>
+  </default>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Базовые скрипты</Caption></language_ru></Langs>
+<Indexate>on</Indexate></descript>

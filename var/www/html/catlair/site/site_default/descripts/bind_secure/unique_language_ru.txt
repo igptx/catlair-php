@@ -1,0 +1,6 @@
+#bind_secure_id
+#bind_type
+bind_secure
+безопасность
+bind
+связь

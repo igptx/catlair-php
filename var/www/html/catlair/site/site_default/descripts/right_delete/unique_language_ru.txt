@@ -1,0 +1,6 @@
+#right_delete_id
+#bind_type
+right_delete
+удаление
+bind
+связь

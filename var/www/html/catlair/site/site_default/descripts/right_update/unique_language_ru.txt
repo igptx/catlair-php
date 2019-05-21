@@ -1,0 +1,6 @@
+#right_update_id
+#bind_type
+right_update
+запись
+bind
+связь

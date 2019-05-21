@@ -1,0 +1,8 @@
+#descriptbindrecord_id
+#content_type
+descriptbindrecord
+запись
+списка
+связей
+content
+контент

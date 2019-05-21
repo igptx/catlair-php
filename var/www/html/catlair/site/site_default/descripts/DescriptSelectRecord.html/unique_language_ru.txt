@@ -1,0 +1,9 @@
+#descriptselectrecordhtml_id
+#agent_type
+descriptselectrecord
+html
+запись
+выбора
+дескрипта
+agent
+агент

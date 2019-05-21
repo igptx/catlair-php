@@ -1,0 +1,15 @@
+<div class="Frame Unselected Status%FOF%" id="BtnEdit" style="background-image:url('?image=%IDImagePreview%&scalex=64&scaley=64');">
+    <div class="Caption">
+        %Caption%
+        <div class="DescriptEnabled%Enabled%">
+        </div>
+        <div class="DescriptIndexate%Indexate%">
+        </div>
+    </div>
+    <div class="CaptionType">
+        %CaptionType%
+    </div>
+    <div class="ID">
+        %ID%
+    </div>
+</div>

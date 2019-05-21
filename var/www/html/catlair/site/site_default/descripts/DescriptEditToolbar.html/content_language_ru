@@ -1,0 +1,22 @@
+<div class="Group">
+    <div class="Caption">
+        Дескрипт
+    </div>
+    <div class="Contein1">
+        <button type="button" class="ImageOk Unselected" id="BtnSave" title="Сохранить изменения">
+            Сохранить
+        </button>
+        <button type="button" class="ImageLoad Unselected" id="BtnRefresh" title="Обновить форму редактора">
+            Обновить
+        </button>
+        <button type="button" class="ImagePen Unselected" id="BtnRenameID" title="Изменение идентификатора дескрипта">
+            ID
+        </button>
+        <button type="button" class="ImageDescript Unselected" id="BtnContent" title="Редактор текстового контента дескрипта"> 
+            Контент
+        </button>
+        <button type="button" class="ImageTrash Unselected" id="BtnDelete" title="Удаление дескрипта">
+            Удалить
+        </button>
+     </div>
+</div>

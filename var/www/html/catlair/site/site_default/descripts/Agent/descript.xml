@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+    <ID>Agent</ID>
+    <Type>Object</Type>
+    <Langs>
+        <default>
+            <Caption>Агент</Caption>
+        </default>
+        <language_default>
+            <Caption></Caption>
+        </language_default>
+    <language_ru><Caption>Агент</Caption></language_ru></Langs>
+    <Indexate/>
+<IDTypeDefault>0</IDTypeDefault><IDImage>Man.png</IDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA></descript>

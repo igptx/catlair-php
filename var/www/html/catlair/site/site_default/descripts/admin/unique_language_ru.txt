@@ -1,0 +1,10 @@
+#admin_id
+#folder_type
+#array_id_admin
+#array_idtype_agent
+#array_idimage_
+#array_idtypedefault_0
+admin
+админская
+folder
+папка

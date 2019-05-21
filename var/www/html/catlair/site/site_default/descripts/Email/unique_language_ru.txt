@@ -1,0 +1,9 @@
+#email_id
+#typecontact_type
+#array_id_email
+#array_idtype_typecontact
+#array_idimage_mail.png
+#array_idtypedefault_0
+email
+электропочта
+typecontact

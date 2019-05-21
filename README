@@ -1,0 +1,12 @@
+#Catlair PHP
+
+The multi language content management system (CMS) based on Linux+NGINX+PHP, destributed by GPLv3.
+
+Catlair uses filesystem as database. It contains CMS, security system, multi language support, full string search, CLI.
+This product can be useed for simple sites.
+
+Site: http://catlair.net
+Installation: http://catlair.net/?&body=Body.html&page=Install.html
+Short manual: http://catlair.net/?&body=Body.html&page=Manual.html&manual=IntroManual.html
+
+PS. Please do not confuse this product with Catlair MSSQL on http://catlair.ru.

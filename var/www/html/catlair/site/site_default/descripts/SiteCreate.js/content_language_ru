@@ -1,0 +1,30 @@
+function SiteCreatePopup()
+{
+    var Content=decodeURIComponent('<cl content="SiteCreateForm.html" pars="true" convert="URI"/>');
+    var Popup = cl.Popup({TypeContent:tcText, Content:Content});
+    Popup.ChildByID('BtnCancel').onclick=function()
+    {
+        Popup.Close();
+    };
+    Popup.ChildByID('BtnOk').onclick=function()
+    {
+        Param =
+        {
+            Pars: true,
+            ContentType: tcXML,
+            Form: Popup.ChildByID('Form'),
+            Library:'site_create',
+            ProcName: 'SiteCreate',
+            OnAfterLoad: function (p)
+            {
+                if (cl.PostResult(p))
+                {
+                    Popup.Close();
+                    window.location='?&domain='+p.Result.Params.IDDomain;
+                }
+            }
+        };
+        cl.Post(Param);
+    };
+}
+

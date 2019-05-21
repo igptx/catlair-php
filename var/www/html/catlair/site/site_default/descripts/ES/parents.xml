@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDParent="CountryList" IDBind="bind_default" Inherited=""/><bind IDParent="CountryList" IDBind="bind_right" Inherited=""/></binds>

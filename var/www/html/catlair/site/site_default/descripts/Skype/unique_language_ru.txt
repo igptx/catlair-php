@@ -1,0 +1,8 @@
+#skype_id
+#typecontact_type
+#array_id_skype
+#array_idtype_typecontact
+#array_idimage_skype.png
+#array_idtypedefault_0
+skype
+typecontact

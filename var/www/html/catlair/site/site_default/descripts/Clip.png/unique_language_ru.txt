@@ -1,0 +1,5 @@
+#clippng_id
+#file_type
+clip
+png
+file

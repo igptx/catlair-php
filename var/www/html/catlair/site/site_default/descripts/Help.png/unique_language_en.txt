@@ -1,0 +1,6 @@
+#helppng_id
+#file_type
+help
+png
+
+file

@@ -1,0 +1,6 @@
+#cutpng_id
+#file_type
+cut
+png
+
+file

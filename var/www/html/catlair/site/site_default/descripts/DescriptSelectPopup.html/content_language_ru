@@ -1,0 +1,21 @@
+<div class="DescriptPopup">
+ <h2>
+  Результат поиска
+ </h2>
+
+ <div class="Toolbar">
+    <div class="CustomInput">
+      <input name="String" id="String">
+    </div>
+    <button class="ImageZoom Unselected" id="BtnSearch">
+        Поиск
+    </button>
+    <button class="ImageCancel Unselected" id="BtnCancel">
+        Закрыть
+    </button>
+ </div>
+
+ <div id="SearchResult" class="Records">
+ </div>
+
+</div>

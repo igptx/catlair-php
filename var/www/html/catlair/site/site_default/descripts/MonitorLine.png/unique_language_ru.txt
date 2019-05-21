@@ -1,0 +1,6 @@
+#monitorlinepng_id
+#file_type
+monitorline
+png
+file
+файл

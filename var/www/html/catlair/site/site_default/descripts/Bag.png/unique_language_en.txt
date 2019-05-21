@@ -1,0 +1,6 @@
+#bagpng_id
+#file_type
+bag
+png
+
+file

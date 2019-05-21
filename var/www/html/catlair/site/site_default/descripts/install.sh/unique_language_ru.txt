@@ -1,0 +1,8 @@
+#installsh_id
+#file_type
+install
+sh
+инсталляция
+catlair
+file
+файл

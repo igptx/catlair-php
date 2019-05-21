@@ -1,0 +1,6 @@
+#uk_id
+#country_type
+uk
+великобритания
+country
+страна

@@ -1,0 +1,6 @@
+#regkeypng_id
+#file_type
+regkey
+png
+
+file

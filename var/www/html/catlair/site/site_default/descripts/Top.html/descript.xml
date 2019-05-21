@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>Top.html</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Верхнее меню сайта</Caption>
+  </default>
+ <language_default><Caption></Caption></language_default><language_en><Caption>Top.html</Caption></language_en><language_ru><Caption>Верхнее меню сайта</Caption></language_ru></Langs>
+<Indexate>on</Indexate></descript>

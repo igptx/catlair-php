@@ -1,0 +1,6 @@
+#odnoklasnikipng_id
+#file_type
+odnoklasniki
+png
+file
+файл

@@ -1,0 +1,6 @@
+#alcogolpng_id
+#file_type
+alcogol
+png
+
+file

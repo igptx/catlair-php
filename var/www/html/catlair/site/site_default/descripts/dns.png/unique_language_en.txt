@@ -1,0 +1,6 @@
+#dnspng_id
+#file_type
+dns
+png
+
+file

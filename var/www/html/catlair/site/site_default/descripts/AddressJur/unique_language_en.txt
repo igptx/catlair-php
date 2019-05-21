@@ -1,0 +1,9 @@
+#addressjur_id
+#typecontact_type
+#array_id_addressjur
+#array_idtype_typecontact
+#array_idimage_home.png
+#array_idtypedefault_0
+addressjur
+
+typecontact

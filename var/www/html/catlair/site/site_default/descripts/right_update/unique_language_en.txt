@@ -1,0 +1,5 @@
+#right_update_id
+#bind_type
+right_update
+
+bind

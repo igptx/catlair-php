@@ -1,0 +1,13 @@
+#2146699ad35ef94166e07e31ef2cb8c1_id
+#folder_type
+#array_id_2146699ad35ef94166e07e31ef2cb8c1
+#array_idtype_folder
+#array_idimage_2d.png
+#array_idtypedefault_0
+2146699a
+d35e
+f941
+66e0
+7e31ef2cb8c1
+размер
+folder

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>DescriptContentForm.html</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Форма редактора контента дескрипта</Caption>
+  </default>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Форма редактора контента дескрипта</Caption></language_ru></Langs>
+<Indexate>on</Indexate></descript>

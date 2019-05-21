@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript><ID>Site</ID><Type>Object</Type><Langs><default><Caption>Сайты</Caption></default><language_default><Caption></Caption></language_default><language_ru><Caption>Сайт</Caption></language_ru></Langs><Indexate>on</Indexate><IDTypeDefault>0</IDTypeDefault><IDImage>Site.png</IDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA></descript>

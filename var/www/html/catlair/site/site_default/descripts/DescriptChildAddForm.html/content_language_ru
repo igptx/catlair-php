@@ -1,0 +1,42 @@
+<form method="post" enctype="multipart/form-data">
+ <div class="CaptionGroup">
+  <h2>
+   Добавление потомка
+  </h2>
+
+  <div class="CaptionLine">
+   <label>
+    Объект
+   </label>
+   <div class="CaptionCell">
+    %CaptionDescript%
+    <input type="hidden" name="ID" value="%IDDescript%"/>
+   </div>
+  </div>
+
+  <div class="CaptionLine">
+   <label>
+    Потомок
+   </label>
+   <div class="CaptionCell">
+    <input style="width:100%" type="text" name="IDChild" value="" placeholder="обязательное поле"/>
+   </div>
+  </div>
+
+  <div class="CaptionLine">
+   <label>
+    Связь
+   </label>
+   <div class="CaptionCell">
+    <input style="width:100%" type="text" name="IDBind" value="" placeholder="обязательное поле"/>
+   </div>
+  </div>
+
+ </div>
+
+ <div class="Toolbar">
+  <button class="ImageOk" type="button" onclick="clDescriptChildAdd(this.form);">
+   Ок
+  </button>
+ </div>
+</form>

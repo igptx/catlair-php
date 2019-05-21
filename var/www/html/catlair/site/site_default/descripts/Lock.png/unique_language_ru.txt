@@ -1,0 +1,6 @@
+#lockpng_id
+#file_type
+lock
+png
+file
+файл

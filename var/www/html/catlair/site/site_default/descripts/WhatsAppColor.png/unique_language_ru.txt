@@ -1,0 +1,6 @@
+#whatsappcolorpng_id
+#file_type
+whatsappcolor
+png
+file
+файл

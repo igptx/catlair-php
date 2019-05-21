@@ -1,0 +1,6 @@
+#smspng_id
+#file_type
+sms
+png
+
+file

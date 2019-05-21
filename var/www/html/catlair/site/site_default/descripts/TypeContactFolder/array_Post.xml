@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Post><ID>TypeContactFolder</ID><IDType>Folder</IDType><CaptionIDType>Папка</CaptionIDType><Caption>Перечень</Caption><IDImage>Stick.png</IDImage><CaptionIDImage>Stick.png</CaptionIDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA><IDTypeDefault>TypeContact</IDTypeDefault><CaptionIDTypeDefault>Тип контакта</CaptionIDTypeDefault><library>descript_update</library></Post>

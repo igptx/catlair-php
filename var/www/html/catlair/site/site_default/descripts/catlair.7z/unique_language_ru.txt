@@ -1,0 +1,12 @@
+#catlair7z_id
+#file_type
+#array_id_catlair.7z
+#array_idtype_file
+#array_idimage_
+#array_idtypedefault_0
+catlair
+7z
+текущий
+релиз
+file
+файл

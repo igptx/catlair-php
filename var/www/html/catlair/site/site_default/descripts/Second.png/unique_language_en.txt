@@ -1,0 +1,6 @@
+#secondpng_id
+#file_type
+second
+png
+
+file

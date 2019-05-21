@@ -1,0 +1,68 @@
+<div class="Group">
+    <h1>
+        Редактор #%ID% <input name="ID" value="%ID%" type="hidden"/>
+    </h1>
+    <div class="Line">
+        <div class="Caption">
+            Тип
+        </div>
+        <div class="Data">
+            <cl content="Select.html" clValue="%Type%" clID="IDType" clName="IDType" clType="Object" clPlaceholder="Тип объекта обязателен" clDisabled="" clBefore="" clAfter=""/>
+        </div>
+    </div>
+    <div class="Line">
+        <div class="Caption">
+            Описание
+        </div>
+        <div class="Data">
+            <cl content="DescriptEdit.html" Name="Caption" ID="%ID%" Caption="%Caption%" Placeholder=""/>
+        </div>
+    </div>
+</div>
+
+<div class="Group">
+    <h2>
+        Внешний вид
+    </h2>
+    <div class="Line">
+        <div class="Caption">
+            Изображение
+        </div>
+        <div class="Data">
+            <cl content="Select.html" clValue="%IDImage%" clID="IDImage" clName="IDImage" clType="File" clPlaceholder="Изображение не обязательное" clDisabled="" clBefore="" clAfter=""/>
+        </div>
+    </div>
+    <div class="Line">
+        <div class="Caption">
+            Цвет
+        </div>
+        <div class="Data">
+            <input name="ColorR" value="%ColorR%" placeholder="R = 0..1" size="5" style="border-left:4px solid red"/>
+            <input name="ColorG" value="%ColorG%" placeholder="G = 0..1 " size="5" style="border-left:4px solid green"/>
+            <input name="ColorB" value="%ColorB%" placeholder="B = 0..1" size="5" style="border-left:4px solid blue"/>
+            <input name="ColorA" value="%ColorA%" placeholder="A = 0..1" size="5" style="border-left:4px solid gray"/>
+        </div>
+    </div>
+</div>
+
+<div class="Group">
+    <h2>
+        Настройки
+    </h2>
+    <div class="Line">
+        <div class="Caption">
+            Новый объект
+        </div>
+        <div class="Data">
+            <cl content="Select.html" clValue="%IDTypeDefault%" clID="IDTypeDefault" clName="IDTypeDefault" clType="Object" clPlaceholder="Необязательный объект для новых записей" clDisabled="" clBefore="" clAfter=""/>
+        </div>
+    </div>
+    <div class="Line">
+        <div class="Caption">
+            Включен
+        </div>
+        <div class="Data">
+            <input type="checkbox" name="Enabled" id="Enabled"/>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+#rubpng_id
+#file_type
+rub
+png
+
+file

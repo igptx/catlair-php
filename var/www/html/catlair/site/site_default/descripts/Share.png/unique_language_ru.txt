@@ -1,0 +1,6 @@
+#sharepng_id
+#file_type
+share
+png
+file
+файл

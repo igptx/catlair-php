@@ -1,0 +1,6 @@
+#jspng_id
+#file_type
+js
+png
+
+file

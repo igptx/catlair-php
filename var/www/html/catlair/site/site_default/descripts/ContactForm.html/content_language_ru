@@ -1,0 +1,28 @@
+<form class="DescriptForm" id="Form" method="post" enctype="multipart/form-data">
+    <div class="Group">
+        <h1>
+            Параметры контакта
+        </h1>
+
+        <div class="Line">
+            <div class="Caption">
+                Тип контакта
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clID="IDTypeContact" clName="IDTypeContact" clValue="%IDTypeContact%" clPlaceholder="" clType="TypeContact" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+
+        <div class="Line">
+           <div class="Caption">
+               Контакт
+           </div>
+           <div class="Data">
+               <cl content="DescriptEdit.html" Name="Caption" ID="%ID%" Caption="%Caption%" Placeholder=""/>
+           </div>
+        </div>
+    </div>
+
+    <cl content="DescriptFormNoCaption.html" pars="true"/>
+
+</form>

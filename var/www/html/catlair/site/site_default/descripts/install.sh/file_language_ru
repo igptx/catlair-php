@@ -1,0 +1,59 @@
+#**************************************************************************************
+# Catlair PHP Copyright (C) 2019 a@itserv.ru
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# This is installatin file of Catlair.
+# Full information about installation:
+# http://catlair.net/?&body=Body.html&page=Install.html
+#**************************************************************************************
+
+sudo -s
+
+## setup updates
+apt -y update
+apt -y upgrade
+apt -y autoclean
+
+## setup packages
+apt -y install nginx nginx-extras
+apt -y install php-common php-cli php-fpm php-gd php-xml
+apt -y install p7zip
+apt -y install curl
+
+## restart nginx
+service nginx restart
+
+## download Catlair and unzip it
+curl 'http://catlair.net/?&file=catlair.7z' -o /tmp/catlair.7z
+7z -y x /tmp/catlair.7z -o/
+rm -y /tmp/catlair.7z
+
+## start indexate for descripts
+php /var/www/html/catlair/site/site_default/php/descript_index_cli.php '*' site_default language_default clear
+/var/www/right.sh
+
+## Create new site
+php /var/www/html/catlair/site/site_default/php/site_create_cli.php "new_site"
+php /var/www/html/catlair/site/site_default/php/domain_create_cli.php "new_site" "new.domain"
+php /var/www/html/catlair/site/site_default/php/account_create_cli.php "new_site" "admin"
+php /var/www/html/catlair/site/site_default/php/account_password_cli.php "new_site" "admin" "pass"
+
+##
+/var/www/right.sh
+
+## Out information
+echo "You can open site:"
+echo "Host:http://localhost/?&domain=new.domain"
+echo "Login:admin"
+echo "Password:pass"

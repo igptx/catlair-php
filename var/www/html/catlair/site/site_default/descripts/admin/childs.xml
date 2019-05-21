@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<binds>
+
+
+
+<bind IDChild="test" IDBind="bind_default"/>
+<bind IDChild="import" IDBind="bind_default"/>
+<bind IDChild="users" IDBind="bind_default"/><bind IDChild="users" IDBind="bind_right"/></binds>

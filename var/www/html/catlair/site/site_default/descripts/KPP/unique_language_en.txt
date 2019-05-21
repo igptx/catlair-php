@@ -1,0 +1,9 @@
+#kpp_id
+#typecontact_type
+#array_id_kpp
+#array_idtype_typecontact
+#array_idimage_paragraphpng.png
+#array_idtypedefault_0
+kpp
+
+typecontact

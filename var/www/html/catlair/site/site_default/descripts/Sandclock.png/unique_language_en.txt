@@ -1,0 +1,6 @@
+#sandclockpng_id
+#file_type
+sandclock
+png
+
+file

@@ -1,0 +1,45 @@
+<form method="post" enctype="multipart/form-data" id="Form" class="DescriptForm">
+
+    <div class="Group">
+        <h2>
+            Добавление объекта
+        </h2>
+
+        <div class="Line">
+            <div class="Caption">
+                Тип
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clID ="IDType" clName="IDType" clValue="" clType="Object"  clPlaceholder="Тип объекта" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Описание
+            </div>
+            <div class="Data">
+                <input style="width:100%" type="text" name="Caption" value="%Caption%" placeholder="Описание объекта или иная информация" autocomplete="off"/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Родитель
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clName="IDParent" clID="IDParent" clValue="%IDParent%" clType="" clPlaceholder="Родитель" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                ID
+            </div>
+            <div class="Data">
+                <input style="width:100%" type="text" name="ID" value="" placeholder="Уникальный идентификатор" autocomplete="off"/>
+            </div>
+        </div>
+
+    </div>
+</form>

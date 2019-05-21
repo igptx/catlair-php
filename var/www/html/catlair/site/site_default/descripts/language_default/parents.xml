@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="Languages" IDBind="bind_default"/>
+  <bind IDParent="Languages" IDBind="bind_right"/>
+</binds>

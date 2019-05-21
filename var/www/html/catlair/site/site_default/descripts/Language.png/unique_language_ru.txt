@@ -1,0 +1,6 @@
+#languagepng_id
+#file_type
+language
+png
+file
+файл

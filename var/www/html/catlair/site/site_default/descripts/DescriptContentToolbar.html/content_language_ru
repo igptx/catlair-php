@@ -1,0 +1,14 @@
+<div class="Group">
+    <div class="Caption">
+        Контент дескрипта
+    </div>
+    <div class="Contein1">
+        <button type="button" class="ImageOk Unselected" id="BtnSave">
+            Сохранить
+        </button>
+        <cl content="Select.html" clValue="language_ru" clID="IDLang" clName="IDLang" clType="Language" clPlaceholder="язык" clDisabled="" clBefore="" clAfter=""/>
+        <button type="button" class="ImageLoad Unselected" id="BtnRefresh">
+            Обновить
+        </button>
+     </div>
+</div>

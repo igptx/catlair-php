@@ -1,0 +1,6 @@
+#de_id
+#country_type
+de
+германия
+country
+страна

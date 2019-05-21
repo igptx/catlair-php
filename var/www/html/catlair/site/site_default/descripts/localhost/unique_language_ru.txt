@@ -1,0 +1,17 @@
+#localhost_id
+#domain_type
+#array_id_localhost
+#array_idtype_domain
+#array_idimage_
+#array_idtypedefault_0
+#array_idsitetarget_site_default
+#array_idcontentstart_main.html
+#array_idlangdefault_language_default
+localhost
+локльный
+домен
+умолчального
+сайта
+domain
+доменное
+имя

@@ -1,0 +1,9 @@
+#module_base_id
+#folder_type
+#array_id_module_base
+#array_idtype_folder
+#array_idimage_qube_sphere_piramide_object.png
+#array_idtypedefault_0
+module_base
+
+folder

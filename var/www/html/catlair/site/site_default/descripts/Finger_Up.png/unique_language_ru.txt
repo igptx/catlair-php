@@ -1,0 +1,6 @@
+#finger_uppng_id
+#file_type
+finger_up
+png
+file
+файл

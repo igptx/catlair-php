@@ -1,0 +1,88 @@
+
+function clRGBA(ARed, AGreen, ABlue, AAlpha)
+{
+ if (ARed) {this.r=ARed} else {this.r=0};
+ if (AGreen) {this.g=AGreen} else {this.g=0};
+ if (ABlue) {this.b=ABlue} else {this.b=0};
+ if (AAlpha) {this.a=AAlpha} else {this.a=0};
+ return this;
+}
+
+
+
+clRGBA.prototype.CanvasColor = function()
+{
+ return 'rgba('+Math.round(this.r*255)+','+Math.round(this.g*255)+','+Math.round(this.b*255)+','+this.a+')';
+};
+
+
+clRGBA.prototype.Load = function(AColor)
+{
+ this.r=AColor.r;
+ this.g=AColor.g;
+ this.b=AColor.b;
+ this.a=AColor.a;
+ return this;
+};
+
+
+clRGBA.prototype.GetMul = function(ARedMul, AGreenMul, ABlueMul, AAlphaMul)
+{
+ return new clRGBA(this.r*ARedMul, this.g*AGreenMul, this.b*ABlueMul, this.a*AAlphaMul);
+};
+
+
+
+clRGBA.prototype.GetAlpha = function(AAlpha)
+{
+ return new clRGBA(this.r, this.g, this.b, AAlpha);
+};
+
+
+
+clRGBA.prototype.ItpLin = function (AColor, ATime)
+{
+ this.r = this.r + (AColor.r - this.r) * ATime;
+ this.g = this.g + (AColor.g - this.g) * ATime;
+ this.b = this.b + (AColor.b - this.b) * ATime;
+ this.a = this.a + (AColor.a - this.a) * ATime;
+ return this;
+};
+
+
+
+clRGBA.prototype.GetItpLin = function (AColor, ATime)
+{
+ var r= new clRGBA();
+
+ r.r = this.r + (AColor.r - this.r) * ATime; 
+ r.g = this.g + (AColor.g - this.g) * ATime; 
+ r.b = this.b + (AColor.b - this.b) * ATime; 
+ r.a = this.a + (AColor.a - this.a) * ATime;
+  
+ return r; 
+};
+
+
+clRGBA.prototype.Temperature = function(ATime)
+{
+ if (ATime<0.3) {this.Mov(new clRGBA(0,0,0,0).ItpLin(new clRGBA(0,0,1,1), clNorm(0.0, 0.3, ATime)));}else{
+  if (ATime<0.5) {this.Mov(new clRGBA(0,0,1,1).ItpLin(new clRGBA(1,0,0,1), clNorm(0.3, 0.5, ATime)));}else{
+   if (ATime<1.0) {this.Mov(new clRGBA(1,0,0,1).ItpLin(new clRGBA(1,1,0,1), clNorm(0.5, 1.0, ATime)));}else{
+    this.Mov(new clRGBA(1,1,0,1));
+   }
+  }
+ }
+ return this;
+};
+
+
+
+clRGBA.prototype.Random = function() 
+{
+ this.r=Math.random();
+ this.g=Math.random();
+ this.b=Math.random();
+ return this;
+};
+

@@ -1,0 +1,6 @@
+#smilepng_id
+#file_type
+smile
+png
+file
+файл

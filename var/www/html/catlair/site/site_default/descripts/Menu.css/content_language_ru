@@ -1,0 +1,14 @@
+<cl header="Content-Type: text/css"/>
+
+
+.BackObject
+{
+    background-color: rgba(0,0,0,0.5);
+}
+
+.MenuPopup
+{
+    margin: 0;
+    padding: 1em;
+    background-color: rgba(255,255,255,1);
+}

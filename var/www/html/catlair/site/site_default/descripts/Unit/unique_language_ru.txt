@@ -1,0 +1,11 @@
+#unit_id
+#object_type
+#array_id_unit
+#array_idtype_object
+#array_idimage_unit.png
+#array_idtypedefault_folder
+unit
+единица
+измерения
+object
+объект

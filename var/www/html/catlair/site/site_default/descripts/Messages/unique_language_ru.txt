@@ -1,0 +1,6 @@
+#messages_id
+#folder_type
+messages
+сообщения
+folder
+папка

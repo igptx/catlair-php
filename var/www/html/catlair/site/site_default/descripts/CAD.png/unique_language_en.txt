@@ -1,0 +1,6 @@
+#cadpng_id
+#file_type
+cad
+png
+
+file

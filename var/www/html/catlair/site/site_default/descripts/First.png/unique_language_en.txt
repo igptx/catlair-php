@@ -1,0 +1,6 @@
+#firstpng_id
+#file_type
+first
+png
+
+file

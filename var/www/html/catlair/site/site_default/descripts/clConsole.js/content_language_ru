@@ -1,0 +1,183 @@
+/*******************************************************************************************
+ * Catlair JS
+ *
+ * Консоль управления объектами
+ * Расширение TCatlair
+ *
+ * still@itserv.ru
+ */
+
+
+/**
+ * Вызов консоли
+ * Может породить два объекта если они ранее не созадавлись
+ * this.WinControl - контролллер оконного ифейса
+ */
+TCatlair.prototype.Console = function(APrm)
+{
+    var that = this;
+
+    // проверка на необходимость авторизации при вызове консоли
+    if (APrm.Authorize)
+    {
+        // проверка текущего состояния авторизации
+        that.AuthorizeStatus
+        (
+            {
+                OnUser:Start, // вызов основной функции
+                OnGuest:function()
+                {
+                    // вызов формы авторизации
+                    that.Authorization({OnAfterLogin:Start});
+                }
+            }
+        );
+    }
+    else
+    {
+        /* или запуск консоли заразу без авторизации */
+        Start();
+    }
+
+
+    /*
+     * основное тело функции
+     */
+    function Start()
+    {
+        if (that.ConsoleWin && that.ConsoleWin!=null)
+        {
+            /* Вывод окна в том случае если уже создано */
+            that.ConsoleWin.Maximize();
+            that.ConsoleWin.Active();
+        }
+        else
+        {
+            /* Загрузка стилей */
+            that.StyleLoad({ID:'clWindow.css'});
+            that.StyleLoad({ID:'clConsole.css'});
+            /* Загрузка скриптов */
+            that.ScriptLoad({ID:'clWindow.js'});
+            that.ScriptLoad({ID:'clDescript.js'});
+            that.ScriptLoad({ID:'clDescriptTree.js'});
+            /* Ожидание загрузки скриптов */
+            that.ScriptWait
+            (
+                ['clWindow.js', 'clDescript.js', 'clDescriptTree.js'],
+                function()
+                {
+                    if (!that.WinControl) that.WinControl = new clWinControl();
+                    /* Создание окна */
+                    var Console = that.WinControl.WindowCreate('Console');
+                    Console.SetCaption('Console');
+                    Console.SetToolbar(decodeURIComponent('<cl content="ConsoleToolbar.html" pars="true" convert="URI"/>'));
+                    Console.SetContent(decodeURIComponent('<cl content="ConsoleContent.html" convert="URI"/>'));
+                    Console.Icon.SetParams({Caption:'Console', Group:'Form', GUIDImage:'ooo'});
+
+                    /* Создание перечня дескриптов */
+                    Console.Descripts = new TDescripts();
+                    Console.Descripts.RecordConteiner = Console.ChildByID('RecordList');
+                    Console.Descripts.RecordContent = decodeURIComponent('<cl content="DescriptRecord.html" pars="true" convert="URI"/>');
+                    Console.Descripts.OnAfterLoadRecord = function(AConteiner)
+                    {
+                        AConteiner.onclick = function()
+                        {
+                            var Descript = new TDescript();
+                            Descript.Edit({ID:AConteiner.Record.ID});
+                        }
+
+                        AConteiner.draggable=true;
+                        AConteiner.ondragstart = function(AEvent)
+                        {
+                           // this GLOBAL variable
+                           DragDescriptSourceConteiner = AConteiner;
+                           return true;
+                        }
+                    }
+
+                    /* Creation of the tree */
+                    Console.DescriptTree = new TDescriptTree();
+                    Console.DescriptTree.Tree = Console.ChildByID('TreeConteiner');
+                    Console.DescriptTree.ConteinerContent = decodeURIComponent('<cl content="DescriptTreeConteiner.html" pars="true" optimize="true" convert="URI"/>');
+
+                    /*Обработка клика на записи*/
+                    Console.DescriptTree.OnRecordClick = function(AConteiner)
+                    {
+                        Console.Refresh();
+                    }
+
+                    /*Поиск и обновленеи списка записей*/
+                    Console.Refresh = function()
+                    {
+                        var IDParent = Console.DescriptTree.IDSelect;
+                        if (IDParent != null)
+                        {
+                            var Prm =
+                            {
+                                URL:'ID='+IDParent+'&IDLang='+Console.ChildByID('IDLang').value,
+                                Library: 'descript_content',
+                                ProcName: 'DescriptContentRead',
+                                Pars:true,
+                                OnAfterLoad: function(p)
+                                {
+                                    Console.ChildByID('Title').innerHTML = decodeURIComponent(p.Result.Params.Content);
+                                }
+                            };
+                            cl.Post(Prm);
+                        }
+                        /*Построение списка*/
+                        var Search = this.ChildByID('Search').value;
+                        this.Descripts.Load
+                        (
+                            {
+                                Find:Search,
+                                IDLang:Console.ChildByID('IDLang').value,
+                                IDParent:IDParent,
+                                RecordCount:100,
+                                RecordCurrent:0
+                            }
+                        );
+                    }
+
+                    /*Действие на загрузку файла*/
+                    Console.ChildByID('BtnUpload').onchange = function()
+                    {
+                        var Params =
+                        {
+                            Files:this.ChildByID('File'),
+                            ID:null,
+                            IDParent:Console.DescriptTree.IDSelect
+                        }
+                        cl.FilesUpload(Params);
+                    }
+
+                    /*Действия ввод символов в консоль*/
+                    Console.ChildByID('Search').onkeyup = function(AEvent)
+                    {
+                        if ( AEvent.keyCode == 13 ) Console.Refresh();
+                    }
+
+                    /*Создание дескрипта*/
+                    Console.ChildByID('BtnAdd').onclick=function()
+                    {
+                        var IDParent = Console.DescriptTree.IDSelect;
+                        var Descript = new TDescript();
+                        Descript.Edit({IDParent:IDParent});
+                    };
+
+                    /* обновление дескрипта */
+                    Console.ChildByID('BtnFind').onclick=function()
+                    {
+                        Console.Refresh();
+                    };
+
+                    /*Активация всех элементов выбора окна*/
+                    cl.SelectActivate(Console.Control);
+                    /*Активация всех элементов выбора окна*/
+                    Console.DescriptTree.LoadRoot(Console.ChildByID('IDLang').value);
+                }
+            );
+        }
+    }
+}
+

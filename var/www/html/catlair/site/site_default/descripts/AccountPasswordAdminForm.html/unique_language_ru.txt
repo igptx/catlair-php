@@ -1,0 +1,9 @@
+#accountpasswordadminformhtml_id
+#content_type
+accountpasswordadminform
+html
+форма
+административной
+смены
+пароля
+content

@@ -1,0 +1,6 @@
+#connectpng_id
+#file_type
+connect
+png
+
+file

@@ -1,0 +1,12 @@
+<h2>
+ Дети объекта
+</h2>
+
+<div class="Toolbar">
+ <button class="ImagePlus" type="button" onclick="clDescriptChildAddForm();">
+  Добавить
+ </button>
+</div>
+
+<div class="Resords">
+</div>

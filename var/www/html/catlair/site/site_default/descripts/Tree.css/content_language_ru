@@ -1,0 +1,237 @@
+.TreeElement
+{
+ white-space:nowrap;
+}
+
+
+.TreeElement div
+{
+ vertical-align:middle;
+}
+
+
+.TreeElement .Caption[selected="true"]
+{
+ background-color:orange;
+}
+
+
+.TreeElement .Empty
+{
+ padding:0.1em;
+ margin:0.1em;
+ width:1em;
+ height:1em;
+ display:inline-block;
+ vertical-align:middle;
+ text-align:center;
+ border-radius: 0.3em;
+ vertical-align:middle;
+ background-image:url(?&image=Image/TriplePoint.png&scalex=32&scaley=32);
+ background-position:center;
+ background-size:0.7em 0.7em;
+ background-repeat: no-repeat;
+}
+
+
+.TreeElement .Expend
+{
+ padding:0.1em;
+ margin:0.1em;
+ width:1em;
+ height:1em;
+ display:inline-block;
+ vertical-align:middle;
+ text-align:center;
+ border-radius: 0.3em;
+ vertical-align:middle;
+ background-image:url(?&image=Image/Minus.png&scalex=32&scaley=32);
+ background-position:center;
+ background-size:0.7em 0.7em;
+ background-repeat: no-repeat;
+}
+
+
+.TreeElement .Collaps
+{
+ padding:0.1em;
+ margin:0.1em;
+ width:1em;
+ height:1em;
+ display:inline-block;
+ vertical-align:middle;
+ text-align:center;
+ vertical-align:middle;
+ background-image:url(?&image=Image/Plus.png&scalex=32&scaley=32);
+ background-position:center;
+ background-size:0.7em 0.7em;
+ background-repeat: no-repeat;
+}
+
+
+
+.TreeElement .Caption
+{
+ display:inline-block;
+ vertical-align:middle;
+ padding-left:0.2em;
+ padding-right:0.2em;
+ margin:0.1em;
+}
+
+
+.TreeElement .SubExpend
+{
+ display:block;
+ position:relative;
+ padding-left:1.4em;
+ box-sizing: border-box;
+ border-radius:0.2em;
+}
+
+
+.TreeElement .SubCollaps
+{
+ position:relative;
+ display:none;
+}
+
+
+.TreeElement .CountChild
+{
+ padding-left:0.5em;
+ display:inline-block;
+ color:rgba(0,0,0,0.5);
+}
+
+
+.TreeElement .CountChild:empty
+{
+ display:none;
+}
+
+
+.TreeElement .Select
+{
+ position:relative;
+ display:inline-block;
+ padding-right:1.4em;
+}
+
+
+
+.TreeElement .Select:hover
+{
+ padding-right:0em;
+}
+
+
+
+.TreeElement .Options
+{
+ padding:0.1em;
+ margin:0.1em;
+ width:1em;
+ height:1em;
+ display:none;
+ vertical-align:middle;
+ background-position:center;
+ background-size:1em 1em;
+ background-repeat: no-repeat;
+}
+
+
+
+.TreeElement .Caption:hover .Options
+{
+ ---display:inline-block;
+}
+
+
+
+.TreeElement .FolderControl
+{
+ display:inline-block;
+ width:0.7em;
+ height:1.4em;
+ position:relative;
+ opacity:0;
+}
+
+
+.TreeElement .Select:hover .LinkUp
+{
+ opacity:1;
+}
+
+
+.TreeElement .Select:hover .LinkDown
+{
+ opacity:1;
+}
+
+
+.LinkUp
+{
+ opacity:0;
+ display:inline-block; 
+ top:0em;
+ right:-1em;
+ height:0.75em; 
+ width:1em; 
+ position:absolute; 
+ background-size:70% 70%;
+ background-position:center center;
+ background-repeat:no-repeat;
+ background-image:url(?&image=Image/ArroUpFill.png&scalex=16&scaley=16);
+}
+
+
+.LinkDown
+{
+ opacity:0;
+ display:inline-block; 
+ bottom:0em;
+ right:-1em;
+ height:0.75em; 
+ width:1em; 
+ position:absolute; 
+ background-size:70% 70%;
+ background-position:center center;
+ background-repeat:no-repeat;
+ background-image:url(?&image=Image/ArroDownFill.png&scalex=16&scaley=16);
+}
+
+
+.Unselected .Caption
+{
+ display:inline;
+}
+
+
+.Unselected .Count
+{
+ padding-left:1em;
+ display:inline;
+ color:rgba(255,255,255, 0.5);
+}
+
+
+
+.SubCaption
+{
+ padding:0.1em;
+ margin:0.1em;
+ font-size:0.7em;
+ color:rgba(0,0,0,0.5);
+ writing-mode:tb-rl;
+ position:absolute;
+ top:0;
+ width:1.3em;
+ left:0;
+ bottom:0;
+ overflow:hidden;
+ box-sizing:border-box;
+}
+
+

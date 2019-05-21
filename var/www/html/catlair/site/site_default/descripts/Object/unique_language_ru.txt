@@ -1,0 +1,8 @@
+#object_id
+#object_type
+#array_id_object
+#array_idtype_object
+#array_idimage_qube_sphere_piramide_object.png
+#array_idtypedefault_0
+object
+объект

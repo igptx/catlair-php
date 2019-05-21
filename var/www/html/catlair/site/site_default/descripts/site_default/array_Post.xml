@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Post><ID>site_default</ID><IDType>Site</IDType><CaptionIDType>Сайт</CaptionIDType><Caption>Умолчальный сайт</Caption><IDImage>CatHand.png</IDImage><CaptionIDImage>CatHand.png</CaptionIDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA><IDTypeDefault></IDTypeDefault><CaptionIDTypeDefault></CaptionIDTypeDefault><Enabled>on</Enabled><LogEnabled>on</LogEnabled><LogDebug>on</LogDebug><LogInfo>on</LogInfo><LogWarning>on</LogWarning><LogError>on</LogError><LogJob>on</LogJob><library>descript_update</library></Post>

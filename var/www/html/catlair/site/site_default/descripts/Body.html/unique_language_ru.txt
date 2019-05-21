@@ -1,0 +1,15 @@
+#bodyhtml_id
+#content_type
+body
+html
+основное
+оформление
+сайта
+content
+
+div
+class
+top
+cl
+page
+bottom

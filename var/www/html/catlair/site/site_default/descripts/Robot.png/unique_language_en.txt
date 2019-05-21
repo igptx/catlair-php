@@ -1,0 +1,6 @@
+#robotpng_id
+#file_type
+robot
+png
+
+file

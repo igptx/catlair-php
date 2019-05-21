@@ -1,0 +1,6 @@
+#stoppng_id
+#file_type
+stop
+png
+file
+файл

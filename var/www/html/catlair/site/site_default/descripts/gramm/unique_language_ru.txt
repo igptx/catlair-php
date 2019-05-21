@@ -1,0 +1,7 @@
+#gramm_id
+#unit_type
+gramm
+г
+unit
+единица
+измерения

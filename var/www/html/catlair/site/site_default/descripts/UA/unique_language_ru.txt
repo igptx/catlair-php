@@ -1,0 +1,6 @@
+#ua_id
+#country_type
+ua
+украина
+country
+страна

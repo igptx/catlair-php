@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="README" IDBind="bind_default"/><bind IDChild="README" IDBind="bind_right"/><bind IDChild="GPLv3.txt" IDBind="bind_default"/><bind IDChild="GPLv3.txt" IDBind="bind_right"/></binds>

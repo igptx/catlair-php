@@ -1,0 +1,6 @@
+#storedprocpng_id
+#file_type
+storedproc
+png
+
+file

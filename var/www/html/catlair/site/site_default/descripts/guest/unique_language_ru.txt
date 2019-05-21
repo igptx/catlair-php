@@ -1,0 +1,6 @@
+#guest_id
+#agent_type
+guest
+гость
+agent
+агент

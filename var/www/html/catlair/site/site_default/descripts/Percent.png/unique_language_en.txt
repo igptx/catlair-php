@@ -1,0 +1,6 @@
+#percentpng_id
+#file_type
+percent
+png
+
+file

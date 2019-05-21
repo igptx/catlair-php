@@ -1,0 +1,6 @@
+#graphpng_id
+#file_type
+graph
+png
+file
+файл

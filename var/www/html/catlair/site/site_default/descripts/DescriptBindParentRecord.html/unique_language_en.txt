@@ -1,0 +1,6 @@
+#descriptbindparentrecordhtml_id
+#content_type
+descriptbindparentrecord
+html
+
+content

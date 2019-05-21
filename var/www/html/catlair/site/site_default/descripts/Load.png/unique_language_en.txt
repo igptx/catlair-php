@@ -1,0 +1,6 @@
+#loadpng_id
+#file_type
+load
+png
+
+file

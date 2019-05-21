@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="ObjectContent" IDBind="bind_default"/><bind IDChild="ObjectContent" IDBind="bind_right"/></binds>

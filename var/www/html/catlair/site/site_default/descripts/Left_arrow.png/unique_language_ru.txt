@@ -1,0 +1,6 @@
+#left_arrowpng_id
+#file_type
+left_arrow
+png
+file
+файл

@@ -1,0 +1,5 @@
+#barpng_id
+#file_type
+bar
+png
+file

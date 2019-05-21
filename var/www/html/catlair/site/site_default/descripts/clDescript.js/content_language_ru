@@ -1,0 +1,1053 @@
+/******************************************************************************
+ * Catlair JS
+ *
+ * Управленеи объектами
+ *
+ * still@itserv.ru
+ */
+
+
+
+
+/*
+ * Список дескриптов
+ */
+function TDescripts(ACatlair)
+{
+    this.Loading = false;
+    this.Selected=null;
+    this.OnBeforeSelected=null;
+    this.OnAfterSelected=null;
+    this.Tree=null; /*Tree conteiner*/
+    this.Record=null; /*Record conteiner*/
+    this.RecordCurrent = 0;
+    this.RecordTotal = null;
+}
+
+
+
+TDescripts.prototype.EndOfRecord = function()
+{
+    return this.RecordCurrent >= this.RecordTotal;
+}
+
+
+/**
+ * Поиск дескриптов по строке поиска
+ * AParams.IDFolder - папка с дескриптом
+ * AParams.Find - строка поиска
+ * AParams.IDLanguage - идентификатор языка
+ * AParams.IDSite - идентификатор сайта
+ * AParams.RecordCount
+ * AParams.PageCurrent
+ */
+TDescripts.prototype.Load = function(AParams)
+{
+    var that = this;
+
+    /* сборка URL */
+    var u = '?';
+    if (AParams.Find) u = u + '&Find=' + encodeURIComponent(AParams.Find);
+    if (AParams.ID) u = u + '&ID=' + AParams.ID;
+    if (AParams.IDParent) u = u + '&IDParent=' + AParams.IDParent;
+    if (AParams.IDBind) u = u + '&IDBind=' + encodeURIComponent(AParams.IDBind);
+    if (AParams.IDLang) u = u + '&IDLang=' + encodeURIComponent(AParams.IDLang);
+    if (AParams.IDSite) u = u + '&IDSite=' + encodeURIComponent(AParams.IDSite);
+    if (AParams.IDType) u = u + '&IDType=' + encodeURIComponent(AParams.IDType);
+    if (AParams.RecordCount) u = u + '&RecordCount=' + AParams.RecordCount;
+    if (AParams.RecordCurrent) u = u + '&RecordCurrent=' + AParams.RecordCurrent;
+
+    if (!AParams.Continue) AParams.Continue = 'auto';
+
+    /* получение библиотеки */
+    if (AParams.Library) var Library = AParams.Library;
+    else var Library = 'descript_load';
+
+    /* получение процедуры */
+    if (AParams.ProcName) var ProcName = AParams.ProcName;
+    else var ProcName= 'DescriptLoad';
+
+    /* исполнение */
+    this.Loading = true;
+    cl.Post
+    (
+        {
+            Pars:true,
+            URL:u,
+            Library:Library,
+            ProcName:ProcName,
+            TypeContent:tcXML,
+            OnAfterLoad: function(p)
+            {
+                if (cl.PostResult(p))
+                {
+                    /* Очистка списка записей если вернулись записи с начала */
+                    if (AParams.RecordCurrent == 0) that.RecordsClear();
+                    /* Загрзука записей */
+                    if (p.Result.Data.Records)
+                    {
+                        that.RecordTotal = parseInt(p.Result.Detale.Records.RecordTotal);
+                        var c = p.Result.Data.Records.length;
+                        for (var i=0; i<c; i++)
+                        {
+                            var r=p.Result.Data.Records[i];
+                            that.RecordAdd(r);
+                        }
+                        AParams.RecordCurrent = that.RecordCurrent;
+                        /* Расчет загруженных записей */
+                        if (AParams.Continue=='auto' && !that.EndOfRecord()) that.Load(AParams);
+                    }
+                }
+                that.Loading = false;
+            }
+        }
+    );
+
+
+    /* Если начало запроса и был таймер отслеживания скролирования то его сбрасываем */
+    if (AParams.RecordCurrent==0 && that.LoaderTimer != null)
+    {
+        clearInterval(that.LoaderTimer);
+        that.LoaderTimer = null;
+    }
+
+
+    /* создание отслеживания скролирования */
+    if (AParams.Continue == 'scroll' && this.LoaderTimer == null)
+    {
+        /* Запуск таймера отслеживания скролирования*/
+        var that=this;
+        this.LoaderTimer = setInterval
+        (
+            function ()
+            {
+                /* получаем координаты расположения контейнера на экране*/
+                var box=that.RecordConteiner.getBoundingClientRect();
+                if (box.x==0 && box.y==0 && box.height==0 && box.width==0)
+                {
+                        clearInterval(that.LoaderTimer);
+                        that.LoaderTimer = null;
+                }
+                else
+                {
+                    if (!that.Loading && box.bottom < 2*document.documentElement.clientHeight)
+                    {
+                        if (that.EndOfRecord())
+                        {
+                            clearInterval(that.LoaderTimer);
+                            that.LoaderTimer = null;
+                        }
+                        else that.Load(AParams);
+                    }
+                }
+            },
+            500
+        );
+    }
+}
+
+
+
+/**
+ *
+ */
+TDescripts.prototype.RecordsClear = function()
+{
+    /*Очисили контейнер*/
+    this.RecordConteiner.innerHTML = '';
+    return this;
+}
+
+
+
+/*
+ * Добавляет запись в контейнер записей
+ */
+TDescripts.prototype.RecordAdd = function(ARecord)
+{
+    var that = this;
+    /*Build content*/
+    var Content = this.RecordContent;
+    Content = clContentFromObject(ARecord, Content)
+    /*Создаем элемент новый*/
+    Conteiner = document.createElement('div');
+    Conteiner.className = 'Record';
+    Conteiner.innerHTML = Content;
+    Conteiner.Record = ARecord;
+    Conteiner.Descript = new TDescript();
+    Conteiner.Descript.ID = ARecord.ID;
+    Conteiner.Record.Conteiner = Conteiner;
+    Conteiner.Descripts=this;
+    /*Добавляем в контейнер*/
+    this.RecordConteiner.appendChild(Conteiner);
+    this.RecordCurrent++;
+
+    /*Вызов события загрузки записи*/
+    if (this.OnAfterLoadRecord) this.OnAfterLoadRecord(Conteiner);
+
+    return Conteiner;
+}
+
+
+
+/*
+ * Акиваяция списков выбора в контейнере
+ * Необходимо выполнять после загрузки контента со списками выбора
+ */
+TCatlair.prototype.SelectActivate = function(AConteiner)
+{
+    var SelectList = AConteiner.ChildsByClass("SelectValue");
+    for (var i=0; i<SelectList.length; i++)
+    {
+        /*очередной элемент выбираем*/
+        var Select = SelectList[i];
+        /*Связываем элементы Caption Valueмежду собой*/
+        Select.Caption = Select.ParentByClass("CustomInput").ChildByClass('SelectCaption');
+        Select.Caption.Value = Select;
+
+        /*
+         * Метод Refresh
+         */
+        Select.Refresh = function(AValue)
+        {
+            var that = this;
+            if (AValue) that.value = AValue;
+
+            var Param =
+            /*Выполнение запроса Caption по ID*/
+            cl.CaptionByID
+            (
+                {
+                    ID:that.value,
+                    OnAfterCaption:function(p)
+                    {
+
+                        that.Caption.className = 'TextCorrect';
+                        that.Caption.value = decodeURIComponent(p.Result.Params.Caption);
+                    }
+                }
+            );
+        }
+
+
+        /*
+         * Метод Popup
+         * Поиск и выбор дескрипта из списка
+         */
+        Select.Popup = function ()
+        {
+            var that = this;
+            cl.StyleLoad({ID:'DescriptPopup.css'});
+
+            var p=clGetObjectLeftBottom(this.Caption); /*Позиция элемента*/
+            /*Построение URL для запроса поиска записей в справочниках*/
+            var Content=decodeURIComponent('<cl content="DescriptSelectPopup.html" convert="uri"/>');
+            var Popup = cl.Popup({ID:'clDescriptPopup', TypeContent:tcText, Content:Content,  Pos:p});
+            /*Приняли строку поиска*/
+            Popup.FindString = Popup.ChildByID('String');
+            Popup.FindString.value=this.Caption.value;
+            Popup.FindString.focus();
+
+            /*Поиск на кнопке BtnSearch*/
+            Popup.Refresh=function()
+            {
+                // Создание перечня дескриптов
+                if (!Popup.Descripts)
+                {
+                    Popup.Descripts = new TDescripts();
+                    Popup.Descripts.RecordContent = decodeURIComponent('<cl content="DescriptRecord.html" pars="true" convert="URI"/>');
+                    Popup.Descripts.RecordConteiner = Popup.ChildByID('SearchResult');
+                    /*Событие при загрузке записи и развешивание onlcick*/
+                    Popup.Descripts.OnAfterLoadRecord = function(AConteiner)
+                    {
+                        AConteiner.onclick = function()
+                        {
+                            Popup.Close();
+                            that.value = AConteiner.Record.ID;
+                            that.Refresh();
+                        }
+                   };
+                }
+                /*Загрузка дескриптов*/
+                Popup.Descripts.Load({Find:Popup.FindString.value, IDType:that.getAttribute('cltype'), RecordCount:10, RecordCurrent:0});
+            }
+
+            /*Клик на кнопку поиска*/
+            Popup.ChildByID('BtnSearch').onclick = function()
+            {
+                Popup.Refresh();
+            }
+
+            /*Закрытие окна*/
+            Popup.ChildByID('BtnCancel').onclick = function()
+            {
+                Popup.Close();
+            }
+
+            /*Выполняем поиск при открытии формы*/
+            Popup.Refresh();
+        }
+
+
+        Select.Caption.onblur = function(AEvent)
+        {
+            this.Value.Refresh();
+        }
+
+        // событие обработчик клавиауры
+        Select.Caption.onkeydown = function(AEvent)
+        {
+            var kc = AEvent.keyCode || AEvent.which;
+            if (kc==40) this.Value.Popup(this);
+            if ((kc>=46)|| /*symbols from 0*/
+                (kc==0)|| /*Firefox bug with RU = 0*/
+                (kc==8)|| /*back*/
+                (kc==32)) /*space*/
+            {
+                this.Value.value = null; /*Сброс значения UID*/
+                this.className = 'TextError';
+            }
+        };
+
+        // double click
+        Select.Caption.ondblclick = function(AEvent)
+        {
+            this.Value.Popup();
+        };
+
+        Select.Refresh();
+    }
+}
+
+
+
+/*
+ * Запрос Caption по ID
+ */
+TCatlair.prototype.CaptionByID = function(AParams)
+{
+    var that = this;
+    if (AParams.ID && AParams.ID!=null)
+    {
+        AParams.URL = '&ID='+AParams.ID;
+        AParams.Pars = true;
+        AParams.Library = 'descript';
+        AParams.ProcName = 'DescriptCaptionByID';
+        AParams.OnAfterLoad = function(p)
+        {
+            if (that.PostResult(p, false))
+            {
+                if (p.OnAfterCaption) p.OnAfterCaption(p);
+            }
+        }
+        this.Post(AParams);
+    }
+}
+
+
+
+
+
+
+
+
+
+/*#####################################################################################*/
+/*Работа с деревом объектов*/
+/*#####################################################################################*/
+
+
+function clDescriptBinds(AElement)
+{
+ var u = '&ID='+AElement.ID+'&template=DescriptBindProc';
+ var obj = clPopup('BindsChild', tcURL, u);
+ obj.Element=AElement;
+}
+
+
+function clDescriptElementParent(AElement, AElementParent)
+{
+ var Content=decodeURIComponent('<cl content="DescriptBindParentForm.html" pars="true" convert="uri"/>');
+
+ if (AElement==null) AElement = AElementParent;
+
+ var IDParent=AElementParent.ID;
+ var ID=AElement.ID;
+
+ var obj = clPopup('BindsParent', tcText, Content);
+ obj.Element=AElement;
+
+ var Form=document.getElementById('clBindParentForm');
+
+ Form.ID.value = AElement.ID;
+ Form.IDParent.value = AElementParent.ID;
+
+ clDescriptSelectCaptionByID(Form.ID);
+ clDescriptSelectCaptionByID(Form.IDParent);
+
+ clDescriptBindsRefresh(Form.ID.value, Form.IDParent.value);
+}
+
+
+
+function clDescriptBindsRefresh(AID, AIDParent)
+{
+ function Back(p)
+ {
+  var Conteiner = document.getElementById('clBindParentList');
+  Conteiner.innerHTML=p.Content;
+ }
+
+ var u = '&ID='+AID+'&IDParent='+AIDParent;
+ clPost({URL:u, OnAfterLoad:Back, Template:'DescriptBindParentList.html'});
+}
+
+
+
+function clDescriptBindSend(AForm)
+{
+ function Back(p)
+ {
+  if (p.ResultCode=='Ok')
+  {
+   clPopupClose('BindsParent');
+   clInf(p.ResultMessage, true);
+  } else clWar(p.ResultMessage, true);
+ }
+
+ for (var i=0; i<AForm.elements.length; i++)
+ {
+  iElement=AForm.elements[i];
+  if (iElement.type=='checkbox' && iElement.value)
+  {
+   var iID=iElement.value;
+   nElement = AForm.elements[iID];
+   if (nElement===undefined)
+   {
+    nElement=document.createElement('input');
+    nElement.name=iID;
+    nElement.type='hidden';
+    AForm.appendChild(nElement);
+   }
+   nElement.value=iElement.checked;
+  }
+ }
+
+ var u = '&ID='+AForm.ID.value+'&IDParent='+AForm.IDParent.value;
+ clPost({Pars:true, Form:AForm, URL:u, OnAfterLoad:Back, ProcName:'DescriptBindSet'});
+}
+
+
+
+
+/*----------------------------------------------------------------------------------
+Действие link move copy remove с объектами на связях bind_default
+----------------------------------------------------------------------------------*/
+
+function clDescriptElementOperation(AElement, AElementTo, AOperation)
+{
+ function Back(p)
+ {
+  if (p.ResultCode=='Ok')
+  {
+   switch (p.Operation)
+   {
+    case 'link':
+     if (p.ElementTo.Expend || p.ElementTo.IDBind=='bind_default') {clDescriptElementAdd(p.Element, p.ElementTo)} else {clDescriptRefresh(p.ElementTo, 'bind_default')};
+    break;
+
+    case 'move':
+     clDescriptElementDelete(p.Element);
+     if (p.ElementTo.Expend || p.ElementTo.IDBind=='bind_default') {clDescriptElementAdd(p.Element, p.ElementTo)} else {clDescriptRefresh(p.ElementTo, 'bind_default')};
+    break;
+
+    case 'copy':
+//   if (p.Element!=null) clDescriptRefresh(p.Element.Parent, 'bind_default');
+    break;
+
+    case 'remove':
+     if (p.Element!=null) clDescriptRefresh(p.Element.Parent, 'bind_default');
+    break;
+
+    case 'removeall':
+     if (p.Element!=null) clDescriptRefresh(p.Element.Parent, 'bind_default');
+    break;
+
+   }
+   clInf(p.ResultMessage, true);
+  } else clWar(p.ResultMessage, true);
+ }
+
+ if (AElement!=null)
+ {
+  if (AElement.Parent) {lElementFrom=AElement.Parent} else {lElementFrom=AElement};
+  if (AElementTo!=null) {lElementTo=AElementTo} else {lElementTo=AElement};
+  var u='&ID='+AElement.ID+'&IDFrom='+lElementFrom.ID+'&IDTo='+lElementTo.ID+'&Operation='+AOperation;
+  clPost({Pars:true, URL:u, ProcName:'DescriptOperation', OnAfterLoad:Back, Element:AElement, ElementFrom:lElementFrom, ElementTo:lElementTo, Operation:AOperation});
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ * Объект дескрипт
+ * Должен предоставлять функции для работыс дескриптами cl
+ */
+
+TDescript = function ()
+{
+    this.ID=null;
+    return this;
+}
+
+
+/*Получение параметра из данных Post*/
+TDescript.prototype.GetPost = function(AParam, ADefault)
+{
+    if (this.Data && this.Data.Detale && this.Data.Detale.Post) return this.Data.Detale.Post[AParam];
+    else return ADefault;
+}
+
+
+
+/*
+ * Вызов формы информации дескрипта
+ */
+TDescript.prototype.Popup = function(AParams)
+{
+    that = this;
+    AParams.OnAfterLoad = function(p)
+    {
+        var Content = decodeURIComponent('<cl content="DescriptMenu.html" pars="true" convert="URI"/>');
+        Content = clContentFromObject(p.Result.Params, Content);
+        var Win = cl.Popup({TypeContent:tcText, Content:Content});
+
+        Win.ChildByID('BtnInsert').onclick=function()
+        {
+            var NewDescript = new TDescript();
+            NewDescript.Edit({IDParent:that.ID});
+            Win.Close();
+        };
+
+        Win.ChildByID('BtnContent').onclick=function()
+        {
+            clDescriptContentEdit({ID:that.ID});
+            Win.Close();
+        };
+
+        Win.ChildByID('BtnEdit').onclick=function()
+        {
+            that.Edit();
+            Win.Close();
+        };
+
+        /*Действие перемещения из папки*/
+        Win.ChildByID('BtnRemove').onclick=function()
+        {
+            cl.Confirm
+            ({
+                OnClick: function()
+                {
+                    that.Unbind
+                    ({
+                        ID: that.ID,
+                        IDFrom: AParams.IDFrom,
+                        OnAfterUnbind:function()
+                        {
+                            Win.Close();
+                            if (AParams.OnAfterDelete) AParams.OnAfterDelete(AParams);
+                        }
+                    });
+                }
+            });
+        };
+
+
+        /*Действие удаления*/
+        Win.ChildByID('BtnDelete').onclick=function()
+        {
+            that.Delete
+            ({
+                ID:AParams.ID,
+                OnAfterDelete:function()
+                {
+                    Win.Close();
+                    if (AParams.OnAfterDelete) AParams.OnAfterDelete(AParams);
+                }
+            });
+        };
+
+        Win.ChildByID('BtnIndex').onclick=function()
+        {
+            that.Index({});
+        };
+    }
+    this.Load(AParams);
+}
+
+
+
+
+/*
+ * Попытка удаления дескрипта с подтверждением
+ */
+TDescript.prototype.Delete = function(AParams)
+{
+    var that = this;
+    cl.Confirm
+    ({
+        OnClick: function()
+        {
+            /*Процедура удаления*/
+            cl.Post
+            ({
+                Pars:true,
+                URL:'ID='+that.ID,
+                TypeContent:tcXML,
+                Library:'descript_delete',
+                ProcName:'DescriptDelete',
+                OnAfterLoad:function(p)
+                {
+                    if (cl.PostResult(p))
+                    {
+                        if (AParams.OnAfterDelete) AParams.OnAfterDelete(AParams);
+                        if (that.OnAfterDelete) that.OnAfterDelete(that);
+                    }
+                }
+            });
+        }
+    });
+}
+
+
+
+/*
+ * Попытка удаления записи с подтверждением
+ * AParams.IDFrom - откуда удаляем связь
+ * AParams.IDBind - тип связи
+ */
+TDescript.prototype.Unbind = function(AParams)
+{
+    var that = this;
+    /*Процедура удаления связи*/
+    URL = 'ID='+that.ID;
+    if (AParams.IDFrom) URL = URL + '&IDFrom='+AParams.IDFrom;
+    if (AParams.IDBind) URL = URL + '&IDBind='+AParams.IDBind;
+    cl.Post
+    ({
+        URL:URL,
+        Pars:true,
+        TypeContent:tcXML,
+        Library:'descript_unbind',
+        ProcName:'DescriptUnbind',
+        OnAfterLoad:function(p)
+        {
+            if (cl.PostResult(p))
+            {
+                if (AParams.OnAfterUnbind) AParams.OnAfterUnbind(AParams);
+                if (that.OnAfterUnbind) that.OnAfterUbind(that);
+            }
+        }
+    });
+}
+
+
+
+
+/*
+ * Изменение идентификатора дескрипта
+ */
+TDescript.prototype.RenameID = function(AParams)
+{
+    var that = this;
+    var Content = decodeURIComponent('<cl content="DescriptRenameIDForm" pars="true" convert="URI"/>');
+    var Popup = cl.Popup({TypeContent:tcText, Content:Content});
+
+    Popup.ChildByID('ID').value=this.ID;
+
+    Popup.ChildByID('BtnCancel').onclick=function(){Popup.Close();};
+    Popup.ChildByID('BtnOk').onclick=function()
+    {
+        cl.Confirm
+        ({
+            OnClick: function()
+            {
+                /*Процедура изменения идентификатора*/
+                cl.Post
+                ({
+                    Form:Popup.ChildByID('Form'),
+                    Pars:true,
+                    TypeContent:tcXML,
+                    Library:'descript_rename_id', ProcName:'DescriptRenameID',
+                    OnAfterLoad:function(p)
+                    {
+                        if (cl.PostResult(p))
+                        {
+                            that.ID=p.Result.Params.ID;
+                            if (AParams && AParams.OnSuccess) AParams.OnSuccess(AParams);
+                            Popup.Close();
+                        }
+                    }
+                });
+            }
+        });
+    };
+}
+
+
+
+
+
+
+/*
+ * Загрузка дескрипта по идентификатору
+ * AParams.ID - идентификатор дескрипта
+ * AParams.FormSuffix - суфикс формы для дескрипта возвращаемого в FormContent
+ * AParams.Content - размер возвращаемого контента: none-нет; all-весь;
+ */
+TDescript.prototype.Load = function(AParams)
+{
+    var that = this;
+    /* Определяем ID  */
+    if (AParams && AParams.ID) var ID=AParams.ID;
+    else var ID = this.ID;
+
+    /*Сборка URL*/
+    var URL = '&ID='+ID;
+    if (AParams)
+    {
+        if (AParams.FormSuffix) URL = URL + '&FormSuffix=' + AParams.FormSuffix;
+        if (AParams.ContentSize) URL = URL + '&ContentSize=' + AParams.ContentSize;
+    }
+
+    /*Исполняем запрос*/
+    cl.Post
+    ({
+            URL:URL,
+            Library:'descript_prepare',
+            ProcName:'DescriptPrepare',
+            TypeContent:tcXML,
+            Pars:true,
+            OnAfterLoad:function(p)
+            {
+                if (cl.PostResult(p))
+                {
+                    that.ID=decodeURIComponent(ID);
+                    that.Data=p.Result;
+                    that.LoadParams = AParams;
+                    if (AParams && AParams.OnAfterLoad) AParams.OnAfterLoad(p);
+                }
+            }
+    });
+}
+
+
+
+/*
+ * Перенос дескрипта из одной папки в другую
+ * AParams.IDSource
+ * AParams.IDDest
+ */
+TDescript.prototype.Move = function(AParams)
+{
+    var that = this;
+    var URL='&ID='+this.ID;
+    if (AParams && AParams.IDSource) URL=URL+'&IDFrom='+AParams.IDSource;
+    if (AParams && AParams.IDDest) URL=URL+'&IDTo='+AParams.IDDest;
+    /*Исполняем запрос*/
+    cl.Post
+    ({
+            URL:URL,
+            Library:'descript_move',
+            ProcName:'DescriptMove',
+            TypeContent:tcXML,
+            Pars:true,
+            OnAfterLoad:function(p)
+            {
+                if (cl.PostResult(p))
+                {
+                    /*Успешное выполнение*/
+                    if (AParams.OnSuccess) AParams.OnSuccess(AParams);
+                }
+            }
+    });
+}
+
+
+
+/*
+ * Вызов формы редактора дескрипта
+ * AParam.ID
+ */
+TDescript.prototype.Edit = function(AParams)
+{
+    var that = this;
+    /*Определяем ID */
+    if (AParams && AParams.ID) this.ID=AParams.ID;
+
+    /*Создаем окно*/
+    if (!cl.WinControl) cl.WinControl = new clWinControl();
+    this.Window = cl.WinControl.WindowCreate();
+    /*Знакомим окно с дескриптом*/
+    this.Window.Descript = this;
+    this.Window.SetCaption(this.ID);
+    this.Window.SetToolbar(decodeURIComponent('<cl content="DescriptEditToolbar.html" pars="true" convert="URI"/>'));
+    this.Window.Icon.SetParams({Caption:that.ID, Group:'Form', GUIDImage:''});
+
+    /*
+     * Описание формы обновления дескрита
+     * заменяет весь контент на форме
+     */
+    this.Window.Refresh = function()
+    {
+        if (that.ID != null)
+        {
+            /*Пытаемся загрузить запись*/
+            that.Load
+            ({
+                ID: that.ID,
+                FormSuffix: 'Form.html',
+                OnAfterLoad: function(p)
+                {
+                    if (cl.PostResult(p))
+                    {
+                        /*Вывод формы*/
+                        var FormContent = decodeURIComponent(p.Result.Params.FormContent);
+                        /* Подменяем контент из параметров */
+                        FormContent = clContentFromObject(p.Result.Params, FormContent);
+                       /* Подменяем контент из параметров поста */
+                        FormContent = clContentFromObject(p.Result.Detale.Post, FormContent);
+                        /* удаляем неподмененные % */
+                        FormContent = clContentClear(FormContent);
+                        /* вывод контента в форму */
+                        FormContent = that.Window.SetContent(FormContent);
+                        /* заполняем форму */
+                        clValuesFromObject(p.Result.Params, that.Window.Control);
+                        clValuesFromObject(p.Result.Detale.Post, that.Window.Control);
+                        /* Восстановление параметров окна */
+                        that.Window.Icon.SetParams({Caption: p.Result.Params.Caption, Group:'Form', GUIDImage:''});
+                        /*Показали кнопку удалить*/
+                        that.Window.ChildByID('BtnDelete').Show();
+                        that.Window.ChildByID('BtnContent').Show();
+                        that.Window.ChildByID('BtnRenameID').Show();
+                        /* Загрузка инициализационного скрипта */
+                        var ScriptName = that.Data.Params.Type+'Form.js';
+                        cl.ScriptLoad({ID:ScriptName});
+                        cl.ScriptWait
+                        (
+                            [ScriptName],
+                            function()
+                            {
+                                var FunctionName = 'cl'+that.Data.Params.Type+'FormInit';
+                                if (typeof window[FunctionName] == 'function') window[FunctionName](that);
+                            }
+                        );
+                        /*Вывод попапов*/
+                        cl.SelectActivate(that.Window.Control);
+                        /* Восстановление  */
+                        cl.SelectActivate(that.Window.Control);
+                    }
+                    else
+                    {
+                        that.Window.ChildByID('BtnDelete').Hide();
+                        that.Window.ChildByID('BtnContent').Hide();
+                        that.Window.ChildByID('BtnRenameID').Hide();
+                    }
+                }
+            });
+        }
+        else
+        {
+            /*Спрятали кнопки управления дескриптом*/
+            that.Window.ChildByID('BtnDelete').Hide();
+            that.Window.ChildByID('BtnContent').Hide();
+            that.Window.ChildByID('BtnRenameID').Hide();
+            /**/
+            if (!AParams.Caption) AParams.Caption='';
+            /*Грузим форму добавления дескрипта*/
+            var Blank = decodeURIComponent('<cl content="DescriptAddForm.html" pars="true" convert="URI"/>');
+            Blank = clContentFromObject(AParams, Blank);
+            Blank = clContentFromObject({IDParent:''}, Blank);
+            that.Window.SetContent(Blank);
+            /*Восстановление параметров*/
+            that.Window.Icon.SetParams({Caption:'New', Group:'Form', GUIDImage:''});
+            /*Активация попапов*/
+            cl.SelectActivate(that.Window.Control);
+            /*Загрзка типа объекта из родителя если он там установлен и родитель есть*/
+            if (AParams.IDParent)
+            {
+                /*Создаем и грузим родительский дескрипт*/
+                var Parent = new TDescript();
+                Parent.Load
+                (
+                    {
+                        ID: AParams.IDParent,
+                        OnAfterLoad: function ()
+                        {
+                           that.Window.ChildByID('IDType').Refresh(Parent.Data.Params.IDTypeDefault, '');
+                        }
+                    }
+                );
+            }
+        }
+    }
+
+
+
+    /**
+     * Процедура сохранения формы
+     */
+    this.Window.Save = function()
+    {
+        var Param={};
+        if (that.ID!=null)
+        {
+            /*ID существует значит Update*/
+            Param.Library = 'descript_update';
+            Param.ProcName = 'DescriptUpdate';
+        }
+        else
+        {
+            /*ID не существует значит Create*/
+            Param.Library = 'descript_create';
+            Param.ProcName = 'DescriptCreate';
+        }
+        /*Процедура после сохранения*/
+        Param.Pars = true;
+        Param.Form = that.Window.ChildByID('Form');
+        Param.OnAfterLoad = function(p)
+        {
+            if (cl.PostResult(p))
+            {
+                that.ID = p.Result.Params.ID;
+                that.Window.Refresh();
+            }
+        }
+        cl.Post(Param);
+    }
+
+
+    /*
+     * Функция удаления дескрипта
+     */
+    this.Window.Delete = function()
+    {
+        that.Delete({
+            OnAfterDelete:function(){that.Window.Close()}
+        });
+    }
+
+
+    /* Дейставия на кнопки */
+    this.Window.ChildByID('BtnRefresh').onclick = this.Window.Refresh;
+    this.Window.ChildByID('BtnSave').onclick = this.Window.Save;
+    this.Window.ChildByID('BtnDelete').onclick = this.Window.Delete;
+    this.Window.ChildByID('BtnContent').onclick = function ()
+    {
+        clDescriptContentEdit
+        (
+            {
+                ID:that.ID,
+                OnAfterSave:function()
+                {
+                    that.Window.Refresh();
+                }
+            }
+        );
+    }
+    this.Window.ChildByID('BtnRenameID').onclick = function()
+    {
+        that.RenameID({OnSuccess:function(){that.Window.Refresh()}});
+    }
+
+
+    /*Обновление дескрипта*/
+    this.Window.Refresh();
+}
+
+
+
+/*
+ * Вызов формы редактора контента дескрипта
+ * AParam.ID
+ * AParam.IDLanguage
+ */
+clDescriptContentEdit = function(AParam)
+{
+    if (!cl.WinControl) cl.WinControl = new clWinControl();
+    var Window = cl.WinControl.WindowCreate();
+    Window.SetCaption('Content_'+AParam.ID);
+    Window.SetToolbar(decodeURIComponent('<cl content="DescriptContentToolbar.html" pars="true" convert="URI"/>'));
+    Window.SetContent(decodeURIComponent('<cl content="DescriptContentForm.html" pars="true" convert="URI"/>'));
+    Window.Icon.SetParams({Caption:'Content_'+AParam.ID, Group:'Form', GUIDImage:''});
+    Window.DescriptID=AParam.ID;
+    cl.SelectActivate(Window.Control);
+
+
+
+    /*
+     * Описание формы обновления дескрита
+     */
+    Window.Refresh = function()
+    {
+        if (Window.DescriptID)
+        {
+            /*Пытаемся загрузить запись*/
+            var Prm=
+            {
+                URL:'&ID='+Window.DescriptID+'&IDLang='+Window.ChildByID('IDLang').value,
+                TypeContent:tcXML,
+                Pars:true,
+                Library:'descript_content',
+                ProcName:'DescriptContentRead',
+                OnAfterLoad:function(p)
+                {
+                    if (cl.PostResult(p))
+                    {
+                        Window.ChildByID('DescriptCaption').value = decodeURIComponent(p.Result.Params.Caption);
+                        Window.ChildByID('DescriptContent').value = decodeURIComponent(p.Result.Params.Content);
+                        Window.ChildByID('Indexate').checked = decodeURIComponent(p.Result.Params.Indexate);
+                    }
+                }
+            }
+            cl.Post(Prm);
+        }
+    }
+
+
+    /*
+     * Процедура сохранения формы
+     */
+    Window.Save = function()
+    {
+        if (Window.DescriptID)
+        {
+            var Param={};
+            /*ID передан Update*/
+            Param.URL = '&ID='+Window.DescriptID+'&IDLang='+Window.ChildByID('IDLang').value;
+            Param.Library = 'descript_content';
+            Param.ProcName = 'DescriptContentWrite';
+            /*Процедура после сохранения*/
+            Param.Pars = true;
+            Param.Form = Window.ChildByID('Form');
+            Param.OnAfterLoad = function(p)
+            {
+                cl.PostResult(p, true);
+            }
+            cl.Post(Param);
+        }
+    }
+
+    Window.ChildByID('BtnRefresh').onclick = Window.Refresh;
+    Window.ChildByID('BtnSave').onclick = Window.Save;
+
+    Window.Refresh();
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<binds>
+    <bind IDChild="still" IDBind="rrr"/>
+    <bind IDChild="ff523011-9e41-e8fd-242a-1833f3e44e7c" IDBind="right_update"/>
+    
+    <bind IDChild="f2bf9cf9-fb74-bc2e-34ec-276bf6b7cc19" IDBind="bind_right"/>
+    <bind IDChild="administrator" IDBind="right_delete"/>
+    <bind IDChild="administrator" IDBind="right_select"/>
+    <bind IDChild="administrator" IDBind="right_update"/>
+    <bind IDChild="administrator" IDBind="right_insert"/>
+</binds>

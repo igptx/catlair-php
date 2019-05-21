@@ -1,0 +1,6 @@
+#winlogopng_id
+#file_type
+winlogo
+png
+
+file

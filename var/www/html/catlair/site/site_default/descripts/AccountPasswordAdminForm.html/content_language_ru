@@ -1,0 +1,41 @@
+<form id="Form" method="post" enctype="multipart/form-data">
+
+    <div class="Group">
+
+        <h2>
+            Административная смена пароля
+        </h2>
+
+        <div class="Line">
+            <div class="Caption">
+                ID
+            </div>
+            <div class="Data">
+                <input type="text" name="ID" value="%ID%"/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Пароль
+            </div>
+            <div class="Data">
+                <input type="password" name="Password" autocomplete="off"/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Повтор
+            </div>
+            <div class="Data">
+                <input type="password" name="Check" autocomplete="off"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="Toolbar">
+        <button type="button"id="BtnOk" class="Unselected ImageOk">Ок</button>
+    </div>
+
+</form>

@@ -1,0 +1,6 @@
+#descripts_id
+#agent_type
+descripts
+дескрипты
+agent
+агент

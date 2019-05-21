@@ -1,0 +1,5 @@
+#bindpng_id
+#file_type
+bind
+png
+file

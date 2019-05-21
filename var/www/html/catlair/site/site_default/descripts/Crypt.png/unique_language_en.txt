@@ -1,0 +1,6 @@
+#cryptpng_id
+#file_type
+crypt
+png
+
+file

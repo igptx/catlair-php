@@ -1,0 +1,286 @@
+/*
+ *  Работа со строками
+ *  Catlair JS
+ *  Содержит набор функций для различной обработки строк.
+ */
+
+
+/*
+ *   Возвращает подобие GUID, путь и плюшевый, но лучше чем ничего
+ */
+function clGUID()
+{
+    return 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8); return v.toString(16);});
+}
+
+
+
+/*
+ *  Возвращает подобие UID
+ */
+function clUID()
+{
+    return 'xxxxxxxxxxxxxxxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8); return v.toString(16);});
+}
+
+
+
+/*
+ *  создает строку длинной ALength из символа AChar
+ */
+function clStrRepl(ALength, AChar)
+{
+    var Result='';
+    for (var i=0; i<ALength; i++) Result=Result+AChar;
+    return Result;
+}
+
+
+
+function clStrLeft(AString, ALength, ACharString)
+/*
+Дополняет слева строку AString до длинны ALength символами ACharString
+В случае если длинна строки AString более ALength, строка обрезается слева.
+*/
+{
+    var Result=''; /*переменная для результата*/
+    var k=0; /*смещение в AString относительно маркера текущей позиции*/
+    var j=0; /*маркер строки из которой происходит дополнение*/
+
+    for(var i=ALength; i>0; i--)
+    {
+        k=AString.length+i-ALength-1;
+        if(k>=0)
+        {
+            Result=AString[k]+Result;
+        }
+        else
+        {
+            j--; /*обратный обход строки ACharString*/
+            if (j<0) j=ACharString.length-1; /*маркер переносим на конец ACharString если достигнуто начало*/
+            Result=ACharString[j]+Result;
+        }
+    }
+    return Result;
+}
+
+
+
+/*
+ * Дополняет справа строку AString до длинны ALength символами из ACharString.
+ * В случае если длинна строки AString более ALength, строка обрезается справа.
+ */
+function clStrRight(AString, ALength, ACharString)
+{
+ var Result=''; /*переменная для результата*/
+ var j=0; /*маркер строки из которой проходит дополнение*/
+ for(var i=0; i<ALength; i++)
+ {
+  if(i<AString.length)
+  {
+   Result=Result+AString[i];
+  }
+  else
+  {
+   Result=Result+ACharString[j];
+   j++;
+   if (j==ACharString.length) j=0;
+  };
+ }
+ return Result;
+}
+
+
+
+/*
+----------------------------------------
+Работа с URL
+----------------------------------------
+*/
+
+
+
+/*
+Функция создает URL сторку параметров используя текущий URL и модификаторы переданные в AParams.
+Более подробно см clSourceURL.
+*/
+function clURL(AParams)
+{
+    return clSourceURL(document.location.search, AParams);
+}
+
+
+
+function clGetUrlParam(AName, ADefault)
+{
+     var s=document.location.search;
+     var l=s.substring(1, s.length);
+     var a=l.split('&');
+     var Value = clValueByName(a, AName, ADefault);
+     if (Value==null) Value=ADefault;
+     return Value;
+}
+
+
+
+/*
+ * Функция собирает единую строку параметров из двух переданных в ASource и AParams по следующим правилам:
+ * -не пересекающиеся параметры складываются; '&p1=v1' + '&p2=v2' -> '&p1=v1&p2=v2'
+ * -значения параметров с одинаковыми именами заменяются на значения из AParams; '&p1=v1' + '&p1=v2' -> '&p1=v2'
+ * -из результата исключаются параметры присутствующие в ASource и пустые в AParams; '&p1=v1&p2=v2' + '&p2=' -> '&p1=v1'
+
+ * Параметры передаются как &m1=value1¶m2=value2&.....¶mN=valueN.
+ * В качестве разделителя используется знак '&'.
+ */
+function clSourceURL(ASource, AParams)
+{
+     var r='';
+
+     var s=ASource.split('&');
+     var p=AParams.split('&');
+
+     /* Перенос параметров из строки Source или взятие их из AParams */
+     var i=1;
+     while (i < s.length)
+     {
+         var n = clNameByIndex(s, i);
+         var v = clValueByName(p, n, null);
+         /* Если параметр есть в Params то берем его */
+         if (v==null) r=r+'&'+s[i];
+         else r=r+'&'+n+'='+v;
+         i++;
+     }
+
+     /* Добалвение параметров из Params, отсуствующих в Source */
+     i=0;
+     while (i<p.length)
+     {
+         n=clNameByIndex(p,i);
+         v=clValueByName(s, n);
+         if (v==null && n!=null && clValueByIndex(p, i)!='') r=r+'&'+p[i];
+         i++;
+     }
+
+     return '?'+r;
+}
+
+
+
+/**********************************************************************************
+ * Работа с параметрами в массиве
+ */
+
+
+
+/**
+ * Возвращает имя параметра из массива AParams по номеру AIndex.
+ * Элементы массива принимаются в формате param=value
+ */
+function clNameByIndex(AParams, AIndex)
+{
+ var r=null;
+ var pe=AParams[AIndex].indexOf('=', 0);
+ if (pe>=0) r=AParams[AIndex].substring(0, pe);
+ return r;
+}
+
+
+
+/**
+ * Возвращает значение параметра из массива AParams по номеру AIndex.
+ * Элементы массива принимаются в формате param=value
+ */
+function clValueByIndex(AParams, AIndex)
+{
+    var r=null;
+    var pe=AParams[AIndex].indexOf('=', 0);
+    if (pe>=0) r=AParams[AIndex].substring(pe+1, AParams[AIndex].length);
+    return r;
+}
+
+
+
+function clValueByName(AParams, AName, ADefault)
+/*
+возвращает значение параметра из массива AParams по имени AName
+Элементы массива принимаются в формате param=value
+*/
+{
+    var r=null;
+    if (AName!=null)
+    {
+        var n=null;
+        var v=null;
+        var i=0;
+        while ((i<AParams.length)&&(r==null))
+        {
+            n=clNameByIndex(AParams, i);
+            if (n!=null)
+            {
+                if (n.toLowerCase()==AName.toLowerCase())
+                {
+                    r=clValueByIndex(AParams, i);
+                    if (r==null) r=ADefault;
+                }
+            }
+            i++;
+        }
+    }
+    return r;
+}
+
+
+
+
+function clFloatToStr(ANumber)
+{
+ if (Math.abs(ANumber) < clEpsilon) ANumber=0;
+ d=ANumber.toString().split('.');
+ var c=d[0];
+ var f=d[1];
+ if (!c) c='';
+ if (!f) f='';
+ return clStrLeft(c, 10, '.')+'.'+clStrRight(f, clEpsilonLength, '0');
+}
+
+
+
+function clSizeToStr(ADelta, AZero)
+{
+    if (ADelta >= 1024*1024*1024*1024) {return (ADelta / (1024*1024*1024*1024)).toFixed(1) + ' Tb'} else
+        if (ADelta >= 1024*1024*1024) {return (ADelta / (1024*1024*1024)).toFixed(1) + ' Gb'} else
+            if (ADelta >= 1024*1024) {return (ADelta / (1024*1024)).toFixed(1) + ' Mb'} else
+                if (ADelta >= 1024) {return (ADelta/1024).toFixed(1) + ' Kb'} else
+                    if (ADelta > 0.1 && !AZero) {return ADelta+' bt'} else {return AZero}
+}
+
+
+
+/**
+ * Get JS AObject and replace params in AContent.
+ */
+function clContentFromObject(AObject, AContent)
+{
+    for (var Key in AObject)
+    {
+        var rex=new RegExp('%'+Key+'%', 'g');
+        try
+        {
+            AContent = AContent.replace(rex, decodeURIComponent(AObject[Key]));
+        }
+        catch (err) {}
+    }
+    return AContent;
+}
+
+
+
+/**
+ * Replace all %params% to empty
+ */
+function clContentClear(AContent)
+{
+    AContent = AContent.replace(/%[a-zA-Z0-9_]+%/g, '');
+    return AContent;
+}
+

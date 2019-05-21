@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="root" IDBind="f2bf9cf9-fb74-bc2e-34ec-276bf6b7cc19"/>
+  
+  <bind IDParent="root" IDBind="bind_right"/>
+</binds>

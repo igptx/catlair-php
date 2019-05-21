@@ -1,0 +1,6 @@
+#mimepng_id
+#file_type
+mime
+png
+file
+файл

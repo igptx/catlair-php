@@ -1,0 +1,6 @@
+#accountpasswordadminformhtml_id
+#content_type
+accountpasswordadminform
+html
+
+content

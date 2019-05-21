@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds>
+ <bind IDChild="Top.html" IDBind="bind_default"/>
+ <bind IDChild="Body.html" IDBind="bind_default"/>
+<bind IDChild="Main.html" IDBind="bind_default"/><bind IDChild="Code.html" IDBind="bind_default"/><bind IDChild="Top.html" IDBind="bind_right"/><bind IDChild="Body.html" IDBind="bind_right"/><bind IDChild="Main.html" IDBind="bind_right"/><bind IDChild="Code.html" IDBind="bind_right"/><bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/></binds>

@@ -1,0 +1,6 @@
+#site_templatepng_id
+#file_type
+site_template
+png
+
+file

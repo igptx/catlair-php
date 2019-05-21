@@ -1,0 +1,4 @@
+<div class="Unselected" onclick="clDescriptRefresh(clGetParentByClass(this, 'MenuPopup').Element, '%ID%');">
+ <div class="Caption">%Caption%</div>
+ <div class="Count">%Count%</div>
+</div>

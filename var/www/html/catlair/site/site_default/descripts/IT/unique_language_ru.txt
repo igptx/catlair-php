@@ -1,0 +1,6 @@
+#it_id
+#country_type
+it
+италия
+country
+страна

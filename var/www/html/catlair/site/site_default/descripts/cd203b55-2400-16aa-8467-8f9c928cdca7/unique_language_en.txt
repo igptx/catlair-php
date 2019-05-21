@@ -1,0 +1,13 @@
+#cd203b55240016aa84678f9c928cdca7_id
+#folder_type
+#array_id_cd203b55240016aa84678f9c928cdca7
+#array_idtype_folder
+#array_idimage_weight.png
+#array_idtypedefault_unit
+cd203b55
+2400
+16aa
+8467
+8f9c928cdca7
+
+folder

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>Autoproc.html</ID>
+ <Type>Content</Type>
+ <Langs>
+  <default>
+   <Caption>Процедура выполнения запросов</Caption>
+  </default>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Процедура выполнения запросов</Caption></language_ru></Langs>
+<Indexate>on</Indexate></descript>

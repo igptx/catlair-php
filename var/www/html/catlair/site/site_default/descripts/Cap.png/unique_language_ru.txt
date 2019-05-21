@@ -1,0 +1,5 @@
+#cappng_id
+#file_type
+cap
+png
+file

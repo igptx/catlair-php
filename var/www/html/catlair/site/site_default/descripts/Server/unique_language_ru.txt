@@ -1,0 +1,10 @@
+#server_id
+#object_type
+#array_id_server
+#array_idtype_object
+#array_idimage_database.png
+#array_idtypedefault_0
+server
+сервер
+object
+объект

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<binds>
+    
+    
+    <bind IDChild="FileContentFolder" IDBind="bind_right"/>
+<bind IDChild="Loader.png" IDBind="bind_default"/><bind IDChild="Loader.png" IDBind="bind_right"/></binds>

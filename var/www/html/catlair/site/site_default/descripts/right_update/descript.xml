@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript><ID>right_update</ID><Type>Bind</Type><Langs><language_default><Caption></Caption></language_default><language_ru><Caption>Запись</Caption></language_ru></Langs><Indexate/><IDBindConductor>bind_right</IDBindConductor><ColorR>1</ColorR><ColorG>0.8</ColorG><ColorB>0.5</ColorB><ColorA>1</ColorA></descript>

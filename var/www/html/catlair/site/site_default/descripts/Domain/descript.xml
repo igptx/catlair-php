@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript><ID>Domain</ID><Type>Object</Type><Langs><language_default><Caption></Caption></language_default><language_ru><Caption>Доменное имя</Caption></language_ru></Langs><IDTypeDefault>0</IDTypeDefault><IDImage>dns.png</IDImage><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA></descript>

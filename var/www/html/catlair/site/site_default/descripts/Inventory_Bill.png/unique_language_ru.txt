@@ -1,0 +1,6 @@
+#inventory_billpng_id
+#file_type
+inventory_bill
+png
+file
+файл

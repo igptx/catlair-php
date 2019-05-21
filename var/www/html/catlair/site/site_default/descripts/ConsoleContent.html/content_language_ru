@@ -1,0 +1,12 @@
+<form id="FormTree">
+    <div class="Console">
+        <div class="Tree UserSelectNone"  id="TreeConteiner">
+        </div>
+        <div id="RecordConteiner" class="RecordConteiner">
+            <div id="Title" class="Title">
+            </div>
+            <div id="RecordList" class="RecordList UserSelectNone">
+            </div>
+        </div>
+    </div>
+</form>

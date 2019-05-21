@@ -1,0 +1,5 @@
+#3dpng_id
+#file_type
+3d
+png
+file

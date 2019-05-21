@@ -1,0 +1,44 @@
+<div>
+    <div class="Group">
+
+        <h2>
+            Техническая информация о сессии
+        </h2>
+
+        <div class="Line">
+            <div class="Caption">
+                Логин
+            </div>
+            <div class="Data">
+                %Login%
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Пользователь
+            </div>
+            <div class="Data">
+                %CaptionUser% (%IDUser%)
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Язык
+            </div>
+            <div class="Data">
+                %CaptionLang% (%IDLanguage%)
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Сайт
+            </div>
+            <div class="Data">
+                %CaptionSite% (%IDSite%)
+            </div>
+        </div>
+    </div>
+</div>

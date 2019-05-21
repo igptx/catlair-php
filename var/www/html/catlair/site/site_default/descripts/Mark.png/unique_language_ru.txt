@@ -1,0 +1,6 @@
+#markpng_id
+#file_type
+mark
+png
+file
+файл

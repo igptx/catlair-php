@@ -1,0 +1,6 @@
+#undopng_id
+#file_type
+undo
+png
+file
+файл

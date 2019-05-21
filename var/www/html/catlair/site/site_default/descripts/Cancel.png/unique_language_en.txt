@@ -1,0 +1,6 @@
+#cancelpng_id
+#file_type
+cancel
+png
+
+file

@@ -1,0 +1,6 @@
+#mousepng_id
+#file_type
+mouse
+png
+
+file

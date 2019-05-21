@@ -1,0 +1,6 @@
+#ippng_id
+#file_type
+ip
+png
+file
+файл

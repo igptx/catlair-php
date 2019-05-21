@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descript>
+ <ID>adminuser</ID>
+ <Type>Agent</Type>
+ <Langs>
+  <default>
+   <Caption>Умолчальная админская учетка</Caption>
+  </default>
+  <ru>
+   <Caption>Админская учетка</Caption>
+  </ru>
+  <en>
+   <Caption>Admin's record</Caption>
+  </en>
+ <language_default><Caption></Caption></language_default><language_ru><Caption>Администратор</Caption></language_ru></Langs>
+ <Login>bagdad</Login>
+ <Hash>c77e3f52b4603bc52ed52b3e7448f5b8</Hash>
+<Indexate/><IDTypeDefault>0</IDTypeDefault><IDImage/><ColorR>0</ColorR><ColorG>0</ColorG><ColorB>0</ColorB><ColorA>1</ColorA></descript>

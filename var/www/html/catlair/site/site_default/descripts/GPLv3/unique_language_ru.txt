@@ -1,0 +1,7 @@
+#gplv3_id
+#content_type
+gplv3
+пользовательское
+соглашение
+content
+контент

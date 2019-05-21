@@ -1,0 +1,983 @@
+/*
+ * Tree of objects
+ * Catlair JS
+ * still@itserv.ru
+ *
+ * 15.03.2019
+ */
+
+function TDescriptTree()
+{
+    this.Selected=null;
+    this.OnBeforeSelected=null;
+    this.OnAfterSelected=null;
+    this.Tree=null; /*Tree conteiner*/
+    this.RecordCurrent = 0;
+    this.OnRecordClick = null; /*клик на запись*/
+    this.IDSelect = null; /*Текущая выбранная запись*/
+    return this;
+}
+
+
+
+/*
+ * Очиска родительского контейнера
+ */
+
+TDescriptTree.prototype.Clear = function()
+{
+    this.Tree.innerHTML = '';
+}
+
+
+
+TDescriptTree.prototype.LoadRoot = function(AIDLang)
+{
+    this.Clear();
+    this.IDLang = AIDLang;
+    this.Load({Parent:this.Tree});
+}
+
+
+
+TDescriptTree.prototype.Load = function(AParams)
+{
+    var that = this;
+    if (AParams.Parent.Record) var IDParent=AParams.Parent.Record.ID;
+    else var ID='root';
+
+    Descripts = new TDescripts();
+    Descripts.RecordConteiner = AParams.Parent;
+    Descripts.RecordContent = this.ConteinerContent;
+
+    /*Присылается вновь созданный AConteiner и в нем есть запитсь AConteiner.Record*/
+    Descripts.OnAfterLoadRecord = function (AConteiner)
+    {
+        var Record = AConteiner.Record;
+        var Descript = AConteiner.Descript;
+        Descript.Conteiner = AConteiner;
+        Descript.OnAfterDelete = function(){that.ConteinerDelete(AConteiner)};
+
+        /*Получение родительского контейнера*/
+        AConteiner.GetParent = function()
+        {
+            return this.parentNode.ParentByClass('Record');
+        };
+
+        /* Child conteiner */
+        var ChildList = AConteiner.ChildByID('ChildList');
+        ChildList.Record = Record;
+
+        /* Click action on record */
+        var Check = AConteiner.ChildByID('Check');
+        Check.onclick = function()
+        {
+            if (that.IDSelect == Record.ID)
+            {
+                that.IDSelect = null;
+                Check.checked = false;
+            }
+            else that.IDSelect = Record.ID;
+            if (that.OnRecordClick) that.OnRecordClick(AConteiner);
+        }
+
+        /*Обработка select подсветка элементов с иного сайта*/
+        AConteiner.ChildByID('Options').onclick = function() {that.Options(AConteiner)};
+
+        /*Обработка select подсветка элементов с иного сайта*/
+        var Caption = AConteiner.ChildByID('Caption');
+        Caption.ondragstart = function(AEvent)
+        {
+            // this GLOBAL variable
+            DragDescriptSourceConteiner = AConteiner;
+            return true;
+        }
+
+        Caption.ondragover = function(AEvent)
+        {
+            return false;
+        }
+
+        Caption.ondrop = function(AEvent)
+        {
+            var ObjDrag = DragDescriptSourceConteiner.ParentByClass('Record');
+            var ObjSource = ObjDrag.GetParent();
+            var ObjDest = AConteiner;
+
+            if (ObjDrag)
+            {
+                var IDSource = ObjSource.Descript.ID;
+                var IDDest = ObjDest.Descript.ID;
+                ObjDrag.Descript.Move
+                ({
+                    IDSource:IDSource,
+                    IDDest:IDDest,
+                    OnSuccess:function()
+                    {
+                        ObjDrag.parentNode.removeChild(ObjDrag);
+                        ObjDest.ChildByID('ChildList').appendChild(ObjDrag);
+                    }
+                });
+            }
+        }
+
+        /* Обработка кнопки expend */
+        var Expend = AConteiner.ChildByID('Expend');
+        Expend.classList.add('Collapsed');
+        if (Record.ChildCount>0)
+        {
+            /* Клик на кнопку разворачивания папок*/
+            Expend.onclick = function()
+            {
+                if (this.classList.contains('Collapsed'))
+                {
+                    /*Загрузка детей в контейнер детей*/
+                    Expend.classList.remove('Collapsed');
+                    Expend.classList.add('Expended');
+                    ChildList.Show();
+                    ChildList.innerHTML = '';
+                    that.Load({Parent:ChildList});
+                }
+                else
+                {
+                    Expend.classList.remove('Expended');
+                    Expend.classList.add('Collapsed');
+                    ChildList.Hide();
+                }
+            };
+        }
+        else
+        {
+            /*Скрыли кнопку разврота папок*/
+            Expend.style.opacity=0;
+        }
+
+    }
+
+    Descripts.Load
+    (
+        {
+            IDParent:IDParent,
+            ID:ID,
+            IDBind:'bind_default',
+            IDLang:that.IDLang,
+            RecordCount:100,
+            RecordCurrent:0,
+        }
+    );
+}
+
+
+
+TDescriptTree.prototype.CreateConteiner = function(AParentConteiner, ARecord)
+{
+    /*Создаем элемент новый*/
+    Conteiner = document.createElement('div');
+    Conteiner.className='Record';
+    Conteiner.innerHTML=this.ConteinerContent;
+    AParentConteiner.appendChild(Conteiner);
+    return Conteiner;
+}
+
+
+/**
+ * выпадающее меню опций для элемента дерева
+ */
+TDescriptTree.prototype.Options = function(AConteiner)
+{
+    var Params = {};
+    var Parent = AConteiner.GetParent();
+    if (Parent) Params.IDFrom = Parent.Descript.ID;
+    AConteiner.Descript.Popup(Params);
+}
+
+
+
+TDescriptTree.prototype.ConteinerDelete = function (AConteiner)
+{
+    AConteiner.parentNode.removeChild(AConteiner);
+}
+
+
+
+///*------------------------------------------------------------------------------------------*/
+///* Добавляет элемент в контейнер*/
+///*------------------------------------------------------------------------------------------*/
+////                    that.RecordAdd(p.IDBind, e.getAttribute('IDChild'), e.getAttribute('CaptionChild'), e.getAttribute('CountChild'), 0);
+//TDescripts.prototype.Add = function(AParent, AIDBindParent, AID, ACaption, ACount, ACountRecord, AIDBind)
+//{
+// /*Создаем элемент новый*/
+// nElement = document.createElement('div');
+// nElement.ID=AID;
+// nElement.className='TreeElement';
+// nElement.Parent=AParent;
+// nElement.Descripts=this;
+// clDescriptRecordRefresh(nElement, AIDBindParent, AID, ACaption, ACount, ACountRecord);
+//
+// /*Выясняем контейнер из родителя если он есть или же из перечня дескриптов*/
+// if (AParent!=null) {var Conteiner=clGetChildByClass(AParent, 'SubConteiner')} else {Conteiner=this.Conteiner};
+// Conteiner.appendChild(nElement);
+//
+// if (ACount==0)
+// {
+//  clDescriptExpendObject(nElement).className='Empty Unselected';
+// }
+// else
+// {
+//  clDescriptExpendObject(nElement).className='Collaps Unselected';
+// }
+//}
+//
+//
+///*Выбор папки*/
+//TDescripts.prototype.Select = function(AElement)
+//{
+// var SelectedAllow=true;
+// if (this.OnBeforeSelected!=null) SelectedAllow=this.OnBeforeSelected(this, AElement);
+// if (SelectedAllow)
+// {
+//  this.SetSelected(AElement);
+//  if (this.OnAfterSelected!=null) this.OnAfterSelected(this, AElement);
+// }
+// return SelectedAllow;
+//}
+//
+//
+//
+//function clDescriptSelect(AElement)
+//{
+// AElement.Descripts.Select(AElement);
+//
+// function Result(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   var objViewConteiner = document.getElementById('ViewConteiner');
+//
+//   if (objViewConteiner) objViewConteiner.innerHTML = decodeURIComponent(p.Result.Content);
+//  } else clWar(p.ResultMessage, true);
+// }
+//
+// var objLang = document.getElementById('Lang');
+// clPost({Pars:true, URL:'&ID='+AElement.ID+'&IDLanguage='+objLang.value, ProcName:'DescriptContentRead', OnAfterLoad:Result});
+//}
+//
+//
+//
+//
+//
+///*
+//TTree.prototype.Copy = function(AElement, AElementTarget)
+//{
+// function Success(AParams)
+// {
+//  clPopupClose('');
+// }
+// if (AElement!=null && AElementTarget!=null) clDescriptCopy(AElement.ID, AElementTarget.ID, {OnSuccess:Success});
+//}
+//*/
+//
+//
+//
+///*-----------------------------------------------------------------------------------------
+//Обновление списка детей для элемента
+//-----------------------------------------------------------------------------------------*/
+//function clDescriptRefresh(AElement, AIDBind, AOnComplete)
+//{
+// clDescriptLoadChild(AElement, AIDBind);
+// if (AOnComplete) AOnComplete();
+//}
+//
+//
+//
+///*-----------------------------------------------------------------------------------------
+//Индексация указанной папки AUID
+//-----------------------------------------------------------------------------------------*/
+//function clDescriptIndex (AID, AType, AOnComplete)
+//{
+// function Back(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   if (p.OnComplete) p.OnComplete(AID);
+//   clInf(p.ResultMessage, true);
+//  }
+//  else clWar(p.ResultCode, true);
+// }
+// clPost({Pars:true, URL:'&ID='+AID+'&Type='+AType, OnAfterLoad:Back, ProcName:'DescriptIndex', OnComplete:AOnComplete});
+//};
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//var clElementDrag;
+//
+//function ElementAllowDrop(AEvent)
+//{
+// AEvent.preventDefault();
+// if (AEvent.shiftKey) AEvent.dataTransfer.dropEffect='copy';
+// if (AEvent.ctrlKey) AEvent.dataTransfer.dropEffect='link';
+// if (!AEvent.shiftKey && !AEvent.ctrlKey) AEvent.dataTransfer.dropEffect='move';
+//}
+//
+//
+//
+//function ElementDrag(AEvent)
+//{
+// clElementDrag = AEvent.target;
+//}
+//
+//
+//
+//function ElementDrop(AEvent)
+//{
+// var Element = clDescriptElementByObject(clElementDrag);
+// var ElementTo = clDescriptElementByObject(AEvent.target);
+//
+// var Operation='none';
+// if (AEvent.shiftKey) Operation='copy';
+// if (AEvent.ctrlKey) Operation='link';
+// if (!AEvent.shiftKey && !AEvent.ctrlKey) Operation='move';
+//
+// if (Element!=ElementTo) clDescriptElementOperation(Element, ElementTo, Operation);
+//}
+//
+//
+//
+///*------------------------------------------------------------------------------------------*/
+///*Получение объекта Expend по элементу*/
+///*------------------------------------------------------------------------------------------*/
+//
+//function clDescriptExpendObject(AElement)
+//{
+// var Result = null;
+// var i=0;
+// while (i<AElement.childNodes.length && Result==null)
+// {
+//  iNode=AElement.childNodes[i];
+//  if (iNode.attributes && iNode.getAttribute('role')=='Expend') Result=iNode;
+//  i++;
+// }
+// return Result;
+//};
+//
+//
+//
+//
+//function clDescriptCollapsExpend(AElement, AIDBind)
+//{
+// if (AElement.Expend) {clDescriptCollaps(AElement)}
+// else {clDescriptLoadChild(AElement, AIDBind)}
+//}
+//
+//
+///*----------------------------------------------------------------------------------------------------------------*/
+///*Обработка клика на элемент с колапсом. Если он пустой, то вызывается попап записей иначе раскрываются подобъекты*/
+///*----------------------------------------------------------------------------------------------------------------*/
+//
+//function clDescriptCollapsExpendClick(AObject)
+//{
+// var Element=clDescriptElementByObject(AObject);
+// if (Element.CountChild && Element.CountChild!=0 || Element.Expend)
+// {
+//  clDescriptCollapsExpend(Element, null);
+// }
+// else
+// {
+//  clDescriptBinds(Element);
+// }
+//}
+//
+//
+//
+//
+//
+//
+//
+///*------------------------------------------------------------------------------------------
+//Подгружает детей для элемента
+//------------------------------------------------------------------------------------------*/
+//function clDescriptLoadChild(AElement, AIDBind)
+//{
+// function Params(p) 
+// {
+//  var Caption=clGetChildByClass(p.Element, 'SubCaption Unselected');
+//  Caption.title=decodeURIComponent(p.Result.Caption); 
+//  Caption.innerHTML=decodeURIComponent(p.Result.Caption);
+//
+//  var Conteiner=clGetChildByClass(p.Element, 'SubExpend');
+//  BackgroundColor=new clRGBA(p.Result.ColorR, p.Result.ColorG, p.Result.ColorB, p.Result.ColorA);
+//  Conteiner.style.backgroundColor=BackgroundColor.CanvasColor();
+//
+//  console.log(BackgroundColor);
+// }
+//
+// function Back(p)
+// {
+//  var Conteiner=clGetChildByClass(p.Element, 'SubConteiner');
+//  Conteiner.innerHTML='';
+//  var Records = p.Document.getElementsByClassName('Record');
+//  for (var i=0; i<Records.length; i++)
+//  {
+//   e=Records[i];
+//   p.Element.Descripts.Add(AElement, p.IDBind, e.getAttribute('ID'), e.getAttribute('Caption'), e.getAttribute('CountChild'), e.getAttribute('CountRecord'));
+//  }
+//  p.Element.Loaded=true; /* пометка того что загружен */
+//  p.Element.IDBindLoaded=p.IDBind; /* с какой савязью был загружен эелемент */
+//
+//  /*Определение параметров связи для вывода цвет caption и тд*/
+//  clPost({Pars:true, URL:'&ID='+p.IDBind, OnAfterLoad:Params, ProcName:'DescriptPrepare', Element:p.Element});
+//
+//  clDescriptExpend(p.Element);
+// }
+//
+// if (AElement)
+// {
+//  AElement.Loaded=false;
+//  if (AIDBind==null) AIDBind=AElement.IDParentBind;
+//  var u = '&ID='+AElement.ID+'&IDBind='+AIDBind+'&template=DescriptTreeChildProc.html';
+//  clPost({URL:u, OnAfterLoad:Back, Element:AElement, IDBind:AIDBind});
+// }
+//}
+//
+//
+//
+///*------------------------------------------------------------------------------------------*/
+///* Обновление записи дескрипта по переданным параметрам */
+///*------------------------------------------------------------------------------------------*/
+//function clDescriptRecordRefresh(AElement, AIDParentBind, AID, ACaption, ACount, ACountRecord, ACaptionBind)
+//{
+// AElement.CountChild = ACount;
+// if (ACount==0) ACount='';
+// Content = decodeURIComponent('<cl content="TreeElement.html"><convert to="pure"/><convert to="uri"/></cl>');
+// Content = Content.replace(/%IDDesript%/g, AID);
+// Content = Content.replace(/%Caption%/g, ACaption);
+// Content = Content.replace(/%CountChild%/g, ACount);
+// Content = Content.replace(/%CountRecord%/g, ACountRecord);
+// Content = Content.replace(/%CaptionBind%/g, ACaptionBind);
+// AElement.IDParentBind = AIDParentBind;
+// AElement.innerHTML = Content;
+//}
+//
+//
+//
+//
+////------------------------------------------------------------------------------
+//// Вызов формы создания дескрипта
+////------------------------------------------------------------------------------
+//function clDescriptCreateForm(AIDParent)
+//{
+// var Form=decodeURIComponent('<cl content="DescriptAddForm.html" pars="true" convert="URI"/>');
+// Form=Form.replace(/\%ID\%/g, '');
+// Form=Form.replace(/\%Caption\%/g, '');
+// Form=Form.replace(/\%IDParent\%/g, AIDParent);
+// clPopup('clDescriptCreateForm', tcText, Form);
+// clDescriptSelectCaptionByID(document.getElementById('IDParent'));
+//}
+//
+//
+//
+////------------------------------------------------------------------------------
+//// Создание дескрипта при помощи параметров формы
+////------------------------------------------------------------------------------
+//function clDescriptCreate(AForm, AUserParam)
+//{
+// function Result(p)
+// {
+//  clPopupClose('clDescriptCreateForm');
+//  if (p.ResultCode=='Ok')
+//  {
+//   var IDParent=p.Result.IDParent;
+//   if (p.UserParam.OnSuccess) p.UserParam.OnSuccess(IDParent, p.UserParam);
+//   clInf(p.ResultMessage, true);
+//  }
+//  else
+//  {
+//   clWar(p.ResultCode, true);
+//  }
+// }
+// clPost({Pars:true, Form:AForm, ProcName:'DescriptCreate', OnAfterLoad:Result, UserParam:AUserParam});
+//}
+//
+//
+//
+////------------------------------------------------------------------------------
+//// Удаление дескрипта дескрипта
+////------------------------------------------------------------------------------
+//function clDescriptDelete(AID, AUserParam)
+//{
+// function Result(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   if (p.UserParam.OnSuccess) p.UserParam.OnSuccess(p.ID, p.UserParam);
+//   clInf(p.ResultMessage, true);
+//  }
+//  else clWar(p.ResultMessage, true);
+// }
+// clPost({Pars:true, URL:'&ID='+AID, ProcName:'DescriptDelete', OnAfterLoad:Result, UserParam:AUserParam, ID:AID});
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////------------------------------------------------------------------------------
+//// Сохранение дескрипта
+////------------------------------------------------------------------------------
+//function clDescriptUpdate(AForm)
+//{
+// function Result(p)
+// {
+//  if (p.ResultCode!='Ok') clInf(p.ResultMessage, true)
+//  else clWar(p.ResultMessage, true);
+// }
+// clPost({Form:AForm, ProcName:'DescriptUpdate', OnAfterLoad:Result});
+//}
+//
+//
+//
+//
+////------------------------------------------------------------------------------
+//// Чтение контента и обновление его на форме
+////------------------------------------------------------------------------------
+//function clDescriptContentRefresh(AIDDescript, AIDLanguage)
+//{
+// function Result(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   document.getElementById('DescriptCaption').value = decodeURIComponent(p.Result.Caption);
+//   document.getElementById('DescriptContent').value = decodeURIComponent(p.Result.Content);
+//  }
+//  else clWar(p.ResultMessage, true);
+// }
+// clPost({Pars:true, URL:'&ID='+AIDDescript+'&IDLanguage='+AIDLanguage, ProcName:'DescriptContentRead', OnAfterLoad:Result});
+//}
+//
+//
+//
+////------------------------------------------------------------------------------
+////
+////------------------------------------------------------------------------------
+//function clDescriptContentWrite(AForm)
+//{
+// function Result(p)
+// {
+//  if (p.ResultCode=='Ok') clInf(p.ResultMessage, true);
+//  else clWar(p.ResultMessage, true);
+// }
+// clPost({Pars:true, Form:AForm, ProcName:'DescriptContentWrite', OnAfterLoad:Result});
+//}
+//
+//
+//
+//
+//function clDescriptContentFormClose()
+//{
+// clPopupClose('clDescriptContentForm');
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//function clDescriptMove(AID, AIDFrom, AIDTo, AIDBind, AUserParam)
+//{
+// function Result(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   if (p.UserParam.OnSuccess) p.UserParam.OnSuccess(p.UserParam);
+//   clInf(p.ResultMessage, true);
+//  } else clWar(p.ResultMessage, true);
+// }
+// var u='&ID='+AID+'&IDFrom='+AIDFrom+'&IDTo='+AIDTo+'&IDBind='+AIDBind;
+// clPost({Pars:true, URL:u, ProcName:'DescriptMove', OnAfterLoad:Result, UserParam:AUserParam});
+//}
+//
+//
+//
+//
+//
+//function clDescriptCopy(AID, AIDTarget, AUserParam)
+//{
+// function Result(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   if (p.UserParam.OnSuccess) p.UserParam.OnSuccess(p.ID, p.UserParam);
+//   clInf(p.ResultMessage, true);
+//  } else clWar(p.ResultMessage, true);
+// }
+// var u='&ID='+AID+'&IDTarget='+AIDTarget;
+// clPost({Pars:true, URL:u, ProcName:'DescriptCopy', OnAfterLoad:Result, UserParam:AUserParam});
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//function clDescriptSelectSearch(AIDObject)
+//{
+// var obj=document.getElementById(AIDObject);
+// var objCaption=document.getElementById('Caption'+AIDObject);
+// var objSearchResult=document.getElementById('SerchResult'+AIDObject);
+//
+// var clSearch = new TDescripts();
+// clSearch.Result=obj;
+// clSearch.Conteiner=objSearchResult;
+// clSearch.OnAfterSelected = clDescriptSelectOnAfterSelected;
+//
+// var FindStr=objCaption.value;
+// if (obj.getAttribute('cltype')!='') FindStr=FindStr+' type:'+obj.getAttribute('cltype');
+// clSearch.Load(FindStr, 'bind_default');
+//}
+//
+//
+//
+//function clDescriptSelectOnAfterSelected(ADescripts, AElement)
+//{
+// clDescriptSelectChange(ADescripts.Result, AElement.ID)
+// clPopupClose('clDescriptPopup');
+//}
+//
+//
+//
+///*-----------------------------------------------------------------------------------------*/
+///*Обработка выбранного элемента пользователем, вызов Callback функции или возврат в объект*/
+///*-----------------------------------------------------------------------------------------*/
+//
+//function clDescriptSelectChange(AObject, AID)
+//{
+// var Result = true;
+//
+// /*Функция обратного вызова при выборе элемента*/
+// var Before=AObject.getAttribute('clbefore');
+// if (typeof(window[Before]) == 'function') Result = window[Before](AObject, AID);
+//
+// if (Result)
+// {
+//  /*Сохранение параметра ID*/
+//  AObject.value=AID;
+//
+//  /*Стандартная обработка возвращает UID выбранного элемента в поле выбора*/
+//  var objCaption=document.getElementById(AObject.getAttribute('clcaption'));
+//  if (objCaption) clDescriptSelectCaptionByID(AObject);
+//  var After=AObject.getAttribute('clafter');
+//  if (typeof(window[After]) == 'function') window[After](AObject, AID);
+// }
+// return Result;
+//}
+//
+//
+//function clDescriptSelectCaptionByID(AObject)
+//{
+// function Back(p)
+// {
+//  var objCaption=document.getElementById(p.Object.getAttribute('clcaption'));
+//  objCaption.value=decodeURIComponent(p.Result.Caption);
+//  objCaption.className='DescriptSelect';
+// }
+// clPost({Pars:true, URL:'&ID='+AObject.value, OnAfterLoad:Back, ProcName:'DescriptCaptionByID', Object:AObject});
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+///*#####################################################################################*/
+///*Работа с деревом объектов*/
+///*#####################################################################################*/
+//
+//
+///*---------------------------------------------------------------------------------------
+//Обновление узлов в дереве у которых в детях присутствует переданный ID
+//---------------------------------------------------------------------------------------*/
+//
+//function clDescriptTreeRefreshByID(AID, AUserParam)
+//{
+// var Elements = clGetElementsByID(AID);
+// for (var i=0; i<Elements.length; i++) clDescriptRefresh(Elements[i], 'bind_default');
+//}
+//
+//
+///*-------------------------------------------------------------------------------------*/
+///*Удаление узлов в дереве у которых в детях присутствует переданный ID*/
+///*-------------------------------------------------------------------------------------*/
+//function clDescriptTreeDeleteByID(AID, AUserParam)
+//{
+// var Elements = clGetElementsByID(AID);
+//
+// for (var i=0; i<Elements.length; i++)
+// {
+//  iElement=Elements[i];
+//  clDescriptElementDelete(iElement);
+// }
+//
+// clPopupClose('');
+// clPopupClose('clConfirmBtn');
+//}
+//
+//
+//
+//
+//
+///*----------------------------------------------------------------------------------------*/
+///* Получение списка элементов по ID */
+///*----------------------------------------------------------------------------------------*/
+//function clGetElementsByID(AID)
+//{
+// var Elements=document.getElementsByClassName('TreeElement');
+// var Result = new Array();
+//
+// for (var i=0; i<Elements.length; i++)
+// {
+//  iElement=Elements[i];
+//  if (iElement.ID==AID) Result.push(iElement);
+// }
+//
+// return Result;
+//}
+//
+//
+//
+//
+//
+//
+//
+///*Получение элемента по вложенному элементу*/
+//function clDescriptElementByObject (AObject)
+//{
+// var r=clGetParentByClass(AObject, 'TreeElement');
+// return r;
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//function clDescriptBinds(AElement)
+//{
+// var u = '&ID='+AElement.ID+'&template=DescriptBindProc';
+// var obj = clPopup('BindsChild', tcURL, u);
+// obj.Element=AElement;
+//}
+//
+//
+//function clDescriptElementParent(AElement, AElementParent)
+//{
+// var Content=decodeURIComponent('<cl content="DescriptBindParentForm.html" pars="true" convert="uri"/>');
+//
+// if (AElement==null) AElement = AElementParent;
+//
+// var IDParent=AElementParent.ID;
+// var ID=AElement.ID;
+//
+// var obj = clPopup('BindsParent', tcText, Content);
+// obj.Element=AElement;
+//
+// var Form=document.getElementById('clBindParentForm');
+//
+// Form.ID.value = AElement.ID;
+// Form.IDParent.value = AElementParent.ID;
+//
+// clDescriptSelectCaptionByID(Form.ID);
+// clDescriptSelectCaptionByID(Form.IDParent);
+//
+// clDescriptBindsRefresh(Form.ID.value, Form.IDParent.value);
+//}
+//
+//
+//
+//function clDescriptBindsRefresh(AID, AIDParent)
+//{
+// function Back(p)
+// {
+//  var Conteiner = document.getElementById('clBindParentList');
+//  Conteiner.innerHTML=p.Content;
+// }
+//
+// var u = '&ID='+AID+'&IDParent='+AIDParent;
+// clPost({URL:u, OnAfterLoad:Back, Template:'DescriptBindParentList.html'});
+//}
+//
+//
+//
+//function clDescriptBindSend(AForm)
+//{
+// function Back(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   clPopupClose('BindsParent');
+//   clInf(p.ResultMessage, true);
+//  } else clWar(p.ResultMessage, true);
+// }
+// 
+// for (var i=0; i<AForm.elements.length; i++)
+// {
+//  iElement=AForm.elements[i];
+//  if (iElement.type=='checkbox' && iElement.value)
+//  {
+//   var iID=iElement.value;
+//   nElement = AForm.elements[iID];
+//   if (nElement===undefined) 
+//   {
+//    nElement=document.createElement('input');
+//    nElement.name=iID;
+//    nElement.type='hidden';
+//    AForm.appendChild(nElement);
+//   }
+//   nElement.value=iElement.checked;
+//  }
+// }
+//
+// var u = '&ID='+AForm.ID.value+'&IDParent='+AForm.IDParent.value;
+// clPost({Pars:true, Form:AForm, URL:u, OnAfterLoad:Back, ProcName:'DescriptBindSet'});
+//}
+//
+//
+//
+//
+//
+//
+//
+///*########################################################################################*/
+///* Работа с DOM */
+///*########################################################################################*/
+//
+///*----------------------------------------------------------------------------------------*/
+///* Удаляет элемент из контейнера объекта */
+///*----------------------------------------------------------------------------------------*/
+//function clDescriptElementDelete(AElement)
+//{
+// AElement.parentNode.removeChild(AElement);
+//};
+//
+//
+///* Добавляет элемент к родителю */
+//function clDescriptElementAdd(AElement, AParent)
+//{
+// AElement.Parent=AParent;
+// var Conteiner = clGetChildByClass(AParent, 'SubConteiner');
+// Conteiner.appendChild(AElement);
+//};
+//
+//
+///*------------------------------------------------------------------------------------------
+//Распахнуть дочернее дерево
+//------------------------------------------------------------------------------------------*/
+//function clDescriptExpend(AElement)
+//{
+// if (AElement)
+// {
+//  AElement.Expend=true;
+//  clGetChildByClass(AElement, 'SubCollaps').className='SubExpend';
+//  clDescriptExpendObject(AElement).className='Expend Unselected';
+// }
+//}
+//
+//
+///*------------------------------------------------------------------------------------------
+//Свернуть дочернее дерево
+//------------------------------------------------------------------------------------------*/
+//function clDescriptCollaps(AElement)
+//{
+// if (AElement)
+// {
+//  AElement.Expend=false;
+//  clGetChildByClass(AElement, 'SubExpend').className='SubCollaps';
+//  clDescriptExpendObject(AElement).className='Collaps Unselected';
+// }
+//}
+//
+//
+//
+//
+//function clDescriptElementUnbindCurrent(AElement)
+//{
+// function Back(p)
+// {
+//  clDescriptRefresh(p.Element.Parent, 'bind_default');
+// }
+// if (AElement!=null && AElement.Parent)
+// {
+//  clDescriptUnbind(AElement.ID, AElement.Parent.ID, AElement.Parent.IDBindLoaded, {OnSuccess:Back, Element:AElement});
+// }
+//}
+//
+///*----------------------------------------------------------------------------------
+//Действие link move copy remove с объектами на связях bind_default
+//----------------------------------------------------------------------------------*/
+//
+//function clDescriptElementOperation(AElement, AElementTo, AOperation)
+//{
+// function Back(p)
+// {
+//  if (p.ResultCode=='Ok')
+//  {
+//   switch (p.Operation)
+//   {
+//    case 'link':
+//     if (p.ElementTo.Expend || p.ElementTo.IDBind=='bind_default') {clDescriptElementAdd(p.Element, p.ElementTo)} else {clDescriptRefresh(p.ElementTo, 'bind_default')};
+//    break;
+//
+//    case 'move':
+//     clDescriptElementDelete(p.Element);
+//     if (p.ElementTo.Expend || p.ElementTo.IDBind=='bind_default') {clDescriptElementAdd(p.Element, p.ElementTo)} else {clDescriptRefresh(p.ElementTo, 'bind_default')};
+//    break;
+//
+//    case 'copy':
+////   if (p.Element!=null) clDescriptRefresh(p.Element.Parent, 'bind_default');
+//    break;
+//
+//    case 'remove':
+//     if (p.Element!=null) clDescriptRefresh(p.Element.Parent, 'bind_default');
+//    break;
+//
+//    case 'removeall':
+//     if (p.Element!=null) clDescriptRefresh(p.Element.Parent, 'bind_default');
+//    break;
+//
+//   }
+//   clInf(p.ResultMessage, true);
+//  } else clWar(p.ResultMessage, true);
+// }
+//
+// if (AElement!=null)
+// {
+//  if (AElement.Parent) {lElementFrom=AElement.Parent} else {lElementFrom=AElement};
+//  if (AElementTo!=null) {lElementTo=AElementTo} else {lElementTo=AElement};
+//  var u='&ID='+AElement.ID+'&IDFrom='+lElementFrom.ID+'&IDTo='+lElementTo.ID+'&Operation='+AOperation;
+//  clPost({Pars:true, URL:u, ProcName:'DescriptOperation', OnAfterLoad:Back, Element:AElement, ElementFrom:lElementFrom, ElementTo:lElementTo, Operation:AOperation});
+// }
+//}
+

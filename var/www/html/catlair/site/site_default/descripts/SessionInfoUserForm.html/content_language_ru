@@ -1,0 +1,36 @@
+<div>
+    <div class="Group">
+
+        <h2>
+            Пользователь
+        </h2>
+
+        <div class="Line">
+            <div class="Caption">
+                Логин
+            </div>
+            <div class="CaptionCell">
+                %Login%
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Пользователь
+            </div>
+            <div class="Data">
+                %CaptionUser%
+            </div>
+        </div>
+
+        <div class="Toolbar">
+            <button type="button" class="ImageMan" id="BtnLogout">
+                Выход с сайта
+            </button>
+            <button type="button" class="ImageCancel" id="BtnCancel">
+                Закрыть
+            </button>
+        </div>
+
+    </div>
+</div>

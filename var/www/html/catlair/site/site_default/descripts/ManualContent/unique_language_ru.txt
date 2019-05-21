@@ -1,0 +1,9 @@
+#manualcontent_id
+#content_type
+#array_id_manualcontent
+#array_idtype_content
+#array_idimage_
+#array_idtypedefault_content
+manualcontent
+контент
+content

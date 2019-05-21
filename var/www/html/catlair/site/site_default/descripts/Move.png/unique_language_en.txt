@@ -1,0 +1,6 @@
+#movepng_id
+#file_type
+move
+png
+
+file

@@ -1,0 +1,6 @@
+#bookpng_id
+#file_type
+book
+png
+
+file

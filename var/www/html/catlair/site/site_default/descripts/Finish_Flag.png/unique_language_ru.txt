@@ -1,0 +1,6 @@
+#finish_flagpng_id
+#file_type
+finish_flag
+png
+file
+файл

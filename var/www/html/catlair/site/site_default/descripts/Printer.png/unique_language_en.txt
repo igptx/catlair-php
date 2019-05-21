@@ -1,0 +1,6 @@
+#printerpng_id
+#file_type
+printer
+png
+
+file

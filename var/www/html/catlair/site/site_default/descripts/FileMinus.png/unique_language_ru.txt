@@ -1,0 +1,6 @@
+#fileminuspng_id
+#file_type
+fileminus
+png
+file
+файл

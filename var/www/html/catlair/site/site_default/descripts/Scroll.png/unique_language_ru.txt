@@ -1,0 +1,6 @@
+#scrollpng_id
+#file_type
+scroll
+png
+file
+файл

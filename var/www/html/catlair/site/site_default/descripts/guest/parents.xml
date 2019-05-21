@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="Agents" IDBind="bind_default"/>
+  <bind IDParent="Agents" IDBind="bind_right"/>
+  <bind IDParent="root" IDBind="right_select"/>
+</binds>

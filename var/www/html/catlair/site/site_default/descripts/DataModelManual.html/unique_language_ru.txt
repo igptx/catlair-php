@@ -1,0 +1,8 @@
+#datamodelmanualhtml_id
+#content_type
+datamodelmanual
+html
+модель
+данных
+content
+контент

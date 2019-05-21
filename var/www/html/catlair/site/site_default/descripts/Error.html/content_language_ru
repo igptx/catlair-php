@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Ошибка Catlair</title>
+        <meta http-equiv="content-type" content="%ContentType%"/>
+    </head>
+    <body class="UserBody">
+        <cl content="%body%" body="Body.html"/>
+        <div>
+            Catlair
+        </div>
+    </body>
+</html>
+

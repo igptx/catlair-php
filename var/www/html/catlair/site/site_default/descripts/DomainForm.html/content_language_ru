@@ -1,0 +1,46 @@
+<form class="DescriptForm" method="post" enctype="multipart/form-data" id="Form">
+    <cl content="DescriptFormStandartFields.html" pars="true"/>
+
+    <div class="Group">
+        <h2>
+            Управление доменом
+        </h2>
+
+        <div class="Line">
+            <div class="Caption">
+                Сайт
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clID="IDSiteTarget" clName="IDSiteTarget" clValue="%IDSiteTarget%" clPlaceholder="умолчальный сайт" clType="Site" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Умолчальный URL
+            </div>
+            <div class="Data">
+                <input class="Text" name="DefaultURL" id="DefaultURL" value="%DefaultURL%" placeholder="?&body=Body.html&page=Page.html"/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Стартовый шаблон
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clID="IDContentStart" clName="IDContentStart" clValue="%IDContentStart%" clPlaceholder="Main.html" clType="Content" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Умолчальный язык
+            </div>
+            <div class="Data">
+                <cl content="Select.html" clID="IDLangDefault" clName="IDLangDefault" clValue="%IDLangDefault%" clPlaceholder="умолчальный язык" clType="Language" clDisabled="" clBefore="" clAfter=""/>
+            </div>
+        </div>
+
+    </div>
+</form>

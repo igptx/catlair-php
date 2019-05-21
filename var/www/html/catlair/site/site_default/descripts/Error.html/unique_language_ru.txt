@@ -1,0 +1,12 @@
+#errorhtml_id
+#content_type
+#array_id_error.html
+#array_idtype_content
+#array_idimage_
+#array_idtypedefault_content
+error
+html
+страница
+ошибок
+content
+контент

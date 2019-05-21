@@ -1,0 +1,62 @@
+<h1>
+    %Caption%
+</h1>
+
+<div class="ToolbarList"  style="display:inline-block; vertical-align:top;">
+     <h6>
+         Управление
+     </h6>
+
+     <button class="ImageLoad" onclick="clDescriptRefresh(clGetParentByClass(this, 'MenuPopup').Element, 'bind_default', function(){clPopupClose('clPopupMenu')});">
+         Обновить
+     </button>
+     <button class="ImagePen" onclick="clDescriptFind('%IDDescript%', 'default');">
+         Редактор
+     </button>
+     <button class="ImageDescript" onclick="clDescriptContentForm('%IDDescript%', 'language_ru');">
+         Контент
+     </button>
+     <button class="ImagePlus" onclick="clDescriptCreateForm('%IDDescript%');">
+         Создать
+     </button>
+     <button class="ImageTrash" onclick="clConfirm(function(){clDescriptDelete('%IDDescript%', {OnSuccess:clDescriptTreeDeleteByID})}, 'ImageTrash', 'Удалить');">
+         Удалить
+     </button>
+     <button class="ImageBook" onclick="clDescriptIndex('%IDDescript%', 'single', function(){clPopupClose('clPopupMenu')});">
+         Индексация
+     </button>
+     <button class="ImageBook" onclick="clDescriptIndex('%IDDescript%', 'recursive', function(){clPopupClose('clPopupMenu')});">
+         Индексация вложений
+     </button>
+</div>
+
+<div class="ToolbarList" style="display:inline-block; vertical-align:top;">
+     <h6>
+      Иерархия
+     </h6>
+
+     <button class="ImageLink" onclick="clDescriptElementOperation(clTree.GetSelected(), clGetParentByClass(this, 'MenuPopup').Element, 'link');">
+      Ссылка
+     </button>
+     <button class="ImageCopy" onclick="clDescriptElementOperation(clTree.GetSelected(), clGetParentByClass(this, 'MenuPopup').Element, 'copy');">
+      Копия
+     </button>
+     <button class="ImageMove" onclick="clDescriptElementOperation(clTree.GetSelected(), clGetParentByClass(this, 'MenuPopup').Element, 'move');">
+      Перенос
+     </button>
+     <button class="ImagePanicle" onclick="clDescriptElementOperation(clGetParentByClass(this, 'MenuPopup').Element, null, 'remove');">
+      Убрать
+     </button>
+
+     <h6>
+      Связи
+     </h6>
+
+     <button class="ImageZoom" onclick="clDescriptElementParent(clGetParentByClass(this, 'MenuPopup').Element, clTree.GetSelected());">
+      Управление
+     </button>
+     <button class="ImagePanicle" onclick="clDescriptElementUnbindCurrent(clGetParentByClass(this, 'MenuPopup').Element);">
+      Убрать текущую связь
+     </button>
+
+</div>

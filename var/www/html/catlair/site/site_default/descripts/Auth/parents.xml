@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<binds>
+  <bind IDParent="ContentFolder" IDBind="bind_default"/>
+  <bind IDParent="ContentFolder" IDBind="bind_right"/>
+</binds>

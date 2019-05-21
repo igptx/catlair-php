@@ -1,0 +1,9 @@
+#icq_id
+#typecontact_type
+#array_id_icq
+#array_idtype_typecontact
+#array_idimage_icq.png
+#array_idtypedefault_0
+icq
+
+typecontact

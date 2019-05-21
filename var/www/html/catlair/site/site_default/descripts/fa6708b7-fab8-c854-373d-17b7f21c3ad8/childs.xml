@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<binds>
+ <bind IDChild="Descript.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptAddForm.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptChildForm.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptChildAddForm.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptContentForm.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptForm.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptProc.html" IDBind="bind_default"/>
+ <bind IDChild="DescriptMenu" IDBind="bind_default"/>
+ <bind IDChild="Descript.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptAddForm.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptChildForm.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptChildAddForm.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptContentForm.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptForm.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptProc.html" IDBind="bind_right"/>
+ <bind IDChild="DescriptMenu" IDBind="bind_right"/>
+ 
+ 
+ 
+ 
+ 
+ 
+<bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="DescriptContentToolbar.html" IDBind="bind_default"/></binds>

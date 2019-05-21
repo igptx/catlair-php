@@ -1,0 +1,6 @@
+#weightdarkpng_id
+#file_type
+weightdark
+png
+file
+файл

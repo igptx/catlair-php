@@ -1,0 +1,288 @@
+<cl header="Content-Type: text/css"/>
+
+
+
+.Console
+{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    display:flex;
+    align-items: flex-start;
+    align-content:stretch;
+    overflow:auto;
+}
+
+
+
+.Console .RecordConteiner
+{
+    flex-grow:1;
+    flex-shrink:1;
+    overflow-y:auto;
+    position:relative;
+    height:100%;
+}
+
+
+
+.Console .RecordConteiner .Title
+{
+    padding:0.5em;
+    font-size:0.5em;
+    border-bottom:1px dashed black; 
+}
+
+
+
+.Console .RecordConteiner .RecordList
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    align-content:flex-start;
+    overflow:auto;
+    padding:1em;
+}
+
+
+
+.Console .RecordConteiner .RecordList .Record
+{
+    width: 15em;
+    position:relative;
+    word-wrap:break-word;
+}
+
+
+
+.Console .RecordConteiner .RecordList .Record .Frame
+{
+    padding:0.2em 0.5em 0.2em 3em;
+    background-repeat:no-repeat;
+    background-position:0.5em center;
+    background-size: 1.5em 1.5em;
+}
+
+
+
+.Console .RecordConteiner .RecordList .Record .Frame .Caption
+{
+    font-weight:bolder;
+}
+
+
+
+.Console .RecordConteiner .RecordList .Record .Frame .CaptionType
+{
+    font-size:0.75em;
+}
+
+
+.Console .RecordConteiner .RecordList .Record .Frame .ID
+{
+    font-size:0.5em;
+}
+
+
+.Console .RecordConteiner .RecordList .Record .DescriptEnabledOff
+{
+    vertical-align:middle;
+    width:1em;
+    height:1em;
+    display:inline-block;
+    background-image:url('?&image=Cancel.png&scalex=16&colorize=00FF0000');
+    background-size:1em 1em;
+    background-repeat:no-repeat;    
+    background-position:center center;
+}
+
+
+.Console .RecordConteiner .RecordList .Record .DescriptEnabledOn
+{
+    display:none;    
+}
+
+
+
+
+
+.DescriptIndexateon
+{
+    vertical-align:middle;
+    padding:0;
+    width:1em;
+    height:1em;
+    display:inline-block;
+    background-image: url(?&image=Book.png&scalex=16&scaley=16);
+    background-size:0.6em 0.6em;
+    background-repeat:no-repeat;
+    background-position:center center;    
+}
+
+
+
+
+.DescriptIndexateoff
+{
+    display:none;
+    display:inline-block;
+}
+
+
+
+.Console .Tree
+{
+    flex-grow:0;
+    flex-shrink:0;
+    border-right:1px dashed black;
+    overflow-y:auto;
+    position:relative;
+    height:100%;
+    font-size:0.9em;
+}
+
+
+
+.Console .Tree .Record
+{
+    display: flex;
+}
+
+
+
+.Console .Tree .Record .BindType
+{
+    border:none;
+    width:1em;
+    opacity:0;
+}
+
+
+.Console .Tree .Record .BindType:hover
+{
+    opacity:0;
+}
+
+.Console .Tree .Record .Set
+{
+}
+
+
+
+.Console .Tree .Record .Set .Line
+{
+    padding-top:0.1em;
+    padding-bottom:0.1em;  
+    white-space:nowrap;
+}
+
+
+
+.Console .Tree .Record .Set .Line .Options
+{
+    height:1em;
+    width:1em;
+    opacity:0.0;
+    border:none;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image:url(?&image=Book.png&scalex=12&scaley=12);
+    background-color:transparent;
+}
+
+
+
+.Console .Tree .Record .Set .Line:hover .Options
+{
+    opacity:1;
+}
+
+
+
+.Console .Tree .Record .Set .ChildList
+{
+}
+
+
+
+.Console .Tree .Record .Set .Expend:after
+{
+    display:none;
+}
+
+
+
+
+.Console .Tree .Record .Set .Expend
+{
+    width:1em;
+    height:1em;
+    display:inline-block;
+    background-position:center center;
+    background-size:contein;
+    background-repeat: no-repeat;
+    vertical-align:middle;
+    position:relative;
+}
+
+
+.Expended
+{
+    background-image:url(?&image=Minus.png&scalex=12&scaley=12);
+}
+
+.Collapsed
+{
+    background-image:url(?&image=Plus.png&scalex=12&scaley=12);
+}
+
+
+
+.Console .Tree .Record .Set .Line .Caption
+{
+    background-position:0.4em center;
+    background-size: 1em 1em;
+    background-repeat: no-repeat;
+    padding-right:0.4em;
+    padding-left:1.5em;
+    padding-top:0.2em;
+    padding-bottom:0.2em;  
+    font-size: 0.9em;
+}
+
+
+.Console .Tree .Record .Set .Line .Caption .Check
+{
+    display:none;
+}
+
+
+
+.Console .Tree .Record .Set .Line .Caption .Check:checked + .Select
+{
+    font-weight:bolder;
+}
+
+
+
+.StatusFoe
+{
+    opacity:0.5;
+}
+
+.StatusFrend
+{
+}
+
+
+
+
+.DescriptForm
+{
+    background-color:#E0E0E0;
+    padding:0em 3em 10em 3em;   
+}

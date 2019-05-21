@@ -1,0 +1,24 @@
+<h1>
+    %Caption%
+</h1>
+
+<div class="Toolbar">
+    <button class="ImagePlus Unselected" id="BtnInsert" title="Создать новую запись">
+        Добавить
+    </button>
+    <button class="ImagePen Unselected" id="BtnEdit" title="Изменить запись">
+        Изменить
+    </button>
+    <button class="ImageDescript Unselected" id="BtnContent" title="Изменить контент записи">
+        Контент
+    </button>
+    <button class="ImageTrash Unselected" id="BtnRemove" title="Убирает объект из папки">
+        Убрать
+    </button>
+    <button class="ImageMinus Unselected" id="BtnDelete" title="Удаляет объект без возможности восстановления">
+        Удалить
+    </button>
+    <button class="ImageBook Unselected" id="BtnIndex" title="Индексация записи для поиска">
+        Индексация
+    </button>
+</div>

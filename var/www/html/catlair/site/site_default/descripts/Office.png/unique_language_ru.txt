@@ -1,0 +1,6 @@
+#officepng_id
+#file_type
+office
+png
+file
+файл

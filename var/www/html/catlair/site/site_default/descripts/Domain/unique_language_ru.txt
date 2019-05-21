@@ -1,0 +1,10 @@
+#domain_id
+#object_type
+#array_id_domain
+#array_idtype_object
+#array_idimage_dns.png
+#array_idtypedefault_0
+domain
+доменное
+имя
+object

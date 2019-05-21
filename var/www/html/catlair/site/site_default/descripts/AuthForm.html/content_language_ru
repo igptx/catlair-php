@@ -1,0 +1,44 @@
+<form method="post" enctype="multipart/form-data">
+    <div class="Group">
+        <h1>
+            Авторизация
+        </h1>
+
+        <div class="Line">
+            <div class="Caption">
+                Сайт
+            </div>
+            <div class="Data">
+                <input type="text" name="IDSite" value="" placeholder="сайт" autocomplete="off"/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Логин
+            </div>
+            <div class="Data">
+                <input type="text" name="UserLogin" value="" placeholder="логин" autocomplete="off"/>
+            </div>
+        </div>
+
+        <div class="Line">
+            <div class="Caption">
+                Пароль
+            </div>
+            <div class="Data">
+                <input type="password" id="Pass" name="UserPassword" value="" placeholder="пароль" autocomplete="off"/>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="Toolbar">
+        <button class="ImageOk Unselected" id="BtnOk" type="button">
+            Ок
+        </button>
+        <button class="ImageCancel Unselected" id="BtnCancel" type="button">
+            Закрыть
+        </button>
+    </div>
+</form>

@@ -1,0 +1,6 @@
+#folderpng_id
+#file_type
+folder
+png
+file
+файл

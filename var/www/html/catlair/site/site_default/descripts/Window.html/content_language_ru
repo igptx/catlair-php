@@ -1,0 +1,28 @@
+<div class="PopupFullScreen">
+
+    <div class="WindowToolbar">
+        <div class="Toolbar" id="WindowToolbarClient">
+        </div>
+        <div class="Toolbar" id="WindowToolbarSystem">
+            <div id="WindowCaption" class="WindowCaption" style="display:none; position:absolute; overflow:hidden; right:20em; left:1em;">
+            </div>
+            <div class="Group">
+                <div class="Caption">
+                    Окно
+                </div>
+                <div class="Contain1">
+                    <button class="ImageMinus Unselected" onclick="clWinBtnMinimize(this);" type="button">
+                        Свернуть
+                    </button>
+                    <button class="ImageCancel Unselected"  onclick="clWinBtnClose(this);" type="button">
+                        Закрыть
+                    </Button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="WindowContent" id="WindowContent">
+    </div>
+
+</div>

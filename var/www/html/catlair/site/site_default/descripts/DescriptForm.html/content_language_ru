@@ -1,0 +1,3 @@
+<form method="post" enctype="multipart/form-data" id="Form" class="DescriptForm">
+    <cl content="DescriptFormStandartFields.html" pars="true"/>
+</form>

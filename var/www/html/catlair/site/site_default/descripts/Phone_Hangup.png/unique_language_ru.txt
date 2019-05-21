@@ -1,0 +1,6 @@
+#phone_hanguppng_id
+#file_type
+phone_hangup
+png
+file
+файл

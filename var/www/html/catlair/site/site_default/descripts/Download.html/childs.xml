@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<binds><bind IDChild="catlair.7z" IDBind="bind_default"/><bind IDChild="catlair.7z" IDBind="bind_right"/><bind IDChild="install.sh" IDBind="bind_default"/><bind IDChild="install.sh" IDBind="bind_right"/></binds>

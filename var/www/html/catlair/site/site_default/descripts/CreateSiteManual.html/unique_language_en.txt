@@ -1,0 +1,10 @@
+#createsitemanualhtml_id
+#content_type
+#array_id_createsitemanual.html
+#array_idtype_content
+#array_idimage_
+#array_idtypedefault_0
+createsitemanual
+html
+
+content

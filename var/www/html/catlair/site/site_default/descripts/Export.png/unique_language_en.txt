@@ -1,0 +1,6 @@
+#exportpng_id
+#file_type
+export
+png
+
+file

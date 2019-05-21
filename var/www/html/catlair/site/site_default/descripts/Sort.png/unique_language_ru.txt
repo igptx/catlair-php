@@ -1,0 +1,6 @@
+#sortpng_id
+#file_type
+sort
+png
+file
+файл

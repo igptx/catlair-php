@@ -1,0 +1,13 @@
+#2f12bcd0393a8fd0bbad3af6e65a115b_id
+#folder_type
+#array_id_2f12bcd0393a8fd0bbad3af6e65a115b
+#array_idtype_folder
+#array_idimage_clock.png
+#array_idtypedefault_folder
+2f12bcd0
+393a
+8fd0
+bbad
+3af6e65a115b
+время
+folder

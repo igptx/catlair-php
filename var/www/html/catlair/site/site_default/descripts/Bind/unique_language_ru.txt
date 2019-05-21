@@ -1,0 +1,9 @@
+#bind_id
+#object_type
+#array_id_bind
+#array_idtype_object
+#array_idimage_path1.png
+#array_idtypedefault_0
+bind
+связь
+object

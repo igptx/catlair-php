@@ -1,0 +1,6 @@
+#weightlightpng_id
+#file_type
+weightlight
+png
+
+file

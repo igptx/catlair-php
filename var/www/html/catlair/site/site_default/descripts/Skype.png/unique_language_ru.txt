@@ -1,0 +1,6 @@
+#skypepng_id
+#file_type
+skype
+png
+file
+файл

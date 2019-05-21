@@ -1,0 +1,5 @@
+#barrelpng_id
+#file_type
+barrel
+png
+file

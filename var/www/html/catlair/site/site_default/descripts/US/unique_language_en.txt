@@ -1,0 +1,5 @@
+#us_id
+#country_type
+us
+
+country

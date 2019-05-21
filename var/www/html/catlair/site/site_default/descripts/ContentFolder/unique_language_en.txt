@@ -1,0 +1,9 @@
+#contentfolder_id
+#folder_type
+#array_id_contentfolder
+#array_idtype_folder
+#array_idimage_source.png
+#array_idtypedefault_content
+contentfolder
+
+folder
