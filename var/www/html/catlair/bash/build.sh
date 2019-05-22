@@ -16,10 +16,12 @@
 #**************************************************************************************
 #
 # Release builder.
+# This script:
+# - build archive and put it in to descript.
 #
 #**************************************************************************************
 
-Target='/var/www/html/catlair/site/site_default/descripts/catlair.7z/file_language_default_catlair.7z';
+Target='/var/www/html/catlair/site/site_default/descripts/catlair.7z/file_language_ru';
 
 rm $Target;
 
@@ -29,4 +31,4 @@ rm $Target;
 7z a $Target -spf '/var/www/html/catlair/domain/127.0.0.1';
 7z a $Target -spf '/var/www/right.sh';
 
-cp 'install.sh' '/var/www/html/catlair/site/site_default/descripts/install.sh/file_language_default_install.sh';
+# cp 'install.sh' '/var/www/html/catlair/site/site_default/descripts/install.sh/file_language_ru';
