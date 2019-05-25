@@ -670,6 +670,7 @@ function ContentBuild()
         {
             /* выбор стартового контента */
             if (array_key_exists ('template', $_GET)) $Start = $_GET['template']; // чтение из параметра template
+            clDeb('Start page ['.$Start.']');
             $Content =  ContentPars('<cl content="' . $Start . '"/>', 0);
             /* Финальная подмена (надо подумать как ее не делать) */
             ContentReplace($Content);

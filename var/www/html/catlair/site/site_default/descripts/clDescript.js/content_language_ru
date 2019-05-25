@@ -610,7 +610,7 @@ TDescript.prototype.Delete = function(AParams)
             cl.Post
             ({
                 Pars:true,
-                URL:'ID='+that.ID,
+                URL:'&ID='+that.ID,
                 TypeContent:tcXML,
                 Library:'descript_delete',
                 ProcName:'DescriptDelete',
@@ -638,7 +638,7 @@ TDescript.prototype.Unbind = function(AParams)
 {
     var that = this;
     /*Процедура удаления связи*/
-    URL = 'ID='+that.ID;
+    URL = '&ID='+that.ID;
     if (AParams.IDFrom) URL = URL + '&IDFrom='+AParams.IDFrom;
     if (AParams.IDBind) URL = URL + '&IDBind='+AParams.IDBind;
     cl.Post
@@ -940,9 +940,12 @@ TDescript.prototype.Edit = function(AParams)
      */
     this.Window.Delete = function()
     {
-        that.Delete({
-            OnAfterDelete:function(){that.Window.Close()}
-        });
+        that.Delete
+        (
+            {
+                OnAfterDelete:function(){that.Window.Close()}
+            }
+        );
     }
 
 
@@ -1050,4 +1053,5 @@ clDescriptContentEdit = function(AParam)
     Window.ChildByID('BtnSave').onclick = Window.Save;
 
     Window.Refresh();
+
 }
