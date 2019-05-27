@@ -651,29 +651,60 @@ function ContentBuild()
 
     /* Начало сборки контента */
     $Content = '';
-    /* Обработка входящих параметров file image template */
-    if (array_key_exists ('file', $_GET))
+
+    /* Include library from URL */
+    if (array_key_exists ('include', $_GET))
     {
-        $f = new TFile();
-        if ($f->Read($_GET['file'], $IDSite) == rcOk ) $f->Send();
-        unset($f);
+        clBeg('Include');
+        $PrefixLib = $_GET['include'];
+        $FileName = clLibraryFileAny($PrefixLib . '_public',  $IDSite);
+        if ($FileName)
+        {
+            try
+            {
+                include ($FileName);
+            }
+            catch (Exception $e){};
+        }
+        clEnd('Include end');
+    }
+
+
+    /* Call function from exec */
+    if (array_key_exists ('exec', $_GET))
+    {
+        clBeg('Exec');
+        $NameFunc = $_GET['exec'].'Public';
+        $Params = [];
+        if (function_exists($NameFunc)) call_user_func_array($NameFunc, $Params);
+        else clErr('Fuction ['+$FuncName+'] not found.');
+        clEnd('Exec end');
     }
     else
     {
-        if (array_key_exists ('image', $_GET))
+        if (array_key_exists ('file', $_GET))
         {
             $f = new TFile();
-            if ($f->Read($_GET['image'], $IDSite) == rcOk ) $f->SendImage();
+            if ($f->Read($_GET['file'], $IDSite) == rcOk ) $f->Send();
             unset($f);
         }
         else
         {
-            /* выбор стартового контента */
-            if (array_key_exists ('template', $_GET)) $Start = $_GET['template']; // чтение из параметра template
-            clDeb('Start page ['.$Start.']');
-            $Content =  ContentPars('<cl content="' . $Start . '"/>', 0);
-            /* Финальная подмена (надо подумать как ее не делать) */
-            ContentReplace($Content);
+            if (array_key_exists ('image', $_GET))
+            {
+                $f = new TFile();
+                if ($f->Read($_GET['image'], $IDSite) == rcOk ) $f->SendImage();
+                unset($f);
+            }
+            else
+            {
+                /* выбор стартового контента */
+                if (array_key_exists ('template', $_GET)) $Start = $_GET['template']; // чтение из параметра template
+                clDeb('Start page ['.$Start.']');
+                $Content =  ContentPars('<cl content="' . $Start . '"/>', 0);
+                /* Финальная подмена (надо подумать как ее не делать) */
+                ContentReplace($Content);
+            }
         }
     }
 

@@ -561,6 +561,7 @@ function clGetChildByID(AParent, AID)
 /*
  */
 
+
 function clGetChildByClass(AParent, AClassName)
 {
  var r=null;
@@ -598,12 +599,14 @@ function clGetParentByChild(AChild, ATagName)
 }
 
 
+
 /*Принимает элемент AChild и возвращает элемент c классом AClassName в которой он находится.*/
 function clGetParentByClass(AChild, AClassName)
 {
  while (AChild && AChild.className!=AClassName) AChild=AChild.parentNode;
  return AChild;
 }
+
 
 
 /*
@@ -614,10 +617,3 @@ function clGetParentByID(AChild, AID)
     while (AChild && AChild.id!=AID) AChild=AChild.parentNode;
     return AChild;
 }
-
-
-
-
-
-
-
