@@ -51,5 +51,4 @@ $clLoger->Start($clSession->Get('LogEnabled', false)); /* start logger */
 print(ContentBuild());
 
 $clSession->Flush(); /* Save session data fo next use */
-
 $clLoger->Stop();

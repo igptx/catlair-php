@@ -1,0 +1,7 @@
+#paypalbuttonhtml_id
+#content_type
+paypalbutton
+html
+content
+контент
+fasdas

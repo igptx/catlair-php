@@ -32,4 +32,4 @@
  
  
  
-<bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="clFile.js" IDBind="bind_default"/><bind IDChild="clFile.js" IDBind="bind_right"/></binds>
+<bind IDChild="administrator" IDBind="right_delete"/><bind IDChild="administrator" IDBind="right_select"/><bind IDChild="administrator" IDBind="right_update"/><bind IDChild="administrator" IDBind="right_insert"/><bind IDChild="clFile.js" IDBind="bind_default"/><bind IDChild="clFile.js" IDBind="bind_right"/><bind IDChild="clPayPal.js" IDBind="bind_default"/><bind IDChild="clPayPal.js" IDBind="bind_right"/></binds>

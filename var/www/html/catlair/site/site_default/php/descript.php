@@ -217,6 +217,16 @@ class TDescript
 
 
     /**
+     * Проверка есть ли у дескрипта заголовок xml те он готов к исопльзованию
+     * Подготовлен ли дескрипт
+     */
+    public function PreparedResult()
+    {
+        return $this->Prepared() ? rcOk : 'DescriptNotPrepared';
+    }
+
+
+    /**
      * Проверяе наличие пути для хранения десрипта и созадет его в случае отсутсвия
      */
     public function CheckPath()

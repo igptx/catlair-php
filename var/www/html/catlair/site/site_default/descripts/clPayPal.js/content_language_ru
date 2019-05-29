@@ -1,0 +1,138 @@
+/**************************************************************************************
+ * Catlair PHP Copyright (C) 2019  a@itserv.ru
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ *************************************************************************************
+ *
+ * TPay interface
+ *
+ */
+
+/* ProviderName */
+const pnPayPal = 'PayPal';
+
+
+/* Type operaton */
+const tpPayPalBuyNow = '_xclick';
+const tpPayPalCart = '_cart';
+const tpPayPalSubscript = '_xclick-subscriptions';
+const tpPayPalAutoBilling = '_xclick-auto-billing';
+const tpPayPalPaymentPlan = '_xclick-payment-plan';
+const tpPayPalDonations = '_donations';
+const tpPayPalSecure = '_s-xclick';
+
+
+
+function TPay()
+{
+    this.Provider = pnPayPal;
+    this.Recipient = 'still@itserv.ru';
+    this.Currency = 'USD';
+    this.BackURL = 'http://catlair.net';
+
+    this.CaptionPositon = 'Catlair donate';
+    this.IDPositon = 'Catlair donate';
+    this.IDDocument = 'Catlair donate';
+
+    this.Specific = new Object();
+
+    this.Amount = '1.0';
+
+    return this;
+}
+
+
+
+TPay.prototype.SetButton = function(AContainer, AParams, SpecifivParams)
+{
+    var that=this;
+    /* this button content */
+    var Content = decodeURIComponent('<cl content="PayPalButton.html" convert="URI"/>');
+    AContainer.innerHTML=Content;
+    var Button = AContainer.ChildByID('PayPalButton');
+    if (Button)
+    {
+        Button.onclick=function()
+        {
+            that.Send(AParams);
+        }
+    }
+    return this;
+}
+
+
+
+TPay.prototype.Send = function(AParams, ASpecific)
+{
+    var that = this;
+
+    /* Parameters get from object and buttons */
+    function ParamByName(AName, ADefault)
+    {
+        var Result = ADefault;
+        if (AParams[AName]) Result = AParams[AName];
+        else if (that[AName]) Result = that[AName];
+        return Result;
+    }
+
+
+    /* Params list create */
+    var Params = new Object;
+
+    /* Params compile */
+    for (var Key in this.Specific)
+    {
+        if (ASpecific[Key]) Params[Key] = ASpecific[Key];
+        else if (this.Specific[Key]) Params[Key] = this.Specifiv[Key];
+    }
+
+    switch (this.Provider)
+    {
+        case pnPayPal:
+            /* New form create */
+            var Form = document.createElement('FORM');
+            Form.style.display = 'none';
+            Form.action = 'https://www.paypal.com/cgi-bin/webscr';
+            Form.methd = 'post';
+            document.body.appendChild(Form);
+
+            /* Сборка базовых параметров */
+            Params.cmd = ParamByName('TypeOperation', tpPayPalBuyNow);
+            Params.charset = ParamByName('CharSet', 'utf-8');
+            Params.return = ParamByName('BackURL', null);
+            Params.currency = ParamByName('Currentcy', 'USD');
+            Params.item_number = ParamByName('IDPosition', null);
+            Params.item_name = ParamByName('CaptionPosition', null);
+            Params.invocee = ParamByName('IDDocument', null);
+            Params.amount = ParamByName('Amount', '0.00');
+            Params.business = ParamByName('Recipient', null);
+
+            /*  Params load from object */
+            for (Key in Params)
+            {
+                var Input = document.createElement('input');
+                Input.type = 'hidden';
+                Input.id = Key;
+                Input.name = Key;
+                Input.value = Params[Key];
+                Form.appendChild(Input);
+            }
+
+            Form.target='_blank';
+            Form.submit();
+            Form.parentNode.removeChild(Form);
+        break;
+    }
+}
+
